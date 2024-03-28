@@ -11,4 +11,6 @@ router.get('/logout', authController.logout);
 
 router.get('/:id', authController.protect, userController.getUser);
 
+router.delete('/deleteMe', authController.protect, userController.deleteMe);
+
 module.exports = router;
