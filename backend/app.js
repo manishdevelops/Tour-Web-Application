@@ -8,11 +8,11 @@ const cookieParser = require('cookie-parser');
 app.use(express.json());
 app.use(cookieParser());
 
-app.use('/api/users/', userRoute);
+app.use('/api/users', userRoute);
 
 //the routes that are not handled by the above routes
 app.all('*', (req, res, next) => {
-    next(new AppError(`Can't find ${req.originalUrl} on this server!`));
+    next(AppError(`Can't find ${req.originalUrl} on this server!`));
 });
 
 app.use(globalErrorController);

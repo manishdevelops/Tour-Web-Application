@@ -8,6 +8,7 @@ const userController = require('../controllers/userController');
 router.post('/signup', authController.signup);
 router.post('/login', authController.login);
 router.get('/logout', authController.logout);
+router.post('/google', authController.google);
 
 router.get('/:id', authController.protect, userController.getUser);
 
