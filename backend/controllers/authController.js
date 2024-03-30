@@ -116,5 +116,4 @@ exports.google = catchAsync(async (req, res, next) => {
     await newUser.save();
 
     createSendToken(newUser, 201, res);
-
 });

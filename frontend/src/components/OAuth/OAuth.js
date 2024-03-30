@@ -2,18 +2,17 @@ import React from 'react';
 import { toast } from 'react-toastify';
 import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
 import { app } from '../../firebase';
+import { useDispatch } from 'react-redux';
+import { signInSuccess } from '../../redux/user/userSlice';
 
 const OAuth = () => {
+    const dispatch = useDispatch();
 
     const handleGoogleClick = async () => {
-        console.log(12)
         try {
-            console.log(12)
-
             const provider = new GoogleAuthProvider();
             const auth = getAuth(app);
             const result = await signInWithPopup(auth, provider);
-            console.log(result)
             const res = await fetch('/api/users/google', {
                 method: 'POST',
                 headers: {
@@ -25,6 +24,8 @@ const OAuth = () => {
                 const errorData = await res.json();
                 return toast.error(errorData.message);
             }
+            const data = await res.json();
+            dispatch(signInSuccess(data.data.user));
             toast.success('User registration successfull.!');
 
         } catch (error) {

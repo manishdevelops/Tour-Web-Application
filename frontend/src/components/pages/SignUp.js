@@ -2,12 +2,15 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import OAuth from '../OAuth/OAuth';
+import { useDispatch } from 'react-redux';
+import { signInSuccess } from '../../redux/user/userSlice';
 
 const SignUp = () => {
     const [formData, setFormData] = useState();
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleChange = e => {
         setFormData({
@@ -36,7 +39,7 @@ const SignUp = () => {
                 return toast.error(errorData.message);
             }
             const data = await res.json();
-
+            dispatch(signInSuccess(data.data.user));
             toast.success('User registration successfull.!');
             navigate('/home')
         } catch (error) {

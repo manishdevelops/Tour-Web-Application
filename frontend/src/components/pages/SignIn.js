@@ -2,12 +2,17 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import OAuth from '../OAuth/OAuth';
+import { useDispatch } from 'react-redux';
+
+import { signInSuccess } from '../../redux/user/userSlice';
+
 
 const SignIn = () => {
     const [formData, setFormData] = useState();
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleChange = (e) => {
         setFormData({
@@ -36,9 +41,10 @@ const SignIn = () => {
             }
 
             const data = await res.json();
-            console.log(data)
+            console.log(data.data)
 
             toast.success('User logged in successfully!.');
+            dispatch(signInSuccess(data.data.user));
             navigate('/profile');
 
         } catch (error) {
