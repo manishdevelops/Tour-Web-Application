@@ -4,6 +4,7 @@ const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 const { promisify } = require('util');
 const bcryptjs = require('bcryptjs');
+const bcrypt = require('bcrypt');
 
 const signToken = id => {
     return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
@@ -96,17 +97,28 @@ exports.protect = catchAsync(async (req, res, next) => {
     }
 
     // for fututre purpose
-    req.user = currentUser;
+    // req.user = currentUser;
+    req.user = decoded;
 
     // GRANT ACCESS TO PROTECTED ROUTE
     next()
 });
 
+exports.logout = (req, res, next) => {
+    res.cookie('jwt', 'loggedout', {
+        expires: new Date(Date.now() + 10 * 1000),
+        httpOnly: true
+    });
+    res.status(200).json({
+        status: 'success'
+    });
+};
+
 exports.google = catchAsync(async (req, res, next) => {
     console.log(req.body);
     const user = await User.findOne({ email: req.body.email });
+    console.log(user)
     if (user) return createSendToken(user, 201, res);
-    ;
     const generatedPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
     const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
     const newUser = new User({
@@ -116,4 +128,34 @@ exports.google = catchAsync(async (req, res, next) => {
     await newUser.save();
 
     createSendToken(newUser, 201, res);
+});
+
+exports.updateMe = catchAsync(async (req, res, next) => {
+
+    // if (Object.keys(req.body).length === 0) return;
+    const user = await User.findById(req.user.id).select('+password');
+
+    console.log(req.body)
+    if (req.body.newPassword) {
+        if (!(await user.correctPassword(req.body.currentPassword, user.password))) {
+            return next(AppError('Your current password is wrong', 401));
+        }
+        // user.password = req.body.newPassword;
+        // user.passwordConfirm = req.body.newPassword;
+        req.body.newPassword = await bcrypt.hash(req.body.newPassword, 12);
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(req.user.id, {
+        $set: {
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.newPassword,
+            photo: req.body.photo,
+        }
+    }, { new: true });
+    console.log(updatedUser);
+    updatedUser.password = undefined;
+
+    createSendToken(updatedUser, 200, res);
+
 });

@@ -67,6 +67,7 @@ module.exports = (err, req, res, next) => {
     if (process.env.NODE_ENV === 'development') {
         return sendErrorDev(err, req, res);
     } else if (process.env.NODE_ENV === 'production') {
+        console.log(err)
         let error = { ...err, name: err.name };
 
         if (error.name === 'CastError') error = handleCastErrorDB(error); // invalid id
