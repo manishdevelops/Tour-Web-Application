@@ -8,6 +8,7 @@ import PrivateRoute from "./components/common/PrivateRoute";
 import ContactUs from "./components/pages/ContactUs";
 import Tour from "./components/pages/Tour";
 import AboutUs from "./components/pages/AboutUs";
+import CreateTour from "./components/pages/CreateTour";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path='/tours' element={<Tour />} />
         <Route element={<PrivateRoute />}>
           <Route path='/profile' element={<Profile />} />
+          <Route path="/create-tour" element={<CreateTour />} />
         </Route>
       </Routes>
     </BrowserRouter>

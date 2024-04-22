@@ -3,6 +3,6 @@ const router = express.Router();
 
 const adminController = require('../controllers/adminController');
 
-router.post('/create-tour', adminController.createTour);
+router.post('/createTour', adminController.createTour);
 
 module.exports = router;

@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const tourSchema = new mongoose.Schema({
     tourName: {
         type: String,
+        unique: true,
         required: [true, 'A tour must have a name!']
     },
     location: {
@@ -15,7 +16,7 @@ const tourSchema = new mongoose.Schema({
         required: [true, 'A tour must have a description!']
     },
     tourDuration: {
-        type: Number,
+        type: String,
         required: [true, 'A tour must have a duration!']
     },
     price: {
@@ -39,6 +40,14 @@ const tourSchema = new mongoose.Schema({
     photos: {
         type: Array,
         required: [true, 'A tour must have atmost 6 images']
+    },
+    coordinates: {
+        type: Array,
+        required: [true, 'A tour must have its coordinates!']
+    },
+    userRef: {
+        type: String,
+        required: true,
     }
 }, { timestamps: true });
 
