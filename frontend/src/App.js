@@ -1,4 +1,4 @@
-import Header from "./components/layout/Header1";
+import Header from "./components/layout/Header";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignIn from "./components/pages/SignIn";
 import SignUp from "./components/pages/SignUp";
@@ -9,6 +9,8 @@ import ContactUs from "./components/pages/ContactUs";
 import Tour from "./components/pages/Tour";
 import AboutUs from "./components/pages/AboutUs";
 import CreateTour from "./components/pages/CreateTour";
+import Dashboard from './components/layout/Dashboard';
+
 
 function App() {
   return (
@@ -25,6 +27,7 @@ function App() {
         <Route element={<PrivateRoute />}>
           <Route path='/profile' element={<Profile />} />
           <Route path="/create-tour" element={<CreateTour />} />
+          <Route path='/dashboard' element={<Dashboard />} />
         </Route>
       </Routes>
     </BrowserRouter>
