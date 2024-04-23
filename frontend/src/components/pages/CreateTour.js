@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -13,6 +13,8 @@ function CreateTour() {
     const [formData, setFormData] = useState({
         tourName: '',
         location: '',
+        ratings: '',
+        tourType: '',
         tourDescription: '',
         tourDuration: '',
         price: '',
@@ -89,6 +91,7 @@ function CreateTour() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+        console.log(name, value)
         setFormData(prevState => ({
             ...prevState,
             [name]: value
@@ -177,6 +180,23 @@ function CreateTour() {
                     <label htmlFor="exclusions" className="block text-sm font-medium text-gray-700">Exclusions:</label>
                     <textarea id="exclusions" name="exclusions" placeholder='Enter not provided facilities' value={formData.exclusions} onChange={handleChange} className="w-full px-2 py-1 rounded border transition duration-300 ease-in-out focus:outline-none focus:border-blue-500"></textarea>
                 </div>
+                <div className="space-y-2">
+                    <label htmlFor="ratings" className="block text-sm font-medium text-gray-700">Ratings:</label>
+                    <input type="number" id="ratings" name="ratings" placeholder='Enter ratings' value={formData.ratings} onChange={handleChange} className="w-full px-2 py-1 rounded border transition duration-300 ease-in-out focus:outline-none focus:border-blue-500" />
+                </div>
+
+                <div className='space-y-2'>
+                    <label htmlFor="tourType">Select Tour Type:</label>
+                    <select id="tourType" name='tourType' value={formData.type} onChange={handleChange} className="w-full px-2 py-1 rounded border transition duration-300 ease-in-out focus:outline-none focus:border-blue-500">
+                        <option value="">Select a tour type</option>
+                        <option value="sightseeing">Sightseeing Tours</option>
+                        <option value="adventure">Adventure Tours</option>
+                        <option value="cultural">Cultural or Historical Tours</option>
+                        <option value="specialty">Specialty Tours</option>
+                    </select>
+                </div>
+
+
                 <div className="space-y-2 md:col-span-2">
                     <div className='flex gap-4'>
                         <label htmlFor="photos" className="block text-sm font-medium text-gray-700">Tour Photos:</label>
