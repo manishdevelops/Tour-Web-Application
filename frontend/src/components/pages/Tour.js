@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Tour = () => {
+    const navigate = useNavigate();
 
     const [sidebarData, setSidebarData] = useState({
         searchTerm: '',
         minPrice: 0,
-        maxPrice: 50000,
+        maxPrice: 100000,
         state: '',
         tourType: ''
     });
@@ -53,18 +55,45 @@ const Tour = () => {
         })
     };
 
-    // useEffect(() => {
-    //     const allTour = async() => {
-    //         const res = await fetch('/api/tours/')
-    //     }
-    // })
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const urlParams = new URLSearchParams();
+        urlParams.set('searchTerm', sidebarData.searchTerm);
+        urlParams.set('minPrice', sidebarData.minPrice);
+        urlParams.set('maxPrice', sidebarData.maxPrice);
+        urlParams.set('state', sidebarData.state);
+        urlParams.set('tourType', sidebarData.tourType);
+        const searchQuery = urlParams.toString();
+
+        navigate(`/tours?${searchQuery}`);
+
+    };
+
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchTermFromUrl = urlParams.get('searchTerm');
+        const minPriceFromUrl = urlParams.get('minPrice');
+        const maxPriceFromUrl = urlParams.get('maxPrice');
+        const stateFromUrl = urlParams.get('state');
+        const tourTypeFromUrl = urlParams.get('tourType');
+
+        if (searchTermFromUrl || minPriceFromUrl || maxPriceFromUrl || stateFromUrl || tourTypeFromUrl) {
+            setSidebarData({
+                searchTerm: searchTermFromUrl || '',
+                minPrice: minPriceFromUrl || 0,
+                maxPrice: maxPriceFromUrl || 100000,
+                state: stateFromUrl || '',
+                tourType: tourTypeFromUrl || ''
+            });
+        }
+    }, [window.location.search])
 
     console.log(sidebarData)
 
     return (
         <div className='flex flex-col md:flex-row'>
             <div className='p-7 border-b-2 md:border-r-2 md:min-h-screen'>
-                <form className='flex flex-col gap-8'>
+                <form onSubmit={handleSubmit} className='flex flex-col gap-8'>
                     <div className='flex items-center gap-2'>
                         <label className='whitespace-nowrap font-semibold'>Search Term:</label>
                         <input type='text' id='searchTerm' placeholder='Search...' value={sidebarData.searchTerm} onChange={handleChange}
@@ -78,7 +107,7 @@ const Tour = () => {
                             id="minPrice"
                             name="minPrice"
                             min="10000"
-                            max="50000"
+                            max="100000"
                             step="1000"
                             value={sidebarData.minPrice}
                             onChange={handleChange}
@@ -92,7 +121,7 @@ const Tour = () => {
                             id="maxPrice"
                             name="maxPrice"
                             min="10000"
-                            max="50000"
+                            max="100000"
                             step="1000"
                             value={sidebarData.maxPrice}
                             onChange={handleChange}
