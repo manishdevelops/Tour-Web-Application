@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const userRoute = require('./routes/userRoutes');
 const adminRoute = require('./routes/adminRoutes');
+const tourRoute = require('./routes/tourRoutes');
 const globalErrorController = require('./controllers/errorController');
 const AppError = require('./utils/appError');
 const cookieParser = require('cookie-parser');
@@ -14,6 +15,9 @@ app.use('/api/users', userRoute);
 
 //for admin
 app.use('/api/admin', adminRoute);
+
+//for tours
+app.use('/api/tours', tourRoute);
 
 
 //the routes that are not handled by the above routes
