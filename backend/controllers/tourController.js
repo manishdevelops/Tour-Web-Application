@@ -18,6 +18,9 @@ exports.getAllTours = catchAsync(async (req, res, next) => {
 
 exports.getTourResults = catchAsync(async (req, res, next) => {
     // console.log(req.query);
+    const limit = parseInt(req.query.limit) || 2;
+
+    const startIndex = parseInt(req.query.startIndex) || 0;
 
     let searchTerm = req.query.searchTerm || '';
 
@@ -34,7 +37,7 @@ exports.getTourResults = catchAsync(async (req, res, next) => {
         price: { $gte: minPrice, $lte: maxPrice },
         location: { $regex: state, $options: 'i' },
         tourType: { $regex: tourType, $options: 'i' }
-    });
+    }).limit(limit).skip(startIndex);
 
     res.status(200).json({
         status: "success",

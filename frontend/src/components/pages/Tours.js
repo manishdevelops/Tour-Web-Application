@@ -9,9 +9,11 @@ const Tour = () => {
     const navigate = useNavigate();
 
     const [tours, setTours] = useState([]);
-    console.log(tours);
 
     const [tourLoading, setTourLoading] = useState(false);
+
+    const [showMore, setShowMore] = useState(true);
+    const [showMoreLoading, setShowMoreLoading] = useState(false);
 
     const [sidebarData, setSidebarData] = useState({
         searchTerm: '',
@@ -78,6 +80,29 @@ const Tour = () => {
 
     };
 
+    const onShowMoreClick = async () => {
+        const numberOfTours = tours.length;
+        const startIndex = numberOfTours;
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.set('startIndex', startIndex);
+        const searchQuery = urlParams.toString();
+
+        try {
+            setTourLoading(true);
+            const res = await fetch(`/api/tours/tourResults?${searchQuery}`);
+            const data = await res.json();
+            if (data.data.tours.length <= 2) {
+                setShowMore(false);
+                setTourLoading(false);
+            }
+            setTourLoading(false);
+            setTours([...tours, ...data?.data?.tours]);
+        } catch (error) {
+            setTourLoading(false);
+            toast.error(error.message);
+        }
+    }
+
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
         const searchTermFromUrl = urlParams.get('searchTerm');
@@ -100,7 +125,7 @@ const Tour = () => {
             const searchQuery = urlParams.toString();
 
             try {
-                setTourLoading(true);
+                setShowMoreLoading(true);
                 const res = await fetch(`/api/tours/tourResults?${searchQuery}`);
                 if (!res.ok) {
                     const errorData = await res.json();
@@ -121,8 +146,6 @@ const Tour = () => {
 
     }, [window.location.search])
 
-    console.log(sidebarData)
-
     return (
         <div className='flex flex-col md:flex-row'>
             <div className='p-7 border-b-2 md:border-r-2 md:min-h-screen md:w-[24rem]'>
@@ -130,7 +153,7 @@ const Tour = () => {
                     <div className='flex items-center gap-2'>
                         <label className='whitespace-nowrap font-semibold'>Search Term:</label>
                         <input type='text' id='searchTerm' placeholder='Search...' value={sidebarData.searchTerm} onChange={handleChange}
-                            className='border rounded-lg p-3 w-full'
+                            className='border rounded-lg p-3 w-full transition duration-300 ease-in-out focus:outline-none focus:border-blue-500'
                         />
                     </div>
                     <div className='flex gap-2 flex-wrap items-center'>
@@ -184,11 +207,20 @@ const Tour = () => {
             </div>
             <div className='flex-1 h-screen overflow-y-auto bg-gray-50'>
                 <h1 className='text-3xl font-semibold p-3 text-slate-700 mt-5 g'> Available tours:</h1>
-                <div className='flex flex-wrap gap-4'>
-                    {
-                        tourLoading ? (<div className='p-4'>{Array.from({ length: 10 }).map((_, i) => <ShimmerThumbnail key={i} height={250} width={250} rounded />)}</div>) : <TourCard tours={tours} />
-                    }
-                </div>
+                {
+                    tourLoading ? (<div className='p-4 flex flex-wrap gap-4'>{Array.from({ length: 10 }).map((_, i) => <ShimmerThumbnail key={i} height={250} width={250} rounded />)}</div>) : <TourCard tours={tours} />
+                }
+                {
+                    showMore && (
+                        <button onClick={onShowMoreClick}
+                            className='text-green-700 underline font-semibold p-7 text-center w-full '
+                        >
+                            {
+                                !showMoreLoading ? 'Loading...' : 'Show more'
+                            }
+                        </button>
+                    )
+                }
             </div>
         </div>
     )
