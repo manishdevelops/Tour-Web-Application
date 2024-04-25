@@ -1,0 +1,20 @@
+/* Define scrollbar styles */
+::-webkit-scrollbar {
+    width: 0; /* Set the width of the scrollbar to 0 */
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: transparent; /* Set the track color to transparent */
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: transparent; /* Set the handle color to transparent */
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: transparent; /* Set the handle color on hover to transparent */
+  }
+  

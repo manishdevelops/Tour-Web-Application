@@ -1,10 +1,7 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React from 'react'
 
-const TourOverview = () => {
-    const params = useParams();
-    console.log(params.tourSlug);
-
+const TourOverview = ({ tour }) => {
+    console.log(tour);
     return (
         <div>TourOverview</div>
     )
