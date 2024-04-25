@@ -170,7 +170,7 @@ function CreateTour() {
                 </div>
                 <div className="space-y-2">
                     <label htmlFor="groupSize" className="block text-sm font-medium text-gray-700">Group Size:</label>
-                    <input type="number" id="groupSize" name="groupSize" placeholder='Enter the group size' value={formData.groupSize} onChange={handleChange} className="w-full px-2 py-1 rounded border transition duration-300 ease-in-out focus:outline-none focus:border-blue-500" min='6' max='20' />
+                    <input type="number" id="groupSize" name="groupSize" placeholder='Enter the group size' value={formData.groupSize} onChange={handleChange} className="w-full px-2 py-1 rounded border transition duration-300 ease-in-out focus:outline-none focus:border-blue-500" min='6' max='50' />
                 </div>
                 <div className="space-y-2">
                     <label htmlFor="inclusions" className="block text-sm font-medium text-gray-700">Inclusions:</label>

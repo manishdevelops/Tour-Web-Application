@@ -23,7 +23,7 @@ exports.getTourResults = catchAsync(async (req, res, next) => {
 
     let minPrice = req.query.minPrice || 0;
 
-    let maxPrice = req.query.maxPrice || 0;
+    let maxPrice = req.query.maxPrice || 100000;
 
     let state = req.query.state || '';
 
@@ -32,7 +32,7 @@ exports.getTourResults = catchAsync(async (req, res, next) => {
     const tourResults = await Tour.find({
         tourName: { $regex: searchTerm, $options: 'i' }, // i -> don't care about lower and upper case
         price: { $gte: minPrice, $lte: maxPrice },
-        location: state,
+        location: { $regex: state, $options: 'i' },
         tourType: { $regex: tourType, $options: 'i' }
     });
 

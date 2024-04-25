@@ -1,8 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { ShimmerThumbnail } from "react-shimmer-effects";
+import CardItem from '../common/CardItem';
+
 
 const Tour = () => {
     const navigate = useNavigate();
+
+    const [tours, setTours] = useState([]);
+    console.log(tours);
+
+    const [tourLoading, setTourLoading] = useState(false);
 
     const [sidebarData, setSidebarData] = useState({
         searchTerm: '',
@@ -86,14 +95,38 @@ const Tour = () => {
                 tourType: tourTypeFromUrl || ''
             });
         }
+
+        const fetchTours = async () => {
+            const searchQuery = urlParams.toString();
+
+            try {
+                setTourLoading(true);
+                const res = await fetch(`/api/tours/tourResults?${searchQuery}`);
+                if (!res.ok) {
+                    const errorData = await res.json();
+                    setTourLoading(false);
+                    return toast.error(errorData.message);
+                }
+                const data = await res.json();
+                console.log(data.data.tours)
+                setTourLoading(false);
+                setTours(data?.data?.tours);
+            } catch (error) {
+                setTourLoading(false);
+                toast.error(error.message);
+            }
+        }
+
+        fetchTours();
+
     }, [window.location.search])
 
     console.log(sidebarData)
 
     return (
         <div className='flex flex-col md:flex-row'>
-            <div className='p-7 border-b-2 md:border-r-2 md:min-h-screen'>
-                <form onSubmit={handleSubmit} className='flex flex-col gap-8'>
+            <div className='p-7 border-b-2 md:border-r-2 md:min-h-screen md:w-[24rem]'>
+                <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
                     <div className='flex items-center gap-2'>
                         <label className='whitespace-nowrap font-semibold'>Search Term:</label>
                         <input type='text' id='searchTerm' placeholder='Search...' value={sidebarData.searchTerm} onChange={handleChange}
@@ -101,7 +134,7 @@ const Tour = () => {
                         />
                     </div>
                     <div className='flex gap-2 flex-wrap items-center'>
-                        <label htmlFor="minPrice">Minimum Price:</label>
+                        <label htmlFor="minPrice">Min Price:</label>
                         <input
                             type="range"
                             id="minPrice"
@@ -115,7 +148,7 @@ const Tour = () => {
                         <p>Min: ₹{sidebarData.minPrice}</p>
                     </div>
                     <div className='flex gap-2 flex-wrap items-center'>
-                        <label htmlFor="maxPrice">Maximum Price:</label>
+                        <label htmlFor="maxPrice">Max Price:</label>
                         <input
                             type="range"
                             id="maxPrice"
@@ -141,19 +174,20 @@ const Tour = () => {
                         <label htmlFor="tourType">Filter by type:</label>
                         <select id="tourType" name='tourType' onChange={handleChange} className="w-60 px-2 py-1 rounded border transition duration-300 ease-in-out focus:outline-none focus:border-blue-500">
                             <option value=""> tour type</option>
-                            <option value="sightseeing">Sightseeing Tours</option>
-                            <option value="adventure">Adventure Tours</option>
-                            <option value="cultural">Cultural or Historical Tours</option>
-                            <option value="specialty">Specialty Tours</option>
+                            <option value="Sightseeing">Sightseeing</option>
+                            <option value="Adventure">Adventure</option>
+                            <option value="Cultural">Historical</option>
                         </select>
                     </div>
                     <button className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95'>Search</button>
                 </form>
             </div>
             <div className='flex-1'>
-                <h1 className='text-3xl font-semibold border p-3 text-slate-700 mt-5'> Tour results:</h1>
+                <h1 className='text-3xl font-semibold p-3 text-slate-700 mt-5'> Available tours:</h1>
                 <div className='p-7 flex flex-wrap gap-4'>
-                    tours
+                    {
+                        tourLoading ? (Array.from({ length: 10 }).map((_, i) => <ShimmerThumbnail key={i} height={250} width={250} rounded />)) : <CardItem tours={tours} />
+                    }
                 </div>
             </div>
         </div>
