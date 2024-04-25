@@ -184,9 +184,9 @@ const Tour = () => {
             </div>
             <div className='flex-1'>
                 <h1 className='text-3xl font-semibold p-3 text-slate-700 mt-5'> Available tours:</h1>
-                <div className='p-7 flex flex-wrap gap-4'>
+                <div className=' flex flex-wrap gap-4'>
                     {
-                        tourLoading ? (Array.from({ length: 10 }).map((_, i) => <ShimmerThumbnail key={i} height={250} width={250} rounded />)) : <CardItem tours={tours} />
+                        tourLoading ? (<div className='p-4'>{Array.from({ length: 10 }).map((_, i) => <ShimmerThumbnail key={i} height={250} width={250} rounded />)}</div>) : <CardItem tours={tours} />
                     }
                 </div>
             </div>

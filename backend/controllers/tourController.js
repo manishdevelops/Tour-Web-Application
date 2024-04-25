@@ -17,7 +17,7 @@ exports.getAllTours = catchAsync(async (req, res, next) => {
 });
 
 exports.getTourResults = catchAsync(async (req, res, next) => {
-    console.log(req.query);
+    // console.log(req.query);
 
     let searchTerm = req.query.searchTerm || '';
 
@@ -41,6 +41,23 @@ exports.getTourResults = catchAsync(async (req, res, next) => {
         results: tourResults.length,
         data: {
             tours: tourResults
+        }
+    });
+
+});
+
+exports.getTour = catchAsync(async (req, res, next) => {
+    console.log(req.params);
+
+    const tour = await Tour.find({ slug: req.params.slug });
+
+    if (!tour) return AppError('No tour found', 404);
+
+    res.status(200).json({
+        status: "success",
+        results: tour.length,
+        data: {
+            tour
         }
     });
 
