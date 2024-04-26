@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { ShimmerThumbnail } from "react-shimmer-effects";
 import TourCard from '../common/TourCard';
+import NotFound from './NotFound';
 import './Tours.css';
 
 const Tour = () => {
@@ -14,6 +15,7 @@ const Tour = () => {
 
     const [showMore, setShowMore] = useState(true);
     const [showMoreLoading, setShowMoreLoading] = useState(false);
+    const [error, setError] = useState(false);
 
     const [sidebarData, setSidebarData] = useState({
         searchTerm: '',
@@ -90,6 +92,11 @@ const Tour = () => {
         try {
             setTourLoading(true);
             const res = await fetch(`/api/tours/tourResults?${searchQuery}`);
+            if (!res.ok) {
+                const errorData = await res.json();
+                setTourLoading(false);
+                return toast.error(errorData.message);
+            }
             const data = await res.json();
             if (data.data.tours.length <= 2) {
                 setShowMore(false);
@@ -126,18 +133,23 @@ const Tour = () => {
 
             try {
                 setShowMoreLoading(true);
+                setTourLoading(true);
+                setError(false);
                 const res = await fetch(`/api/tours/tourResults?${searchQuery}`);
                 if (!res.ok) {
                     const errorData = await res.json();
                     setTourLoading(false);
+                    setError(true);
                     return toast.error(errorData.message);
                 }
                 const data = await res.json();
-                console.log(data.data.tours)
+                // console.log(data.data.tours)
                 setTourLoading(false);
+                setError(false);
                 setTours(data?.data?.tours);
             } catch (error) {
                 setTourLoading(false);
+                setError(true);
                 toast.error(error.message);
             }
         }
@@ -208,18 +220,21 @@ const Tour = () => {
             <div className='flex-1 h-screen overflow-y-auto bg-gray-50'>
                 <h1 className='text-3xl font-semibold p-3 text-slate-700 mt-5 g'> Available tours:</h1>
                 {
-                    tourLoading ? (<div className='p-4 flex flex-wrap gap-4'>{Array.from({ length: 10 }).map((_, i) => <ShimmerThumbnail key={i} height={250} width={250} rounded />)}</div>) : <TourCard tours={tours} />
+                    tourLoading ? (<div className='p-4 flex items-center justify-center flex-wrap gap-4'>{Array.from({ length: 10 }).map((_, i) => <ShimmerThumbnail key={i} height={250} width={250} rounded />)}</div>) : <TourCard tours={tours} />
                 }
                 {
-                    showMore && (
+                    showMore && !error && (
                         <button onClick={onShowMoreClick}
                             className='text-green-700 underline font-semibold p-7 text-center w-full '
                         >
                             {
-                                !showMoreLoading ? 'Loading...' : 'Show more'
+                                !showMoreLoading ? 'Loading...' : 'show more'
                             }
                         </button>
                     )
+                }
+                {
+                    error && <NotFound />
                 }
             </div>
         </div>

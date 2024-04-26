@@ -19,6 +19,7 @@
     "react-shimmer-effects": "^1.0.3",
     "react-toastify": "^10.0.5",
     "redux-persist": "^6.0.0",
+    "swiper": "^11.1.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

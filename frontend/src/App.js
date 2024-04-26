@@ -18,21 +18,23 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/home' element={<Home />} />
-        <Route path='/sign-in' element={<SignIn />} />
-        <Route path='/sign-up' element={<SignUp />} />
-        <Route path='/about-us' element={<AboutUs />} />
-        <Route path='/contact-us' element={<ContactUs />} />
-        <Route path='/tours' element={<Tours />} />
-        <Route path='/tour-overview/:tourSlug' element={<Tour />} />
-        <Route element={<PrivateRoute />}>
-          <Route path='/profile' element={<Profile />} />
-          <Route path="/create-tour" element={<CreateTour />} />
-          <Route path='/dashboard' element={<Dashboard />} />
-        </Route>
-      </Routes>
+      <main>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/home' element={<Home />} />
+          <Route path='/sign-in' element={<SignIn />} />
+          <Route path='/sign-up' element={<SignUp />} />
+          <Route path='/about-us' element={<AboutUs />} />
+          <Route path='/contact-us' element={<ContactUs />} />
+          <Route path='/tours' element={<Tours />} />
+          <Route path='/tour-overview/:tourSlug' element={<Tour />} />
+          <Route element={<PrivateRoute />}>
+            <Route path='/profile' element={<Profile />} />
+            <Route path="/create-tour" element={<CreateTour />} />
+            <Route path='/dashboard' element={<Dashboard />} />
+          </Route>
+        </Routes>
+      </main>
     </BrowserRouter>
   );
 }
