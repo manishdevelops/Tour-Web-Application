@@ -79,7 +79,6 @@ const Tour = () => {
         const searchQuery = urlParams.toString();
 
         navigate(`/tours?${searchQuery}`);
-
     };
 
     const onShowMoreClick = async () => {
@@ -130,8 +129,8 @@ const Tour = () => {
 
         const fetchTours = async () => {
             const searchQuery = urlParams.toString();
-
             try {
+                setShowMore(true);
                 setShowMoreLoading(true);
                 setTourLoading(true);
                 setError(false);
@@ -143,11 +142,17 @@ const Tour = () => {
                     return toast.error(errorData.message);
                 }
                 const data = await res.json();
+                if (data.data.tours.length > 1) {
+                    setShowMore(true);
+                } else {
+                    setShowMore(false);
+                }
                 // console.log(data.data.tours)
                 setTourLoading(false);
                 setError(false);
                 setTours(data?.data?.tours);
             } catch (error) {
+                setShowMore(false);
                 setTourLoading(false);
                 setError(true);
                 toast.error(error.message);
@@ -156,7 +161,7 @@ const Tour = () => {
 
         fetchTours();
 
-    }, [window.location.search])
+    }, [window.location.search]);
 
     return (
         <div className='flex flex-col md:flex-row'>
@@ -217,10 +222,19 @@ const Tour = () => {
                     <button className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95'>Search</button>
                 </form>
             </div>
-            <div className='flex-1 h-screen overflow-y-auto bg-gray-50'>
+            <div className='flex-1 h-screen overflow-y-auto bg-[#f1f5f1]'>
                 <h1 className='text-3xl font-semibold p-3 text-slate-700 mt-5 g'> Available tours:</h1>
                 {
-                    tourLoading ? (<div className='p-4 flex items-center justify-center flex-wrap gap-4'>{Array.from({ length: 10 }).map((_, i) => <ShimmerThumbnail key={i} height={250} width={250} rounded />)}</div>) : <TourCard tours={tours} />
+                    tourLoading && (
+                        <div className='p-4 flex items-center justify-center flex-wrap gap-4'>{Array.from({ length: 10 }).map((_, i) => <ShimmerThumbnail key={i} height={250} width={250} rounded />)}
+                        </div>
+                    )
+                }
+                {
+                    !tourLoading && !error && tours.length > 0 && <TourCard tours={tours} />
+                }
+                {
+                    error && <NotFound />
                 }
                 {
                     showMore && !error && (
@@ -232,9 +246,6 @@ const Tour = () => {
                             }
                         </button>
                     )
-                }
-                {
-                    error && <NotFound />
                 }
             </div>
         </div>

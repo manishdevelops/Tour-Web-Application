@@ -1,6 +1,5 @@
 import Header from "./components/layout/Header";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import SignIn from "./components/pages/SignIn";
 import SignUp from "./components/pages/SignUp";
 import Profile from "./components/pages/Profile";
@@ -17,8 +16,10 @@ import Tour from "./components/pages/Tour";
 function App() {
   return (
     <BrowserRouter>
-      <Header />
-      <main>
+      <header >
+        <Header />
+      </header>
+      <main className="bg-[#f1f5f1]">
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/home' element={<Home />} />

@@ -1,14 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MdLocationPin } from "react-icons/md";
-import { MdDateRange } from "react-icons/md";
+import { MdLocationPin, MdDateRange } from "react-icons/md";
 import { FaRegClock } from "react-icons/fa6";
 import { IoIosPeople } from "react-icons/io";
 import { IoArrowRedoSharp } from "react-icons/io5";
 
 const CardItem = ({ tours }) => {
     return (
-        <div className="flex flex-wrap justify-center gap-8">
+        <div className="flex flex-wrap justify-center gap-8 ">
             {tours.map((tour) =>
                 <div className="max-w-xs mt-4 bg-white shadow-md hover:shadow-lg transition-shadow overflow-hidden rounded-lg max-sm:px-4" key={tour.photos[0]}>
                     <img className="w-full h-48 object-cover hover:scale-105 transition-scale duration-300" src={tour.photos[0]} alt="tour" />
