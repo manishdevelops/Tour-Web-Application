@@ -3,15 +3,23 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore from 'swiper';
 import { Navigation, Autoplay } from 'swiper/modules';
 import 'swiper/css/bundle';
-import { FaMapMarkerAlt, FaShare, FaRegClock, FaHotel } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaShare, FaRegClock } from 'react-icons/fa';
 import { MdOutlineGroupAdd, MdDateRange } from "react-icons/md";
 import { BiSolidCategory } from "react-icons/bi";
+import { PiProhibitLight } from "react-icons/pi";
+import { BsCheckLg } from "react-icons/bs";
 import StarRatings from 'react-star-ratings';
 import LeafletMap from '../layout/LeafletMap';
+import ImageOverlap from '../layout/ImageOverlap';
+import { useSelector } from 'react-redux';
+import Contact from '../layout/Contact';
 
 const TourOverview = ({ tour }) => {
+    const { currentUser } = useSelector(state => state.user);
+
+    const [contact, setContact] = useState(false);
+
     SwiperCore.use([Navigation, Autoplay]);
-    console.log(tour[0].tourName);
 
     const [copied, setCopied] = useState(false);
 
@@ -90,18 +98,30 @@ const TourOverview = ({ tour }) => {
                         <span>departuing on {new Date(tour[0].departureDate).toLocaleString('en-US', { day: '2-digit', month: 'long', year: 'numeric' })}</span>
                     </li>
                 </ul>
-                <ul className='text-green-900 font-semibold text-sm '>
-                    <li>
-                        <span className='font-semibold mr-2 break-words '> Inclusions: </span>  {tour[0].inclusions} and more
+                <ul className='text-green-900 font-semibold text-sm'>
+                    <li className='flex items-center gap-1'>
+                        <BsCheckLg className='text-lg' /><span className='font-semibold mr-2 break-words '>  Inclusions: </span>  {tour[0].inclusions} and more
                     </li>
-                    <li >
-                        <span className='font-semibold mr-2 break-words'> Exclusions: </span>  {tour[0].exclusions}
+                    <li className='flex items-center gap-1 my-2' >
+                        <PiProhibitLight className='text-lg' /><span className='font-semibold mr-2 break-words'> Exclusions: </span>  {tour[0].exclusions}
                     </li>
                 </ul>
             </div>
             {/* <div className='flex max-w-4xl mx-auto p-3 my-7 '> */}
             <LeafletMap coordinates={tour[0].coordinates} tour={tour[0].tourName} />
             {/* </div> */}
+            <div className='flex max-sm:flex-col justify-between items-center  max-w-4xl mx-auto p-16 my-7 gap-4'>
+                <ImageOverlap photos={tour[0].photos} />
+            </div>
+            <div className='flex max-sm:flex-col justify-center items-center  max-w-4xl mx-auto p-16 my-7 gap-4'>
+                {
+                    currentUser && currentUser.role === 'user' && !contact && <button onClick={() => setContact(true)} className='bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3'>Contact Tour Guide</button>
+                }
+                {
+                    contact && <Contact tour={tour[0]} />
+                }
+            </div>
+
         </section>
     )
 }

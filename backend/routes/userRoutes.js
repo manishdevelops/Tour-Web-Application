@@ -10,7 +10,7 @@ router.post('/login', authController.login);
 router.get('/logout', authController.logout);
 router.post('/google', authController.google);
 
-// router.get('/:id', authController.protect, userController.getUser);
+router.get('/:id', userController.getUser);
 
 router.delete('/deleteMe', authController.protect, userController.deleteMe);
 router.post('/updateMe/:id', authController.protect, authController.updateMe);

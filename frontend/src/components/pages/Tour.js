@@ -8,7 +8,6 @@ const Tour = () => {
     const params = useParams();
 
     const [tour, setTour] = useState(null);
-    console.log(tour)
     const [loadingOverview, setLoadingOverview] = useState(false);
     const [error, setError] = useState(false);
 

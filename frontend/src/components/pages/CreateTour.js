@@ -102,6 +102,7 @@ function CreateTour() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(formData);
+        if (formData.photos.length < 1) return toast.error('You must upload at least three images!');
 
         try {
             setTourCreating(true);
@@ -120,7 +121,6 @@ function CreateTour() {
                 const errorData = await res.json();
                 toast.error(errorData.message);
                 setTourCreating(false);
-
                 return;
             }
 

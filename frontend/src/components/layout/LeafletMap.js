@@ -1,18 +1,29 @@
 import markerIcon from '../../assets/icons/markerIcon.png';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
 const LeafletMap = (props) => {
     const coordinates = [props.coordinates[0].latitude, props.coordinates[0].longitude];
+    const mapRef = useRef(null);
 
     const customMarkerIcon = L.icon({
         iconUrl: markerIcon,
-        iconSize: [35, 41], // Size of the icon
+        iconSize: [41, 41], // Size of the icon
         iconAnchor: [12, 41], // Anchor point of the icon (bottom center)
         popupAnchor: [0, -41] // Popup anchor relative to the icon
     });
+
+    useEffect(() => {
+        // Programmatically open the marker's popup when the map loads
+        const map = mapRef.current; // Get the Leaflet map instance
+        const marker = map?.layers.getLayers()[0]; // Get the first marker on the map
+
+        if (marker) {
+            marker.openPopup(); // Open the popup associated with the marker
+        }
+    }, [mapRef.current]); // Run this effect only once after initial render
 
     return (
         <MapContainer center={coordinates} zoom={13} scrollWheelZoom={false} style={{ height: '500px', width: '100%' }}>

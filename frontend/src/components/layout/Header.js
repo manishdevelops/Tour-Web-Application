@@ -90,7 +90,7 @@ export default function Header() {
                                                     />
                                                 </Menu.Button>
                                             ) : (
-                                                <Link to='/sign-in' className='text-slate-50'>Sign In</Link>
+                                                <Link to='/sign-in' className='text-slate-50 uppercase'>Sign In</Link>
                                             )
                                         }
                                     </div>
