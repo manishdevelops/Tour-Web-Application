@@ -62,7 +62,9 @@ const tourSchema = new mongoose.Schema({
         type: String,
         required: true,
     }
-}, { timestamps: true });
+}, {
+    timestamps: true
+});
 
 tourSchema.pre('save', function (next) {
     this.slug = slugify(this.tourName, { lower: true });
