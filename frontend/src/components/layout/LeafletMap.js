@@ -26,7 +26,7 @@ const LeafletMap = (props) => {
     }, [mapRef.current]); // Run this effect only once after initial render
 
     return (
-        <MapContainer center={coordinates} zoom={13} scrollWheelZoom={false} style={{ height: '500px', width: '100%' }}>
+        <MapContainer center={coordinates} zoom={13} scrollWheelZoom={false} style={{ height: '700px', width: '100%' }}>
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

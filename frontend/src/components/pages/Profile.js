@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom';
 
 const Profile = () => {
     const { currentUser, deactivateAccount, logoutAccount } = useSelector(state => state.user);
-    console.log(currentUser)
 
     const dispatch = useDispatch();
     const fileRef = useRef(null);
