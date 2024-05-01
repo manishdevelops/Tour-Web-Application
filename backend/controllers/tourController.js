@@ -52,7 +52,7 @@ exports.getTourResults = catchAsync(async (req, res, next) => {
 exports.getTour = catchAsync(async (req, res, next) => {
     console.log(req.params);
 
-    const tour = await Tour.find({ slug: req.params.slug });
+    const tour = await Tour.find({ slug: req.params.slug }).populate('reviews');
 
     if (!tour) return AppError('No tour found', 404);
 
@@ -65,3 +65,14 @@ exports.getTour = catchAsync(async (req, res, next) => {
     });
 
 });
+
+exports.tour = async (req, res, next) => {
+    const tour = await Tour.findById(req.params.id).populate('reviews');
+
+    res.status(200).json({
+        status: 'success',
+        results: tour.length,
+        data: tour
+    });
+}
+

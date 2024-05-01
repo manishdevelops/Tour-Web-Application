@@ -61,9 +61,20 @@ const tourSchema = new mongoose.Schema({
     userRef: {
         type: String,
         required: true,
-    }
+    },
 }, {
-    timestamps: true
+    timestamps: true,
+    toJSON: { virtuals: true },  // each time that the data is outputted as JSON, we want virtuals to be true. So basically virtuals to be the part of the output.
+    toObject: { virtuals: true },
+    id: false  // no duplicate id in query op
+}
+);
+
+//Virtual populate
+tourSchema.virtual('reviews', {
+    ref: 'Review',
+    foreignField: 'tour',
+    localField: '_id'
 });
 
 tourSchema.pre('save', function (next) {
@@ -71,6 +82,7 @@ tourSchema.pre('save', function (next) {
     console.log(this.slug)
     next();
 });
+
 
 const tour = mongoose.model('Tour', tourSchema);
 
