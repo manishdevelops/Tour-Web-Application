@@ -13,6 +13,7 @@ import LeafletMap from '../layout/LeafletMap';
 import ImageOverlap from '../layout/ImageOverlap';
 import { useSelector } from 'react-redux';
 import Contact from '../layout/Contact';
+import Review from '../common/Review';
 
 const TourOverview = ({ tour }) => {
     const { currentUser } = useSelector(state => state.user);
@@ -110,7 +111,11 @@ const TourOverview = ({ tour }) => {
             {/* <div className='flex max-w-4xl mx-auto p-3 my-7 '> */}
             <LeafletMap coordinates={tour[0].coordinates} tour={tour[0].tourName} />
             {/* </div> */}
-            <div className='flex max-sm:flex-col justify-between items-center  max-w-4xl mx-auto p-16 my-7 gap-4'>
+            <div className=' text-center max-w-4xl mx-auto p-16 my-7 gap-4'>
+                <div className=''>
+                    <h2 className='mb-6 font-bold text-4xl text-green-500'>What are you waiting for?</h2>
+                    <p className='mb-8 text-xl font-semibold text-red-900 italic'> {`${tour[0].tourDuration}. 1 adventure. Infinite memories. Make it yours today!`}</p>
+                </div>
                 <ImageOverlap photos={tour[0].photos} />
             </div>
             <div className='flex max-sm:flex-col justify-center items-center  max-w-4xl mx-auto p-16 my-7 gap-4'>
@@ -121,7 +126,9 @@ const TourOverview = ({ tour }) => {
                     contact && <Contact tour={tour[0]} />
                 }
             </div>
-
+            <div className='flex max-sm:flex-col justify-center items-center  max-w-4xl mx-auto px-16 pb-16 mb-7 gap-4'>
+                <Review id={tour[0]._id} />
+            </div>
         </section>
     )
 }

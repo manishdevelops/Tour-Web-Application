@@ -45,7 +45,7 @@ const SignIn = () => {
 
             toast.success('User logged in successfully!.');
             dispatch(signInSuccess(data.data.user));
-            navigate('/profile');
+            navigate('/tours');
 
         } catch (error) {
             setLoading(false)
