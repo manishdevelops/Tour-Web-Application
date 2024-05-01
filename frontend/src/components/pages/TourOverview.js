@@ -70,7 +70,7 @@ const TourOverview = ({ tour }) => {
                 <div className='flex flex-row max-sm:flex-col gap-4 max-sm:items-center'>
                     <h2 className='bg-red-900 w-full max-w-[150px] text-white text-center p-1 rounded-md'>Ratings:</h2>
                     <StarRatings
-                        rating={tour[0].ratings}
+                        rating={tour[0].ratingsAverage}
                         starRatedColor="gold"
                         starDimension="30px"
                         starSpacing="5px"
@@ -120,7 +120,7 @@ const TourOverview = ({ tour }) => {
             </div>
             <div className='flex max-sm:flex-col justify-center items-center  max-w-4xl mx-auto p-16 my-7 gap-4'>
                 {
-                    currentUser && currentUser.role === 'user' && !contact && <button onClick={() => setContact(true)} className='bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3'>Contact Tour Guide</button>
+                    currentUser && currentUser.role === 'user' && !contact && <button onClick={() => setContact(true)} className='bg-slate-700 w-full text-white rounded-lg uppercase hover:opacity-95 p-3 shadow-md'>Contact Tour Guide</button>
                 }
                 {
                     contact && <Contact tour={tour[0]} />

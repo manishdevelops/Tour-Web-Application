@@ -59,7 +59,7 @@ const Review = ({ id }) => {
                     <textarea
                         value={reviewText}
                         onChange={(e) => setReviewText(e.target.value)}
-                        className="w-full h-24 px-3 py-2 border rounded-md text-sm"
+                        className="w-full h-24 px-3 py-2 border rounded-md text-sm transition duration-300 ease-in-out focus:outline-none focus:border-blue-500"
                         placeholder="Write your review..."
                         required
                     />

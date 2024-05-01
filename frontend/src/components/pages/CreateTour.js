@@ -13,7 +13,7 @@ function CreateTour() {
     const [formData, setFormData] = useState({
         tourName: '',
         location: '',
-        ratings: '',
+        // ratings: '',
         tourType: '',
         tourDescription: '',
         tourDuration: '',
@@ -34,7 +34,6 @@ function CreateTour() {
     const [imageUploadError, setImageUploadError] = useState(false);
 
     const [files, setFiles] = useState([]);
-    console.log(files);
 
     const storeImage = async (file) => {
         return new Promise((resolve, reject) => {
@@ -130,7 +129,6 @@ function CreateTour() {
             toast.success('tour created successfully!.');
             navigate('/tours');
         } catch (error) {
-            console.log(error)
             setTourCreating(false);
             toast.error(error.message);
         }
@@ -180,19 +178,13 @@ function CreateTour() {
                     <label htmlFor="exclusions" className="block text-sm font-medium text-gray-700">Exclusions:</label>
                     <textarea id="exclusions" name="exclusions" placeholder='Enter not provided facilities' value={formData.exclusions} onChange={handleChange} className="w-full px-2 py-1 rounded border transition duration-300 ease-in-out focus:outline-none focus:border-blue-500"></textarea>
                 </div>
-                <div className="space-y-2">
-                    <label htmlFor="ratings" className="block text-sm font-medium text-gray-700">Ratings:</label>
-                    <input type="number" id="ratings" name="ratings" placeholder='Enter ratings' value={formData.ratings} onChange={handleChange} className="w-full px-2 py-1 rounded border transition duration-300 ease-in-out focus:outline-none focus:border-blue-500" />
-                </div>
-
                 <div className='space-y-2'>
                     <label htmlFor="tourType">Select Tour Type:</label>
                     <select id="tourType" name='tourType' value={formData.type} onChange={handleChange} className="w-full px-2 py-1 rounded border transition duration-300 ease-in-out focus:outline-none focus:border-blue-500">
                         <option value="">Select a tour type</option>
                         <option value="sightseeing">Sightseeing Tours</option>
                         <option value="adventure">Adventure Tours</option>
-                        <option value="cultural">Cultural or Historical Tours</option>
-                        <option value="specialty">Specialty Tours</option>
+                        <option value="cultural">Historical Tours</option>
                     </select>
                 </div>
 
