@@ -23,7 +23,8 @@ const handleCastErrorDB = (error) => {
 
 const handleDuplicateFieldsDB = error => {
     const [errorField, errorValue] = Object.entries(error.keyValue).flat();
-    const message = `Duplicate '${errorField}' value entered as '${errorValue}'.`;
+    // const message = `Duplicate '${errorField}' value entered as '${errorValue}'.`;
+    const message = 'Duplicate data entered.';
     return AppError(message, 400);
 }
 
@@ -69,14 +70,14 @@ module.exports = (err, req, res, next) => {
     } else if (process.env.NODE_ENV === 'production') {
         console.log(err)
         let error = { ...err, name: err.name };
+        error.message = err.message;
 
         if (error.name === 'CastError') error = handleCastErrorDB(error); // invalid id
         if (error.code === 11000) error = handleDuplicateFieldsDB(error); // duplicate fields
         if (error.name === 'ValidationError') error = handleValidationErrorDB(error); //validatinng fileds
         if (error.name === 'JsonWebTokenError') error = handleJWTError(error); // handle token change
         if (error.name === 'TokenExpiredError') error = handleJWTExpiredError(error); // token time expires
-        console.log(error)
-        error.message = err.message;
+
         return sendErrorProd(error, req, res);
     }
 }
