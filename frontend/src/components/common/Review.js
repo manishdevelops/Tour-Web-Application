@@ -19,13 +19,13 @@ const Review = ({ id }) => {
 
         try {
             setLoading(true);
-            const res = await fetch('/api/reviews', {
+            const res = await fetch(`/api/tours/${id}/reviews`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    rating, review: reviewText, tour: id
+                    rating, review: reviewText
                 })
             });
 

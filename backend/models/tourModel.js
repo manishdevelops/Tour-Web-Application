@@ -8,12 +8,16 @@ const tourSchema = new mongoose.Schema({
         required: [true, 'A tour must have a name!']
     },
     slug: String,
-    ratings: {
+    ratingsAverage: {
         type: Number,
         default: 4.5,
         min: [1, 'Ratings must be above or equal 1.0'],
         max: [5, 'Ratings must be below or equal to 5'],
         set: val => Math.round(val * 10) / 10 // ex 4.66666, 46.6666, 47, 4.7
+    },
+    ratingsQuantity: {
+        type: Number,
+        default: 0
     },
     tourType: {
         type: String,

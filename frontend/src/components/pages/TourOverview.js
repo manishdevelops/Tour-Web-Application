@@ -68,7 +68,7 @@ const TourOverview = ({ tour }) => {
                     {tour[0].location}
                 </p>
                 <div className='flex flex-row max-sm:flex-col gap-4 max-sm:items-center'>
-                    <h2 className='bg-red-900 w-full max-w-[150px] text-white text-center p-1 rounded-md'>Ratings:</h2>
+                    <h2 className='bg-red-900 w-full max-w-[150px] text-white text-center p-1 rounded-md'>Average ratings:</h2>
                     <StarRatings
                         rating={tour[0].ratingsAverage}
                         starRatedColor="gold"
