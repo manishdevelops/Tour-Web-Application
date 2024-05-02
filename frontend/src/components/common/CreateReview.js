@@ -42,8 +42,6 @@ const CreateReview = ({ id }) => {
                 return;
             }
 
-            const data = await res.json();
-            console.log(data);
             setReviewCreated(true);
             setLoading(false);
             toast.success('review created successfully!');
