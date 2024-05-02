@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
+import { ShimmerSectionHeader } from "react-shimmer-effects";
 
 export default function Contact({ tour }) {
     console.log(tour);
@@ -26,15 +27,23 @@ export default function Contact({ tour }) {
     }, [tour.tourGuide]);
 
     return (
-        <div className='w-full'>
+        <div className='w-full bg-white rounded-sm shadow-sm p-4'>
             {guide && (
                 <div className=' flex flex-col gap-2'>
-                    <p> Contact <span className='font-semibold'>{guide.name}</span> for more about <span className='font-semibold'>{tour.tourName.toLowerCase()}</span></p>
+                    <p> Contact <span className='font-semibold'>{guide.name}</span> for more about <span className='font-semibold text-red-900'>{tour.tourName.toLowerCase()}</span></p>
                     <textarea name='message' id='message' rows='2' value={message} onChange={onChange} className='w-full border p-3 rounded-lg'></textarea>
 
                     <Link to={`mailto:${guide.email}?subject=Regarding ${guide.name}&body=${message}`} className='bg-slate-700 text-white text-center p-3 uppercase rounded-lg hover:opacity-95'>send message</Link>
                 </div>
             )}
+            {
+                !guide && (
+                    <div>
+                        <ShimmerSectionHeader />
+                        <ShimmerSectionHeader center />
+                    </div>
+                )
+            }
         </div>
     );
 }

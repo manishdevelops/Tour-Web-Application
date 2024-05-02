@@ -20,8 +20,8 @@ const CardItem = ({ tours }) => {
                             <span className=''>₹{tour.price} per person</span>
                         </div>
                         <div className=''>
-                            <span className=''>Ratings: </span>
-                            <span className=''>{tour.ratings}</span>
+                            <span className=''>Average ratings: </span>
+                            <span className=''>{tour.ratingsAverage}</span>
                         </div>
                     </div>
                     <div className='px-4 text-sm mb-2 flex justify-between'>

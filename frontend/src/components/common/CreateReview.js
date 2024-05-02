@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import { Rating } from '@smastrom/react-rating';
 import '@smastrom/react-rating/style.css';
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
+import DisplayReviews from './DisplayReviews';
 
-const Review = ({ id }) => {
+const CreateReview = ({ id }) => {
+    const { currentUser } = useSelector(state => state.user);
 
     const [rating, setRating] = useState(0);
     const [reviewText, setReviewText] = useState('');
     const [loading, setLoading] = useState(false);
+    const [reviewCreated, setReviewCreated] = useState(false);
 
     const handleClose = () => {
         setRating(0);
@@ -19,29 +23,33 @@ const Review = ({ id }) => {
 
         try {
             setLoading(true);
+            setReviewCreated(false);
             const res = await fetch(`/api/tours/${id}/reviews`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    rating, review: reviewText
+                    rating, photo: currentUser.photo, review: reviewText, name: currentUser.name,
                 })
             });
 
             if (!res.ok) {
                 setLoading(false);
                 const errorData = await res.json();
+                setReviewCreated(false);
                 toast.error(errorData.message);
                 return;
             }
 
             const data = await res.json();
             console.log(data);
+            setReviewCreated(true);
             setLoading(false);
             toast.success('review created successfully!');
         } catch (error) {
             setLoading(false);
+            setReviewCreated(false);
             toast.error(error.message);
         }
 
@@ -49,7 +57,7 @@ const Review = ({ id }) => {
     };
 
     return (
-        <div className="bg-slate-50 p-6 rounded-lg shadow-lg w-full sm:w-[36rem]" >
+        <div className=" p-6 rounded-lg w-full mx-4 sm:w-[36rem]" >
             <h2 className="text-2xl font-bold mb-4 text-green-400">Write a Review...</h2>
             <form onSubmit={handleSubmit}>
 
@@ -73,8 +81,9 @@ const Review = ({ id }) => {
                     </button>
                 </div>
             </form>
+            <DisplayReviews key={reviewCreated ? 'review_created' : 'no_review_created'} id={id} />
         </div>
     );
 };
 
-export default Review;
+export default CreateReview;

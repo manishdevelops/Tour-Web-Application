@@ -2,6 +2,14 @@ const mongoose = require('mongoose');
 const Tour = require('./tourModel');
 
 const reviewSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: [true, 'Review must belong to a user']
+    },
+    photo: {
+        type: String,
+        default: 'https://img.freepik.com/premium-vector/anonymous-user-circle-icon-vector-illustration-flat-style-with-long-shadow_520826-1931.jpg'
+    },
     review: {
         type: String,
         required: [true, 'Review cannot be empty!']
