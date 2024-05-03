@@ -59,7 +59,7 @@ const tourSchema = new mongoose.Schema({
         required: [true, 'A tour must have atmost 6 images']
     },
     coordinates: {
-        type: Array,
+        type: [Number],
         required: [true, 'A tour must have its coordinates!']
     },
     userRef: {
@@ -73,6 +73,8 @@ const tourSchema = new mongoose.Schema({
     id: false  // no duplicate id in query op
 }
 );
+
+tourSchema.index({ coordinates: '2dsphere' });
 
 //Virtual populate
 tourSchema.virtual('reviews', {
