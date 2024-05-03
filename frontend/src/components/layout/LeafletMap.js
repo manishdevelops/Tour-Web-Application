@@ -5,7 +5,7 @@ import L from 'leaflet';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
 const LeafletMap = (props) => {
-    const coordinates = [props.coordinates[0].latitude, props.coordinates[0].longitude];
+    const coordinates = [props.coordinates[1], props.coordinates[0]];
     const mapRef = useRef(null);
 
     const customMarkerIcon = L.icon({
@@ -34,8 +34,8 @@ const LeafletMap = (props) => {
             <Marker position={coordinates} icon={customMarkerIcon}>
                 <Popup>
                     <strong>{props.tour}</strong> <br />
-                    lat: {coordinates[0]}°N <br />
-                    long: {coordinates[1]}°E
+                    lat: {coordinates[1]}°N <br />
+                    long: {coordinates[0]}°E
                 </Popup>
             </Marker>
         </MapContainer>

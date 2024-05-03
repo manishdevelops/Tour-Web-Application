@@ -13,7 +13,6 @@ function CreateTour() {
     const [formData, setFormData] = useState({
         tourName: '',
         location: '',
-        // ratings: '',
         tourType: '',
         tourDescription: '',
         tourDuration: '',
@@ -24,7 +23,7 @@ function CreateTour() {
         inclusions: '',
         exclusions: '',
         photos: [],
-        coordinates: { latitude: '', longitude: '' }
+        coordinates: ''
     });
 
     console.log(formData);
@@ -91,6 +90,7 @@ function CreateTour() {
     const handleChange = (e) => {
         const { name, value } = e.target;
         console.log(name, value)
+
         setFormData(prevState => ({
             ...prevState,
             [name]: value
@@ -100,6 +100,8 @@ function CreateTour() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const [lng, lat] = formData.coordinates.split(',');
+        formData.coordinates = [parseFloat(lng), parseFloat(lat)];
         console.log(formData);
         if (formData.photos.length < 1) return toast.error('You must upload at least three images!');
 
@@ -188,6 +190,11 @@ function CreateTour() {
                     </select>
                 </div>
 
+                <div className="space-y-2">
+                    <label htmlFor="coordinates" className="block text-sm font-medium text-gray-700">Coordinates:</label>
+                    <input type="text" id="coordinates" name="coordinates" placeholder='Enter longitude,latitude' required value={formData.coordinates} onChange={handleChange} className="w-full px-2 py-1 rounded border transition duration-300 ease-in-out focus:outline-none focus:border-blue-500" />
+                </div>
+
 
                 <div className="space-y-2 md:col-span-2">
                     <div className='flex gap-4'>
@@ -206,14 +213,14 @@ function CreateTour() {
                     }
                 </div>
 
-                <div className="space-y-2">
+                {/* <div className="space-y-2">
                     <label htmlFor="latitude" className="block text-sm font-medium text-gray-700">Latitude:</label>
                     <input type="number" id="latitude" name="latitude" placeholder='Enter latitude of the the location' required value={formData.coordinates.latitude} onChange={(e) => handleChange({ target: { name: 'coordinates', value: { ...formData.coordinates, latitude: e.target.value } } })} className="w-full px-2 py-1 rounded border transition duration-300 ease-in-out focus:outline-none focus:border-blue-500" />
                 </div>
                 <div className="space-y-2">
                     <label htmlFor="longitude" className="block text-sm font-medium text-gray-700">Longitude:</label>
                     <input type="number" id="longitude" name="longitude" placeholder='Enter longitude of the the location' required value={formData.coordinates.longitude} onChange={(e) => handleChange({ target: { name: 'coordinates', value: { ...formData.coordinates, longitude: e.target.value } } })} className="w-full px-2 py-1 rounded border transition duration-300 ease-in-out focus:outline-none focus:border-blue-500" />
-                </div>
+                </div> */}
                 <div className="md:col-span-2 text-center">
                     <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">{tourCreating ? 'Creating...' : 'Create Tour'}</button>
                 </div>
