@@ -6,7 +6,7 @@ const ImageOverlap = ({ photos }) => {
     const { currentUser } = useSelector(state => state.user);
     return (
         <>
-            <div className='flex max-sm:flex-col justify-between items-center'>
+            <div className='mt-16 flex max-sm:flex-col justify-between items-center'>
                 <div className="flex items-center relative">
                     <div className="relative z-10 max-sm:w-32 max-sm:h-32 w-64 h-64 rounded-full overflow-hidden">
                         <img

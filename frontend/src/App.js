@@ -19,7 +19,7 @@ function App() {
       <header >
         <Header />
       </header>
-      <main className="bg-[#f1f5f1]">
+      <main className="">
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/home' element={<Home />} />

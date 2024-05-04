@@ -35,7 +35,6 @@ const Profile = () => {
         uploadTask.on('state_changed',
             (snapshot) => {
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                // console.log('Upload is ' + progress + '% done');
                 setFilePerc(Math.round(progress));
             },
             (error) => {
@@ -52,7 +51,6 @@ const Profile = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData)
         try {
             setUpdateLoading(true);
             const res = await fetch(`/api/users/updateMe/${currentUser._id}`, {
@@ -88,8 +86,6 @@ const Profile = () => {
         <div className='p-3 max-w-lg mx-auto'>
             <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
             <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
-
-                {/* <img src={currentUser.photo} alt='profile' className='rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2' /> */}
 
                 <input onChange={(e) => setFile(e.target.files[0])} type='file' ref={fileRef} hidden accept='image/*' />
                 <img onClick={() => fileRef.current.click()} src={formData.photo || currentUser.photo} alt='profile' className='rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2' />
@@ -127,4 +123,4 @@ const Profile = () => {
     )
 }
 
-export default Profile
+export default Profile;

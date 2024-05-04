@@ -57,7 +57,7 @@ const TourOverview = ({ tour }) => {
                     Link copied!
                 </p>
             )}
-            <div className='flex flex-col max-w-4xl mx-auto p-3 my-7 gap-4'>
+            <div className='flex flex-col max-w-4xl mx-auto p-8 my-7 gap-4 bg-[#f8faf8] shadow-md rounded-md'>
                 <p className='text-2xl font-semibold'>
                     {tour[0].tourName} - ₹{' '}
                     {
@@ -97,7 +97,7 @@ const TourOverview = ({ tour }) => {
                     </li>
                     <li className='flex items-center gap-1 whitespace-nowrap'>
                         <MdDateRange className='text-lg' />
-                        <span>departuing on {new Date(tour[0].departureDate).toLocaleString('en-US', { day: '2-digit', month: 'long', year: 'numeric' })}</span>
+                        <span>departuring on {new Date(tour[0].departureDate).toLocaleString('en-US', { day: '2-digit', month: 'long', year: 'numeric' })}</span>
                     </li>
                 </ul>
                 <ul className='text-green-900 font-semibold text-sm'>
@@ -109,17 +109,15 @@ const TourOverview = ({ tour }) => {
                     </li>
                 </ul>
             </div>
-            {/* <div className='flex max-w-4xl mx-auto p-3 my-7 '> */}
             <LeafletMap coordinates={tour[0].coordinates} tour={tour[0].tourName} />
-            {/* </div> */}
-            <div className=' text-center max-w-4xl mx-auto p-16 my-7 gap-4'>
+            <div className=' text-center max-w-4xl mx-auto p-16 my-7 gap-4 bg-[#f8faf8] shadow-md rounded-md'>
                 <div className=''>
                     <h2 className='mb-6 font-bold text-4xl text-green-500'>What are you waiting for?</h2>
                     <p className='mb-8 text-xl font-semibold text-red-900 italic'> {`${tour[0].tourDuration}. 1 adventure. Infinite memories. Make it yours today!`}</p>
                 </div>
                 <ImageOverlap photos={tour[0].photos} />
             </div>
-            <div className='flex max-sm:flex-col justify-center items-center  max-w-4xl mx-auto p-4 my-7 gap-4'>
+            <div className='flex max-sm:flex-col justify-center items-center  max-w-4xl mx-auto p-4 my-7 gap-4 '>
                 {
                     currentUser && currentUser.role === 'user' && !contact && <button onClick={() => setContact(true)} className='bg-slate-700 w-full text-white rounded-lg uppercase hover:opacity-95 p-3 shadow-md flex justify-center items-center'><LuMail className='text-lg mr-2' />Contact Tour Guide</button>
                 }
@@ -127,7 +125,7 @@ const TourOverview = ({ tour }) => {
                     contact && <Contact tour={tour[0]} />
                 }
             </div>
-            <div className='flex max-sm:flex-col justify-center items-center  max-w-4xl mx-auto  pb-16 mb-7 gap-4 bg-white shadow-sm rounded-sm'>
+            <div className='flex max-sm:flex-col justify-center items-center  max-w-4xl mx-auto  pb-16 mb-7 gap-4 bg-[#f8faf8] shadow-md rounded-md'>
                 <CreateReview id={tour[0]._id} />
             </div>
 

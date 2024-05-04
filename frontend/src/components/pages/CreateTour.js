@@ -181,12 +181,18 @@ function CreateTour() {
                     <textarea id="exclusions" name="exclusions" placeholder='Enter not provided facilities' value={formData.exclusions} onChange={handleChange} className="w-full px-2 py-1 rounded border transition duration-300 ease-in-out focus:outline-none focus:border-blue-500"></textarea>
                 </div>
                 <div className='space-y-2'>
-                    <label htmlFor="tourType">Select Tour Type:</label>
+                    <label htmlFor="tourType" className="block text-sm font-medium text-gray-700">Select Tour Type:</label>
                     <select id="tourType" name='tourType' value={formData.type} onChange={handleChange} className="w-full px-2 py-1 rounded border transition duration-300 ease-in-out focus:outline-none focus:border-blue-500">
-                        <option value="">Select a tour type</option>
-                        <option value="sightseeing">Sightseeing Tours</option>
-                        <option value="adventure">Adventure Tours</option>
-                        <option value="cultural">Historical Tours</option>
+                        <option value="" >Tour Types</option>
+                        <option value="Sightseeing">Sightseeing</option>
+                        <option value="Adventureous ">Adventure</option>
+                        <option value="Cultural">Cultural</option>
+                        <option value="Historical">Historical</option>
+                        <option value="Natural Escapes">Natural Escapes</option>
+                        <option value="City Adventure">City Adventure</option>
+                        <option value="Beach Holidays">Beach Holidays</option>
+                        <option value="Hill Stations">Hill Stations</option>
+                        <option value="Safari Tours">Safari Tour</option>
                     </select>
                 </div>
 
@@ -213,16 +219,8 @@ function CreateTour() {
                     }
                 </div>
 
-                {/* <div className="space-y-2">
-                    <label htmlFor="latitude" className="block text-sm font-medium text-gray-700">Latitude:</label>
-                    <input type="number" id="latitude" name="latitude" placeholder='Enter latitude of the the location' required value={formData.coordinates.latitude} onChange={(e) => handleChange({ target: { name: 'coordinates', value: { ...formData.coordinates, latitude: e.target.value } } })} className="w-full px-2 py-1 rounded border transition duration-300 ease-in-out focus:outline-none focus:border-blue-500" />
-                </div>
-                <div className="space-y-2">
-                    <label htmlFor="longitude" className="block text-sm font-medium text-gray-700">Longitude:</label>
-                    <input type="number" id="longitude" name="longitude" placeholder='Enter longitude of the the location' required value={formData.coordinates.longitude} onChange={(e) => handleChange({ target: { name: 'coordinates', value: { ...formData.coordinates, longitude: e.target.value } } })} className="w-full px-2 py-1 rounded border transition duration-300 ease-in-out focus:outline-none focus:border-blue-500" />
-                </div> */}
                 <div className="md:col-span-2 text-center">
-                    <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">{tourCreating ? 'Creating...' : 'Create Tour'}</button>
+                    <button type="submit" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded shadow-md">{tourCreating ? 'Creating...' : 'Create Tour'}</button>
                 </div>
             </form>
         </div>
