@@ -3,11 +3,11 @@ import { toast } from 'react-toastify';
 import Hero from '../layout/Hero';
 import TourBanner from '../layout/TourBanner';
 import KeyBenefits from '../layout/KeyBenifits';
+import NearTours from '../layout/NearTours';
 
 const Home = () => {
 
     const [tours, setTours] = useState([]);
-    console.log(tours)
 
     useEffect(() => {
 
@@ -20,7 +20,6 @@ const Home = () => {
                 }
 
                 const data = await res.json();
-                // const a = data.data.tours.map((tour) => tour.photos[0]);
                 setTours(data.data.tours);
             } catch (error) {
                 toast.error(error.message);
@@ -31,9 +30,10 @@ const Home = () => {
 
     return (
         <>
-            <Hero tours={tours} />
+            <Hero tours={tours.reverse()} />
             <TourBanner />
             <KeyBenefits />
+            <NearTours />
         </>
     )
 }

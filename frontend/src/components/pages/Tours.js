@@ -10,7 +10,7 @@ const Tour = () => {
     const navigate = useNavigate();
 
     const [tours, setTours] = useState([]);
-
+    console.log(tours);
     const [tourLoading, setTourLoading] = useState(false);
 
     const [showMore, setShowMore] = useState(true);
@@ -97,7 +97,7 @@ const Tour = () => {
                 return toast.error(errorData.message);
             }
             const data = await res.json();
-            if (data.data.tours.length <= 2) {
+            if (data.data.tours.length <= 12) {
                 setShowMore(false);
                 setTourLoading(false);
             }
@@ -142,7 +142,7 @@ const Tour = () => {
                     return toast.error(errorData.message);
                 }
                 const data = await res.json();
-                if (data.data.tours.length > 1) {
+                if (data.data.tours.length > 11) {
                     setShowMore(true);
                 } else {
                     setShowMore(false);
@@ -213,10 +213,16 @@ const Tour = () => {
                     <div className='flex items-center gap-2'>
                         <label htmlFor="tourType">Filter by type:</label>
                         <select id="tourType" name='tourType' onChange={handleChange} className="w-60 px-2 py-1 rounded border transition duration-300 ease-in-out focus:outline-none focus:border-blue-500">
-                            <option value=""> tour type</option>
+                            <option value="" >Tour Types</option>
                             <option value="Sightseeing">Sightseeing</option>
-                            <option value="Adventure">Adventure</option>
-                            <option value="Cultural">Historical</option>
+                            <option value="Adventureous ">Adventure</option>
+                            <option value="Cultural">Cultural</option>
+                            <option value="Historical">Historical</option>
+                            <option value="Natural Escapes">Natural Escapes</option>
+                            <option value="City Adventure">City Adventure</option>
+                            <option value="Beach Holidays">Beach Holidays</option>
+                            <option value="Hill Stations">Hill Stations</option>
+                            <option value="Safari Tours">Safari Tour</option>
                         </select>
                     </div>
                     <button className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95'>Search</button>
