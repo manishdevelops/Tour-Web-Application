@@ -5,6 +5,7 @@ import TourBanner from '../layout/TourBanner';
 import KeyBenefits from '../layout/KeyBenifits';
 import NearTours from '../layout/NearTours';
 import TopTours from '../layout/TopTours';
+import CheapTours from '../layout/CheapTours';
 
 const Home = () => {
 
@@ -36,6 +37,7 @@ const Home = () => {
             <KeyBenefits />
             <NearTours />
             <TopTours />
+            <CheapTours />
         </>
     )
 }

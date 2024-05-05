@@ -10,8 +10,8 @@ router.use('/:tourId/reviews', reviewRouter);
 router.get('/getTours', tourController.getAllTours);
 router.get('/tourResults', tourController.getTourResults);
 router.get('/tourOverview/:slug', tourController.getTour);
-router.get('/top-5-tours', tourController.topRatedTours);
-router.get('/cheap-5-tours', tourController.topCheapTours);
+router.get('/top-4-tours', tourController.topRatedTours);
+router.get('/cheap-4-tours', tourController.topCheapTours);
 
 router.route('/:id').get(tourController.tour);
 
