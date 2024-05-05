@@ -9,7 +9,7 @@ const CardItem = ({ tours }) => {
     return (
         <div className="flex flex-wrap justify-center gap-8 ">
             {tours.map((tour) =>
-                <div className="max-w-xs mt-4 bg-white shadow-md hover:shadow-lg transition-shadow overflow-hidden rounded-lg max-sm:px-4" key={tour.photos[0]}>
+                <div className="max-w-xs mt-4 bg-white shadow-md hover:shadow-lg transition-shadow overflow-hidden rounded-lg " key={tour.photos[0]}>
                     <img className="w-full h-48 object-cover hover:scale-105 transition-scale duration-300" src={tour.photos[0]} alt="tour" />
                     <p className="font-bold text-xl mb-2 mt-2 truncate px-4">{tour.tourName}</p>
                     <p className="px-4 text-gray-700 text-base line-clamp-2">

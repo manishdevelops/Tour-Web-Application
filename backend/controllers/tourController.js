@@ -4,7 +4,7 @@ const AppError = require('../utils/appError');
 
 
 exports.topRatedTours = catchAsync(async (req, res, next) => {
-    const topTours = await Tour.find().limit(5).sort('-ratingsAverage');
+    const topTours = await Tour.find().limit(4).sort('-ratingsAverage');
 
     res.status(200).json({
         status: "success",
@@ -16,7 +16,7 @@ exports.topRatedTours = catchAsync(async (req, res, next) => {
 });
 
 exports.topCheapTours = catchAsync(async (req, res, next) => {
-    const cheapTours = await Tour.find().limit(5).sort('price');
+    const cheapTours = await Tour.find().limit(4).sort('price');
 
     res.status(200).json({
         status: "success",
@@ -101,7 +101,6 @@ exports.tour = catchAsync(async (req, res, next) => {
 });
 
 exports.getToursWithin = catchAsync(async (req, res, next) => {
-    console.log(req.params)
     const { distance, latlng, unit } = req.params;
     const [lat, lng] = latlng.split(',');
 
