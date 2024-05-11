@@ -34,11 +34,11 @@ const CheapTours = () => {
 
 
     return (
-        <div className='flex flex-wrap justify-center gap-8  mt-20'>
+        <div className='flex flex-wrap justify-center gap-8  my-28'>
             <h1 className="text-center text-5xl font-bold text-gray-900 mb-8" >Budget-Friendly Destinations</h1>
             {
                 loading && (
-                    <div className='p-4 flex items-center justify-center flex-wrap gap-4'>{Array.from({ length: 4 }).map((_, i) => <ShimmerThumbnail key={i} height={250} width={250} rounded />)}
+                    <div className='p-4 flex items-center justify-center flex-wrap gap-4'>{Array.from({ length: 4 }).map((_, i) => <ShimmerThumbnail key={i} height={300} width={300} rounded />)}
                     </div>
                 )
             }

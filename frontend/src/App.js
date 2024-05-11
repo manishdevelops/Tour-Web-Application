@@ -11,7 +11,8 @@ import AboutUs from "./components/pages/AboutUs";
 import CreateTour from "./components/pages/CreateTour";
 import Dashboard from './components/layout/Dashboard';
 import Tour from "./components/pages/Tour";
-
+import Footer from "./components/pages/Footer";
+import PrivacyPolicy from "./components/layout/PrivacyPolicy";
 
 function App() {
   return (
@@ -19,14 +20,15 @@ function App() {
       <header >
         <Header />
       </header>
-      <main className="">
+      <main>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/home' element={<Home />} />
           <Route path='/sign-in' element={<SignIn />} />
           <Route path='/sign-up' element={<SignUp />} />
           <Route path='/about-us' element={<AboutUs />} />
-          <Route path='/contact-us' element={<ContactUs />} />
+          <Route path='/contact-us/*' element={<ContactUs />} />
+          <Route path='/privacy-policy' element={<PrivacyPolicy />} />
           <Route path='/tours' element={<Tours />} />
           <Route path='/tour-overview/:tourSlug' element={<Tour />} />
           <Route element={<PrivateRoute />}>
@@ -36,7 +38,12 @@ function App() {
           </Route>
         </Routes>
       </main>
+      <footer class="bg-white rounded-t-lg shadow dark:bg-gray-900">
+        <Footer />
+      </footer>
     </BrowserRouter>
+
+
   );
 }
 

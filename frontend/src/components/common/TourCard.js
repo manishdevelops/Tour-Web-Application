@@ -4,12 +4,13 @@ import { MdLocationPin, MdDateRange } from "react-icons/md";
 import { FaRegClock } from "react-icons/fa6";
 import { IoIosPeople } from "react-icons/io";
 import { IoArrowRedoSharp } from "react-icons/io5";
+import StarRatings from 'react-star-ratings';
 
 const CardItem = ({ tours }) => {
     return (
         <div className="flex flex-wrap justify-center gap-8 ">
             {tours.map((tour) =>
-                <div className="max-w-xs mt-4 bg-white shadow-md hover:shadow-lg transition-shadow overflow-hidden rounded-lg " key={tour.photos[0]}>
+                <div className="max-w-[18rem] mt-4 bg-white shadow-md hover:shadow-lg transition-shadow overflow-hidden rounded-lg " key={tour.photos[0]}>
                     <img className="w-full h-48 object-cover hover:scale-105 transition-scale duration-300" src={tour.photos[0]} alt="tour" />
                     <p className="font-bold text-xl mb-2 mt-2 truncate px-4">{tour.tourName}</p>
                     <p className="px-4 text-gray-700 text-base line-clamp-2">
@@ -20,8 +21,12 @@ const CardItem = ({ tours }) => {
                             <span className=''>₹{tour.price} per person</span>
                         </div>
                         <div className=''>
-                            <span className=''>Average ratings: </span>
-                            <span className=''>{tour.ratingsAverage}</span>
+                            <StarRatings
+                                rating={tour.ratingsAverage}
+                                starRatedColor="gold"
+                                starDimension="15px"
+                                starSpacing="3px"
+                            />
                         </div>
                     </div>
                     <div className='px-4 text-sm mb-2 flex justify-between'>

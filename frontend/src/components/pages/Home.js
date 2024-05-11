@@ -6,6 +6,8 @@ import KeyBenefits from '../layout/KeyBenifits';
 import NearTours from '../layout/NearTours';
 import TopTours from '../layout/TopTours';
 import CheapTours from '../layout/CheapTours';
+import FAQs from '../layout/FAQs';
+import ReviewCarousel from '../layout/ReviewCarousel';
 
 const Home = () => {
 
@@ -38,8 +40,10 @@ const Home = () => {
             <NearTours />
             <TopTours />
             <CheapTours />
+            <FAQs />
+            <ReviewCarousel />
         </>
     )
 }
 
-export default Home
+export default Home;

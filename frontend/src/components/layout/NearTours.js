@@ -52,8 +52,8 @@ const NearTours = () => {
 
 
     return (
-        <div className='flex flex-wrap justify-center gap-8  mt-20'>
-            <h1 className="text-center text-5xl font-bold text-gray-900 mb-8" >Nearby Tour Highlights</h1>
+        <div className='flex flex-wrap justify-center gap-8  mt-28'>
+            <h1 className="text-center text-5xl font-bold text-gray-900 mb-8" >Explore Tours Around You</h1>
             {
                 error && (
                     <div className="text-center flex items-center flex-col gap-4">
@@ -70,7 +70,7 @@ const NearTours = () => {
             }
             {
                 loading && (
-                    <div className='p-4 flex items-center justify-center flex-wrap gap-4'>{Array.from({ length: 5 }).map((_, i) => <ShimmerThumbnail key={i} height={250} width={250} rounded />)}
+                    <div className='p-4 flex items-center justify-center flex-wrap gap-4'>{Array.from({ length: 5 }).map((_, i) => <ShimmerThumbnail key={i} height={300} width={300} rounded />)}
                     </div>
                 )
             }

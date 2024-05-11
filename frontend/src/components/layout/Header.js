@@ -43,11 +43,7 @@ export default function Header() {
                             <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                                 <div className="flex flex-shrink-0 items-center">
                                     <Link to='/'>
-                                        <img
-                                            className="h-8 w-16 rounded-sm cursor-pointer"
-                                            src="https://logos.flamingtext.com/City-Logos/Tour-Water-Logo.png"
-                                            alt="Tour"
-                                        />
+                                        <p className='text-white font-bold text-lg'>Tour<span className='text-gray-500'>Guru</span></p>
                                     </Link>
                                 </div>
                                 <div className="hidden sm:ml-6 sm:block">

@@ -20,10 +20,11 @@ const Tour = () => {
     const [sidebarData, setSidebarData] = useState({
         searchTerm: '',
         minPrice: 0,
-        maxPrice: 100000,
+        maxPrice: 50000,
         state: '',
         tourType: ''
     });
+    console.log(sidebarData)
 
     const indianStates = [
         "Andhra Pradesh",
@@ -179,9 +180,9 @@ const Tour = () => {
                             type="range"
                             id="minPrice"
                             name="minPrice"
-                            min="10000"
-                            max="100000"
-                            step="1000"
+                            min="0"
+                            max="50000"
+                            step="500"
                             value={sidebarData.minPrice}
                             onChange={handleChange}
                         />
@@ -193,9 +194,9 @@ const Tour = () => {
                             type="range"
                             id="maxPrice"
                             name="maxPrice"
-                            min="10000"
-                            max="100000"
-                            step="1000"
+                            min="0"
+                            max="50000"
+                            step="500"
                             value={sidebarData.maxPrice}
                             onChange={handleChange}
                         />
@@ -228,7 +229,7 @@ const Tour = () => {
                     <button className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95'>Search</button>
                 </form>
             </div>
-            <div className='flex-1 h-screen overflow-y-auto bg-[#f1f5f1]'>
+            <div className='flex-1 h-screen overflow-y-auto pb-8'>
                 <h1 className='text-3xl font-semibold p-3 text-slate-700 mt-5 g'> Available tours:</h1>
                 {
                     tourLoading && (
