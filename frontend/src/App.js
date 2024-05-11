@@ -38,7 +38,7 @@ function App() {
           </Route>
         </Routes>
       </main>
-      <footer class="bg-white rounded-t-lg shadow dark:bg-gray-900">
+      <footer className="bg-white rounded-t-lg shadow dark:bg-gray-900">
         <Footer />
       </footer>
     </BrowserRouter>
