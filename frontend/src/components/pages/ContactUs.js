@@ -9,7 +9,13 @@ function classNames(...classes) {
 
 export default function ContactUs() {
     const [agreed, setAgreed] = useState(false);
-    const [formData, setFormData] = useState({});
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phoneNumber: '',
+        message: ''
+    });
 
     const HandleInputChange = (e) => {
         setFormData({
@@ -17,13 +23,41 @@ export default function ContactUs() {
         });
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (!agreed) {
             toast.success('Please agree to the privacy policy.');
             return;
         }
-        console.log(formData);
+
+        try {
+            const res = await fetch('/api/contacts/createContact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if (res.ok === false) {
+                const errorData = await res.json();
+                return toast.error(errorData.message);
+            }
+
+            setFormData({
+                firstName: '',
+                lastName: '',
+                email: '',
+                phoneNumber: '',
+                message: ''
+            });
+            toast.success('Your inquiry has been received. We will get back to you shortly!');
+
+        } catch (error) {
+            toast.error(error.message);
+        }
+
+
     }
 
     return (
@@ -56,6 +90,7 @@ export default function ContactUs() {
                                     type="text"
                                     name="firstName"
                                     id="firstName"
+                                    value={formData.firstName}
                                     autoComplete="given-name"
                                     className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
@@ -71,6 +106,7 @@ export default function ContactUs() {
                                     type="text"
                                     name="lastName"
                                     id="lastName"
+                                    value={formData.lastName}
                                     autoComplete="family-name"
                                     className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
@@ -86,6 +122,7 @@ export default function ContactUs() {
                                     type="email"
                                     name="email"
                                     id="email"
+                                    value={formData.email}
                                     autoComplete="email"
                                     className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
@@ -106,6 +143,7 @@ export default function ContactUs() {
                                     type="tel"
                                     name="phoneNumber"
                                     id="phoneNumber"
+                                    value={formData.phoneNumber}
                                     autoComplete="tel"
                                     placeholder='+91 '
                                     className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -121,9 +159,9 @@ export default function ContactUs() {
                                     onChange={HandleInputChange}
                                     name="message"
                                     id="message"
+                                    value={formData.message}
                                     rows={4}
                                     className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                    defaultValue={''}
                                 />
                             </div>
                         </div>
