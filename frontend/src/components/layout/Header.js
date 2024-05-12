@@ -4,6 +4,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { FaArrowRightLong } from "react-icons/fa6";
 
 const navigation = [
     // { name: 'Dashboard', href: '#', current: true },
@@ -73,7 +74,7 @@ export default function Header() {
 
                                 {/* Profile dropdown */}
                                 <Menu as="div" className="relative ml-3">
-                                    <div>
+                                    <div >
                                         {
                                             currentUser ? (
                                                 <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -86,7 +87,7 @@ export default function Header() {
                                                     />
                                                 </Menu.Button>
                                             ) : (
-                                                <Link to='/sign-in' className='text-slate-50 uppercase'>Sign In</Link>
+                                                <Link to='/sign-in' className='text-slate-50 uppercase '>Sign In <FaArrowRightLong className='inline' /></Link>
                                             )
                                         }
                                     </div>
