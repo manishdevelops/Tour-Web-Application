@@ -4,6 +4,8 @@ const userRoute = require('./routes/userRoutes');
 const adminRoute = require('./routes/adminRoutes');
 const tourRoute = require('./routes/tourRoutes');
 const reviewRoute = require('./routes/reviewRoutes');
+const contactRoute = require('./routes/contactRoutes');
+const bookingRoute = require('./routes/bookingRoutes');
 const globalErrorController = require('./controllers/errorController');
 const AppError = require('./utils/appError');
 const cookieParser = require('cookie-parser');
@@ -22,6 +24,12 @@ app.use('/api/tours', tourRoute);
 
 //for reviews
 app.use('/api/reviews', reviewRoute);
+
+//for contact us
+app.use('/api/contacts', contactRoute);
+
+//for booking tour
+app.use('/api/bookings', bookingRoute);
 
 
 //the routes that are not handled by the above routes

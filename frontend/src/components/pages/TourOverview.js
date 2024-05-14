@@ -115,7 +115,7 @@ const TourOverview = ({ tour }) => {
                     <h2 className='mb-6 font-bold text-4xl text-green-500'>What are you waiting for?</h2>
                     <p className='mb-8 text-xl font-semibold text-red-900 italic'> {`${tour[0].tourDuration}. 1 adventure. Infinite memories. Make it yours today!`}</p>
                 </div>
-                <ImageOverlap photos={tour[0].photos} />
+                <ImageOverlap tour={tour[0]} />
             </div>
             <div className='flex max-sm:flex-col justify-center items-center  max-w-4xl mx-auto p-4 my-7 gap-4 '>
                 {

@@ -6,7 +6,6 @@ import { ShimmerThumbnail } from "react-shimmer-effects";
 
 
 const NearTours = () => {
-
     const [error, setError] = useState(null);
     const [tours, setTours] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -52,7 +51,7 @@ const NearTours = () => {
 
 
     return (
-        <div className='flex flex-wrap justify-center gap-8  mt-28'>
+        <div className='flex flex-col flex-wrap justify-center gap-8  mt-28'>
             <h1 className="text-center text-5xl font-bold text-gray-900 mb-8" >Explore Tours Around You</h1>
             {
                 error && (
