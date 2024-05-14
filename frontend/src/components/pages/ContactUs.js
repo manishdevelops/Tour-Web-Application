@@ -31,7 +31,7 @@ export default function ContactUs() {
         }
 
         try {
-            const res = await fetch('/api/contacts/createContact', {
+            const res = await fetch('/api/contactUs/createContact', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
