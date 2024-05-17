@@ -20,7 +20,7 @@ const CheapTours = () => {
                     return toast.error(errorData.message);
                 }
                 const data = await res.json();
-                console.log(data)
+                // console.log(data)
                 setLoading(false);
                 setTours(data.data.tours);
             } catch (error) {

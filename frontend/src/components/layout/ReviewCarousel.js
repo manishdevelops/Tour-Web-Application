@@ -4,7 +4,7 @@ import ReviewCarouselCard from '../common/ReviewCarouselCard';
 
 const ReviewCarousel = () => {
     const [reviews, setReviews] = useState([]);
-    console.log(reviews);
+    // console.log(reviews);
 
     const getReviews = async () => {
         try {

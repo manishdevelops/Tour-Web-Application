@@ -1,5 +1,6 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
+import { FaArrowLeftLong } from "react-icons/fa6";
+
 
 const AccessDenied = () => {
     return (
@@ -10,12 +11,7 @@ const AccessDenied = () => {
                     You do not have the necessary permissions to access this page.
                 </p>
                 <div className="mt-6">
-                    <Link
-                        to="/home"
-                        className="inline-block px-6 py-2 text-sm font-medium text-white bg-blue-600 rounded hover:bg-blue-500"
-                    >
-                        Go to Home
-                    </Link>
+                    <Link to='/home' className="bg-black py-2 px-4 rounded-md  shadow-md hover:text-black hover:bg-slate-50 transition text-white"><FaArrowLeftLong className='inline' /> Go to Home </Link>
                 </div>
             </div>
         </div>

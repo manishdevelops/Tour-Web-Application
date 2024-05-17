@@ -1,34 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { loadStripe } from '@stripe/stripe-js';
+import { toast } from 'react-toastify';
+
 
 const ImageOverlap = ({ tour }) => {
     const { currentUser } = useSelector(state => state.user);
 
+    const [processing, setProcessing] = useState(false);
+
     const makePayment = async () => {
 
-        const stripe = await loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
-        const body = {
-            tour
-        }
-        const headers = {
-            "Content-Type": "application/json"
-        }
-        const response = await fetch("/api/bookings/create-checkout-session", {
-            method: "POST",
-            headers: headers,
-            body: JSON.stringify(body)
-        });
+        try {
+            setProcessing(true);
+            const stripe = await loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
+            const body = {
+                tour: tour,
+                frontendUrl: window.location.origin
+            }
+            const headers = {
+                "Content-Type": "application/json"
+            }
+            const response = await fetch("/api/bookings/create-checkout-session", {
+                method: "POST",
+                headers: headers,
+                body: JSON.stringify(body)
+            });
 
-        const session = await response.json();
+            if (!response.ok) {
+                const errorData = response.json();
+                setProcessing(false);
+                return toast.error(errorData.message);
+            }
+            const session = await response.json();
 
-        const result = stripe.redirectToCheckout({
-            sessionId: session.id
-        });
+            const result = stripe.redirectToCheckout({
+                sessionId: session.id
+            });
 
-        if (result.error) {
-            console.log(result.error);
+            if (result.error) {
+                console.log(result.error);
+            }
+            setProcessing(false);
+
+        } catch (error) {
+            setProcessing(false);
+            toast.error(error.message);
         }
     }
 
@@ -55,7 +73,6 @@ const ImageOverlap = ({ tour }) => {
                             src={tour.photos[2]}
                             alt="Avatar 3"
                             className="w-full h-full object-cover"
-
                         />
                     </div>
 
@@ -63,7 +80,7 @@ const ImageOverlap = ({ tour }) => {
                 {
                     currentUser && (
                         <button onClick={makePayment} className="ml-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded shadow-md max-sm:mt-16">
-                            Book Now
+                            {processing ? 'Processing...' : 'Book Now'}
                         </button>
                     )
                 }

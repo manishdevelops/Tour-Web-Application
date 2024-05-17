@@ -112,17 +112,37 @@ export default function Header() {
                                                 )}
 
                                             </Menu.Item>
-                                            <Menu.Item>
-                                                {({ active }) => (
-                                                    <Link
-                                                        to='/dashboard'
-                                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                                                    >
-                                                        Dashboard
-                                                    </Link>
-                                                )}
+                                            {
+                                                currentUser?.role === 'admin' && (
+                                                    <Menu.Item>
+                                                        {({ active }) => (
+                                                            <Link
+                                                                to='/dashboard'
+                                                                className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                                            >
+                                                                Dashboard
+                                                            </Link>
+                                                        )}
 
-                                            </Menu.Item>
+                                                    </Menu.Item>
+                                                )
+                                            }
+
+                                            {
+                                                currentUser?.role === 'user' && (
+                                                    <Menu.Item>
+                                                        {({ active }) => (
+                                                            <Link
+                                                                to='/my-bookings'
+                                                                className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                                            >
+                                                                My bookings
+                                                            </Link>
+                                                        )}
+
+                                                    </Menu.Item>
+                                                )
+                                            }
                                         </Menu.Items>
                                     </Transition>
                                 </Menu>

@@ -7,7 +7,6 @@ import DisplayReviews from './DisplayReviews';
 
 const CreateReview = ({ id }) => {
     const { currentUser } = useSelector(state => state.user);
-    console.log(currentUser.photo)
 
     const [rating, setRating] = useState(0);
     const [reviewText, setReviewText] = useState('');

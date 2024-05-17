@@ -6,7 +6,7 @@ import { ShimmerThumbnail } from "react-shimmer-effects";
 const TopTours = () => {
     const [tours, setTours] = useState([]);
     const [loading, setLoading] = useState(false);
-    console.log(tours);
+    // console.log(tours);
 
     useEffect(() => {
         const getTopTours = async () => {

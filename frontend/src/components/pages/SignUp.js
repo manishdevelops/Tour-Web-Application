@@ -50,7 +50,7 @@ const SignUp = () => {
 
     return (
         <div className='p-3 max-w-lg mx-auto'>
-            <h1 className='text-3xl text-center font-semibold my-7'>Sign Up</h1>
+            <h2 className='text-3xl text-center font-semibold my-7'>Sign Up</h2>
             <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
                 <input type='text' placeholder='name' className='border p-3 rounded-lg' id='name' onChange={handleChange} />
                 <input type='email' placeholder='email' className='border p-3 rounded-lg' id='email' onChange={handleChange} />

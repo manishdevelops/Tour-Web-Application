@@ -13,6 +13,8 @@ import Dashboard from './components/layout/Dashboard';
 import Tour from "./components/pages/Tour";
 import Footer from "./components/pages/Footer";
 import PrivacyPolicy from "./components/layout/PrivacyPolicy";
+import AdminRoute from "./components/common/AdminRoute";
+import MyBookings from "./components/pages/MyBookings";
 
 function App() {
   return (
@@ -20,7 +22,7 @@ function App() {
       <header >
         <Header />
       </header>
-      <main>
+      <main className='min-h-[80vh]'>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/home' element={<Home />} />
@@ -33,6 +35,9 @@ function App() {
           <Route path='/tour-overview/:tourSlug' element={<Tour />} />
           <Route element={<PrivateRoute />}>
             <Route path='/profile' element={<Profile />} />
+            <Route path='/my-bookings' element={<MyBookings />} />
+          </Route>
+          <Route element={<AdminRoute />}>
             <Route path="/create-tour" element={<CreateTour />} />
             <Route path='/dashboard' element={<Dashboard />} />
           </Route>

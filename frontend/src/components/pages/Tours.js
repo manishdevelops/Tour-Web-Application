@@ -10,7 +10,7 @@ const Tour = () => {
     const navigate = useNavigate();
 
     const [tours, setTours] = useState([]);
-    console.log(tours);
+    // console.log(tours);
     const [tourLoading, setTourLoading] = useState(false);
 
     const [showMore, setShowMore] = useState(true);
@@ -24,7 +24,6 @@ const Tour = () => {
         state: '',
         tourType: ''
     });
-    console.log(sidebarData)
 
     const indianStates = [
         "Andhra Pradesh",
