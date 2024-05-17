@@ -15,6 +15,7 @@ import Footer from "./components/pages/Footer";
 import PrivacyPolicy from "./components/layout/PrivacyPolicy";
 import AdminRoute from "./components/common/AdminRoute";
 import MyBookings from "./components/pages/MyBookings";
+import NotFound from './components/pages/NotFound';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
             <Route path="/create-tour" element={<CreateTour />} />
             <Route path='/dashboard' element={<Dashboard />} />
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
       <footer className="bg-white shadow dark:bg-gray-900">
