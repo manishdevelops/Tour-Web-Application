@@ -95,25 +95,25 @@ const DisplayReviews = ({ id }) => {
                     <div key={review._id} className="space-y-6 my-4">
                         <div className="flex items-start space-x-4">
                             <div className="flex-shrink-0">
-                                <img alt="User avatar" className="h-[2.5rem] w-[2.5rem] rounded-full" src={review.photo} />
+                                <img alt="User avatar" className="h-[2.5rem] w-[2.5rem] rounded-full" src={review?.photo} />
                             </div>
                             <div className="min-w-0 flex-1">
                                 <div className='flex justify-between items-center'>
-                                    <p className="text-sm font-medium text-gray-500">{review.name}</p>
+                                    <p className="text-sm font-medium text-gray-500">{review?.name}</p>
 
                                     <StarRatings
-                                        rating={review.rating}
+                                        rating={review?.rating}
                                         starRatedColor="gold"
                                         starDimension="25px"
                                         starSpacing="5px"
                                     />
                                 </div>
                                 <div className="flex items-center justify-between space-x-2 text-sm text-gray-500 dark:text-gray-400 mt-2">
-                                    <span>{formatDistanceToNow(new Date(review.createdAt), { addSuffix: true })}</span>
-                                    {currentUser._id === review.user._id && (<button onClick={() => deleteYourReview(review._id)} className=' text-red-600 hover:underline'>Delete your review</button>)}
+                                    <span>{formatDistanceToNow(new Date(review?.createdAt), { addSuffix: true })}</span>
+                                    {currentUser?._id === review?.user?._id && (<button onClick={() => deleteYourReview(review?._id)} className=' text-red-600 hover:underline'>Delete your review</button>)}
                                 </div>
                                 <p className="mt-3 text-sm text-gray-700">
-                                    {review.review}
+                                    {review?.review}
                                 </p>
                             </div>
                         </div>

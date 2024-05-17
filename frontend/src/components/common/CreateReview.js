@@ -20,6 +20,9 @@ const CreateReview = ({ id }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!currentUser) {
+            return toast.error('Please login to continue.');
+        }
 
         try {
             setLoading(true);

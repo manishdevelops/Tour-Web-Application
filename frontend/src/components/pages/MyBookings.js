@@ -14,7 +14,7 @@ const MyBookings = () => {
     console.log(tour, user, price);
 
     const [bookedTours, setBookedTours] = useState(null);
-    console.log(bookedTours);
+    // console.log(bookedTours);
 
     const getMyTours = async () => {
         try {

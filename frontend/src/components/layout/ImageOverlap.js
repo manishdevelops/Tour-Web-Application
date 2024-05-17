@@ -48,81 +48,50 @@ const ImageOverlap = ({ tour }) => {
             setProcessing(false);
             toast.error(error.message);
         }
+    }
 
-        //payment integration
-        const makePayment = async () => {
-            const stripe = await loadStripe('pk_test_51PG2LpSJbNWF3NaIUQUjAOGxaGKFFZUSQh8G2dQ1KaxxQlkwsQlxEe8PzRqWRpgHG7zh58D7VoWqld08GVOCNqUD00FqLqNyHB');
-
-            const body = {
-                tour: tour
-            }
-            console.log(body)
-            const headers = {
-                "Content-Type": "application/json"
-            }
-
-            const response = await fetch('/api/bookings/create-checkout-session', {
-                method: "POST",
-                headers: headers,
-                body: JSON.stringify(body)
-            });
-
-            const session = await response.json();
-
-            const result = stripe.redirectToCheckout({
-                sessionId: session.id
-            });
-
-            if (result.error) {
-                console.log(result.error);
-            }
-
-        }
-
-        return (
-            <>
-                <div className='mt-16 flex max-sm:flex-col justify-between items-center'>
-                    <div className="flex items-center relative">
-                        <div className="relative z-10 max-sm:w-32 max-sm:h-32 w-64 h-64 rounded-full overflow-hidden">
-                            <img
-                                src={tour.photos[0]}
-                                alt="Avatar 1"
-                                className="w-full h-full object-cover"
-                            />
-                        </div>
-                        <div className="absolute left-16 max-sm:left-8 top-4 z-20 max-sm:w-32 max-sm:h-32 w-64 h-64 rounded-full overflow-hidden">
-                            <img
-                                src={tour.photos[1]}
-                                alt="Avatar 2"
-                                className="w-full h-full object-cover"
-                            />
-                        </div>
-                        <div className="absolute left-32 max-sm:left-16 top-8 z-30 max-sm:w-32 max-sm:h-32 w-64 h-64 rounded-full overflow-hidden">
-                            <img
-                                src={tour.photos[2]}
-                                alt="Avatar 3"
-                                className="w-full h-full object-cover"
-                            />
-                        </div>
-
+    return (
+        <>
+            <div className='mt-16 flex max-sm:flex-col justify-between items-center'>
+                <div className="flex items-center relative">
+                    <div className="relative z-10 max-sm:w-32 max-sm:h-32 w-64 h-64 rounded-full overflow-hidden">
+                        <img
+                            src={tour.photos[0]}
+                            alt="Avatar 1"
+                            className="w-full h-full object-cover"
+                        />
                     </div>
-                    {
-                        currentUser && (
-                            <button onClick={makePayment} className="ml-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded shadow-md max-sm:mt-16">
-                                {processing ? 'Processing...' : 'Book Now'}
-                                Book Now
-                            </button>
-                        )
-                    }
-                    {
-                        !currentUser && (<Link to='/sign-in' className="ml-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded shadow-md max-sm:mt-16">
-                            Log in to book now
-                        </Link>)
-                    }
-                </div>
-            </>
-        );
-    };
+                    <div className="absolute left-16 max-sm:left-8 top-4 z-20 max-sm:w-32 max-sm:h-32 w-64 h-64 rounded-full overflow-hidden">
+                        <img
+                            src={tour.photos[1]}
+                            alt="Avatar 2"
+                            className="w-full h-full object-cover"
+                        />
+                    </div>
+                    <div className="absolute left-32 max-sm:left-16 top-8 z-30 max-sm:w-32 max-sm:h-32 w-64 h-64 rounded-full overflow-hidden">
+                        <img
+                            src={tour.photos[2]}
+                            alt="Avatar 3"
+                            className="w-full h-full object-cover"
+                        />
+                    </div>
 
-}
+                </div>
+                {
+                    currentUser?.role === 'user' && (
+                        <button onClick={makePayment} className="ml-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded shadow-md max-sm:mt-16">
+                            {processing ? 'Processing...' : 'Book Now'}
+                        </button>
+                    )
+                }
+                {
+                    !currentUser && (<Link to='/sign-in' className="ml-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded shadow-md max-sm:mt-16">
+                        Log in to book now
+                    </Link>)
+                }
+            </div>
+        </>
+    );
+};
+
 export default ImageOverlap;

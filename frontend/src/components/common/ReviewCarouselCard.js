@@ -21,14 +21,14 @@ const ReviewCarouselCard = ({ reviews }) => {
 
                     <div
                         key={review._id}
-                        className={`bg-gray-100 p-4 rounded-lg shadow-md ${index === currentReviewIndex ? 'block' : 'hidden'
+                        className={`bg-gray-100 p-4 max-w-md w-full  shadow-md rounded-lg overflow-hidden ${index === currentReviewIndex ? 'block' : 'hidden'
                             }`}
                     >
-                        <div className='flex mb-4'>
+                        <div className='flex justify-center mb-4'>
                             <img className='h-8 w-8 rounded-full mr-4' src={review.photo} alt='user' />
                             <h3 className="text-lg font-semibold mb-2">{review.name}</h3>
                         </div>
-                        <p className="text-red-900 justify-center">"{review.review}"</p>
+                        <p className="text-red-900 justify-center text-center">"{review.review}"</p>
                     </div>
                 ))
             }
