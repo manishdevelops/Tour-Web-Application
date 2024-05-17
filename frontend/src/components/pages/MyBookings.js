@@ -56,8 +56,13 @@ const MyBookings = () => {
     }
 
     useEffect(() => {
-        bookMyTour();
-        getMyTours();
+        const func = async () => {
+            await bookMyTour();
+            await getMyTours();
+        }
+
+        func();
+
     }, []);
 
     return (
