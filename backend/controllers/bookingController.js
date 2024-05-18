@@ -52,11 +52,24 @@ exports.bookMyTour = catchAsync(async (req, res, next) => {
         status: "succesS",
         data: "Tour booked successfully."
     });
-
 });
 
+exports.isTourBooked = catchAsync(async (req, res, next) => {
+    const { tour, user } = req.body;
+
+    const bookedAlready = await Booking.findOne({ user, tour });
+
+    if (bookedAlready) {
+        return next(AppError('Tour already booked.', 409));
+    }
+
+    res.status(200).json({
+        status: 'success',
+        data: 'not booked'
+    })
+})
+
 exports.getMyTours = catchAsync(async (req, res, next) => {
-    console.log(req.user.id);
     const bookings = await Booking.find({ user: req.user.id });
 
     const tourIDs = bookings.map(el => el.tour);

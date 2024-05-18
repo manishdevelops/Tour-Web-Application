@@ -10,9 +10,38 @@ const ImageOverlap = ({ tour }) => {
 
     const [processing, setProcessing] = useState(false);
 
+    const isTourBookedAready = async () => {
+        try {
+            const res = await fetch('/api/bookings/booked-already', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    user: currentUser._id,
+                    tour: tour._id
+                })
+            });
+
+            if (!res.ok) {
+                const errorData = await res.json();
+                toast.error(errorData.message);
+                return errorData.status;
+            }
+
+
+        } catch (error) {
+            toast.error(error.message);
+        }
+    }
+
     const makePayment = async () => {
 
         try {
+            const isBooked = await isTourBookedAready();
+
+            if (isBooked === 'error') return;
+
             setProcessing(true);
             const stripe = await loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
             const body = {

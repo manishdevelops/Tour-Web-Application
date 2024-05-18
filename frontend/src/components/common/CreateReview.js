@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import DisplayReviews from './DisplayReviews';
 
-const CreateReview = ({ id }) => {
+const CreateReview = ({ tour }) => {
     const { currentUser } = useSelector(state => state.user);
 
     const [rating, setRating] = useState(0);
@@ -18,16 +18,47 @@ const CreateReview = ({ id }) => {
         setReviewText('');
     };
 
+    const isTourBookedAready = async () => {
+        try {
+            const res = await fetch('/api/bookings/booked-already', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    user: currentUser._id,
+                    tour: tour._id
+                })
+            });
+
+            if (!res.ok) {
+                const errorData = await res.json();
+                return errorData.status;
+            }
+
+            toast.error('Please book this tour before leaving a review.');
+            return 'not booked';
+        } catch (error) {
+            toast.error(error.message);
+        }
+    }
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         if (!currentUser) {
             return toast.error('Please login to continue.');
         }
 
         try {
+            const isBooked = await isTourBookedAready();
+
+            if (isBooked === 'not booked') return;
+
             setLoading(true);
             setReviewCreated(false);
-            const res = await fetch(`/api/tours/${id}/reviews`, {
+            const res = await fetch(`/api/tours/${tour._id}/reviews`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -82,7 +113,7 @@ const CreateReview = ({ id }) => {
                     </button>
                 </div>
             </form>
-            <DisplayReviews key={reviewCreated ? 'review_created' : 'no_review_created'} id={id} />
+            <DisplayReviews key={reviewCreated ? 'review_created' : 'no_review_created'} id={tour._id} />
         </div>
     );
 };

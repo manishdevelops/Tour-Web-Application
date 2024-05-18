@@ -11,10 +11,8 @@ const MyBookings = () => {
     const tour = queryParams.get('tour');
     const user = queryParams.get('user');
     const price = queryParams.get('price');
-    console.log(tour, user, price);
 
     const [bookedTours, setBookedTours] = useState(null);
-    // console.log(bookedTours);
 
     const getMyTours = async () => {
         try {

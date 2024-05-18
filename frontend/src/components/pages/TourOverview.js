@@ -126,7 +126,7 @@ const TourOverview = ({ tour }) => {
                 }
             </div>
             <div className='flex max-sm:flex-col justify-center items-center  max-w-4xl mx-auto  pb-16 mb-7 gap-4 bg-[#f8faf8] shadow-md rounded-md'>
-                <CreateReview id={tour[0]._id} />
+                <CreateReview tour={tour[0]} />
             </div>
 
         </section>
