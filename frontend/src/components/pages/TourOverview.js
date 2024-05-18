@@ -14,12 +14,9 @@ import ImageOverlap from '../layout/ImageOverlap';
 import { useSelector } from 'react-redux';
 import Contact from '../layout/Contact';
 import CreateReview from '../common/CreateReview';
-import { LuMail } from "react-icons/lu";
 
 const TourOverview = ({ tour }) => {
     const { currentUser } = useSelector(state => state.user);
-
-    const [contact, setContact] = useState(false);
 
     SwiperCore.use([Navigation, Autoplay]);
 
@@ -119,10 +116,7 @@ const TourOverview = ({ tour }) => {
             </div>
             <div className='flex max-sm:flex-col justify-center items-center  max-w-4xl mx-auto p-4 my-7 gap-4 '>
                 {
-                    currentUser && currentUser.role === 'user' && !contact && <button onClick={() => setContact(true)} className='bg-slate-700 w-full text-white rounded-lg uppercase hover:opacity-95 p-3 shadow-md flex justify-center items-center'><LuMail className='text-lg mr-2' />Contact Tour Guide</button>
-                }
-                {
-                    contact && <Contact tour={tour[0]} />
+                    currentUser && currentUser.role === 'user' && <Contact tour={tour[0]} />
                 }
             </div>
             <div className='flex max-sm:flex-col justify-center items-center  max-w-4xl mx-auto  pb-16 mb-7 gap-4 bg-[#f8faf8] shadow-md rounded-md'>
