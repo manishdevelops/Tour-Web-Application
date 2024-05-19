@@ -11,6 +11,8 @@ exports.getUser = catchAsync(async (req, res, next) => {
     })
 });
 
+
+
 exports.deleteMe = catchAsync(async (req, res, next) => {
     await User.findByIdAndDelete(req.user.id);
 

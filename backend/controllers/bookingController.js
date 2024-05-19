@@ -82,17 +82,3 @@ exports.getMyTours = catchAsync(async (req, res, next) => {
         tours
     });
 });
-
-
-// admin
-exports.getAllTours = catchAsync(async (req, res, next) => {
-    const bookings = await Booking.find();
-
-    res.status(200).json({
-        status: "success",
-        results: bookings.length,
-        data: {
-            bookings
-        }
-    })
-})

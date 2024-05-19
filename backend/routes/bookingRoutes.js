@@ -13,6 +13,5 @@ router.post('/book-tour', authController.protect, bookingController.bookMyTour);
 
 router.get('/my-tours', authController.protect, bookingController.getMyTours);
 
-router.get('/all-bookings', authController.protect, isAdmin.isAdmin, bookingController.getAllTours);
 
 module.exports = router;

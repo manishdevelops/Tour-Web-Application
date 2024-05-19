@@ -6,7 +6,7 @@ exports.isAdmin = catchAsync(async (req, res, next) => {
 
     const user = await User.findById({ _id: req.user.id });
 
-    if (user.role !== 'admin') return next(AppError('This action requires higher access privileges.'));
+    if (user.role !== 'admin') return next(AppError('Unauthorized action. Please contact your administrator.'));
 
     next();
 });
