@@ -152,7 +152,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
             photo: req.body.photo,
         }
     }, { new: true });
-    console.log(updatedUser);
+    // console.log(updatedUser);
     updatedUser.password = undefined;
 
     createSendToken(updatedUser, 200, res);
