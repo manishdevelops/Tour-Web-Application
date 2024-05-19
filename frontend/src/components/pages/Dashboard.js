@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Dashboard = () => {
+
+    const { currentUser } = useSelector(state => state.user);
+
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     return (
@@ -65,7 +69,7 @@ const Dashboard = () => {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
                         </svg>
                     </button>
-                    <div className="text-lg font-bold">Hello Evano 👋</div>
+                    <p className="text-lg font-bold">Hello {currentUser?.name.split(' ')[0]} 👋</p>
                     {/* <div className="relative">
                         <input type="text" className="bg-gray-100 rounded-full px-4 py-2" placeholder="Search" />
                         <svg className="absolute right-2 top-2 h-6 w-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -73,7 +77,7 @@ const Dashboard = () => {
                         </svg>
                     </div> */}
                 </div>
-                <div className="flex-1 p-8 bg-gray-100">
+                <div className="flex-1 lg:p-6 p-4 bg-gray-100">
                     <Outlet />
                 </div>
             </div>
