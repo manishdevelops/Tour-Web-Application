@@ -9,13 +9,19 @@ import ContactUs from "./components/pages/ContactUs";
 import Tours from "./components/pages/Tours";
 import AboutUs from "./components/pages/AboutUs";
 import CreateTour from "./components/pages/CreateTour";
-import Dashboard from './components/layout/Dashboard';
+import Dashboard from './components/pages/Dashboard';
 import Tour from "./components/pages/Tour";
 import Footer from "./components/pages/Footer";
 import PrivacyPolicy from "./components/layout/PrivacyPolicy";
 import AdminRoute from "./components/common/AdminRoute";
 import MyBookings from "./components/pages/MyBookings";
 import NotFound from './components/pages/NotFound';
+import DashboardHome from "./components/layout/DashboardHome";
+import DashboardContacts from "./components/layout/DashboardContacts";
+import DashboardBookings from "./components/layout/DashboardBookings";
+import DashboardReviews from "./components/layout/DashboardReviews";
+import DashboardTours from "./components/layout/DashboardTours";
+import DashboardUsers from "./components/layout/DashboardUsers";
 
 function App() {
   return (
@@ -40,7 +46,16 @@ function App() {
           </Route>
           <Route element={<AdminRoute />}>
             <Route path="/create-tour" element={<CreateTour />} />
-            <Route path='/dashboard' element={<Dashboard />} />
+
+            <Route path="/dashboard/*" element={<Dashboard />}>
+              <Route index element={<DashboardHome />} />
+              <Route path="home" index element={<DashboardHome />} />
+              <Route path="tours" element={<DashboardTours />} />
+              <Route path="users" element={<DashboardUsers />} />
+              <Route path="bookings" element={<DashboardBookings />} />
+              <Route path="reviews" element={<DashboardReviews />} />
+              <Route path="contacts" element={<DashboardContacts />} />
+            </Route>
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
