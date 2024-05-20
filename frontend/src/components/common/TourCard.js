@@ -18,7 +18,7 @@ const CardItem = ({ tours }) => {
                     </p>
                     <div className='px-4 text-sm mb-2 mt-2 flex justify-between'>
                         <div>
-                            <span className=''>₹{tour.price} per person</span>
+                            <span className=''>₹{tour.price.toLocaleString('en-IN')} per person</span>
                         </div>
                         <div className=''>
                             <StarRatings

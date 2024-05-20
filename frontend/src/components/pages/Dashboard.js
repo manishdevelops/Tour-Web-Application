@@ -23,12 +23,12 @@ const Dashboard = () => {
                         <div className="p-4 text-lg font-bold">Admin Dashboard</div>
                         <nav className="flex-1">
                             <ul>
-                                <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/home" className='flex items-center'><FaHome className='inline mr-2' />Home</Link></li>
-                                <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/destinations" className='flex items-center'><MdTour className='inline mr-2' />Tours</Link></li>
-                                <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/users" className='flex items-center'><FaUsers className='inline mr-2' />Users</Link></li>
-                                <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/bookings" className='flex items-center'><TbBrandBooking className='inline mr-2' />bookings</Link></li>
-                                <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/reviews" className='flex items-center'><MdOutlineRateReview className='inline mr-2' />Reviews</Link></li>
-                                <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/contacts" className='flex items-center'><MdContacts className='inline mr-2' />Contacts</Link></li>
+                                <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/home" className='flex items-center'><FaHome className='inline mr-4' />Home</Link></li>
+                                <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/destinations" className='flex items-center'><MdTour className='inline mr-4' />Tours</Link></li>
+                                <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/users" className='flex items-center'><FaUsers className='inline mr-4' />Users</Link></li>
+                                <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/bookings" className='flex items-center'><TbBrandBooking className='inline mr-4' />bookings</Link></li>
+                                <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/reviews" className='flex items-center'><MdOutlineRateReview className='inline mr-4' />Reviews</Link></li>
+                                <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/contacts" className='flex items-center'><MdContacts className='inline mr-4' />Contacts</Link></li>
                             </ul>
                         </nav>
                     </div>
@@ -39,12 +39,12 @@ const Dashboard = () => {
                 <div className="p-4 text-lg font-bold">Admin Dashboard</div>
                 <nav className="flex-1">
                     <ul>
-                        <li className="px-4 py-2 hover:bg-gray-700 "><Link to="/dashboard/home" className='flex items-center'><FaHome className='inline mr-2' />Home</Link></li>
-                        <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/tours" className='flex items-center'><MdTour className='inline mr-2' />Tours</Link></li>
-                        <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/users" className='flex items-center'><FaUsers className='inline mr-2' />Users</Link></li>
-                        <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/bookings" className='flex items-center'><TbBrandBooking className='inline mr-2' />bookings</Link></li>
-                        <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/reviews" className='flex items-center'><MdOutlineRateReview className='inline mr-2' />Reviews</Link></li>
-                        <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/contacts" className='flex items-center'><MdContacts className='inline mr-2' />Contacts</Link></li>
+                        <li className="px-4 py-2 hover:bg-gray-700 "><Link to="/dashboard/home" className='flex items-center'><FaHome className='inline mr-4' />Home</Link></li>
+                        <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/tours" className='flex items-center'><MdTour className='inline mr-4' />Tours</Link></li>
+                        <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/users" className='flex items-center'><FaUsers className='inline mr-4' />Users</Link></li>
+                        <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/bookings" className='flex items-center'><TbBrandBooking className='inline mr-4' />bookings</Link></li>
+                        <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/reviews" className='flex items-center'><MdOutlineRateReview className='inline mr-4' />Reviews</Link></li>
+                        <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/contacts" className='flex items-center'><MdContacts className='inline mr-4' />Contacts</Link></li>
                     </ul>
                 </nav>
             </aside>

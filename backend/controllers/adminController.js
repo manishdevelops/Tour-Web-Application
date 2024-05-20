@@ -115,8 +115,8 @@ const getMonthlyStatistics = async (Model, priceField = null) => {
     return {
         count: currentMonthCount,
         percentageOfNewDocuments: percentageOfNewDocuments.toFixed(2),
-        totalEarnings: totalEarnings.toFixed(2),
-        currentMonthEarnings: currentMonthEarnings.toFixed(2)
+        totalEarnings: +totalEarnings.toFixed(2),
+        currentMonthEarnings: +currentMonthEarnings.toFixed(2)
     };
 };
 
