@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { FaHome } from "react-icons/fa";
+import { MdTour } from "react-icons/md";
+import { FaUsers } from "react-icons/fa6";
+import { TbBrandBooking } from "react-icons/tb";
+import { MdContacts } from "react-icons/md";
+import { MdOutlineRateReview } from "react-icons/md";
 
 const Dashboard = () => {
 
@@ -14,52 +20,33 @@ const Dashboard = () => {
                 <div className="fixed inset-0 bg-gray-600 bg-opacity-75" ></div>
                 <div className="fixed inset-y-0 left-0 z-50 flex max-w-full">
                     <div className="w-64 bg-gray-800 text-white flex flex-col">
-                        <div className="p-4 text-lg font-bold">Dashboard</div>
+                        <div className="p-4 text-lg font-bold">Admin Dashboard</div>
                         <nav className="flex-1">
                             <ul>
-                                <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/home">Home</Link></li>
-                                <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/destinations">Tours</Link></li>
-                                <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/users">Users</Link></li>
-                                <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/bookings">bookings</Link></li>
-                                <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/reviews">Reviews</Link></li>
-                                <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/contacts">Contacts</Link></li>
+                                <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/home" className='flex items-center'><FaHome className='inline mr-2' />Home</Link></li>
+                                <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/destinations" className='flex items-center'><MdTour className='inline mr-2' />Tours</Link></li>
+                                <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/users" className='flex items-center'><FaUsers className='inline mr-2' />Users</Link></li>
+                                <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/bookings" className='flex items-center'><TbBrandBooking className='inline mr-2' />bookings</Link></li>
+                                <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/reviews" className='flex items-center'><MdOutlineRateReview className='inline mr-2' />Reviews</Link></li>
+                                <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/contacts" className='flex items-center'><MdContacts className='inline mr-2' />Contacts</Link></li>
                             </ul>
                         </nav>
-
-                        <div className="p-4 border-t border-gray-700">
-                            <div className="flex items-center">
-                                <img src="https://via.placeholder.com/40" alt="User" className="rounded-full w-10 h-10 mr-2" />
-                                <div>
-                                    <div className="font-bold">Evano</div>
-                                    <div className="text-sm text-gray-400">Project Manager</div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
 
             <aside className="hidden lg:flex lg:flex-col lg:w-64 bg-gray-800 text-white">
-                <div className="p-4 text-lg font-bold">Dashboard</div>
+                <div className="p-4 text-lg font-bold">Admin Dashboard</div>
                 <nav className="flex-1">
                     <ul>
-                        <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/home">Home</Link></li>
-                        <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/tours">Tours</Link></li>
-                        <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/users">Users</Link></li>
-                        <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/bookings">bookings</Link></li>
-                        <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/reviews">Reviews</Link></li>
-                        <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/contacts">Contacts</Link></li>
+                        <li className="px-4 py-2 hover:bg-gray-700 "><Link to="/dashboard/home" className='flex items-center'><FaHome className='inline mr-2' />Home</Link></li>
+                        <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/tours" className='flex items-center'><MdTour className='inline mr-2' />Tours</Link></li>
+                        <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/users" className='flex items-center'><FaUsers className='inline mr-2' />Users</Link></li>
+                        <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/bookings" className='flex items-center'><TbBrandBooking className='inline mr-2' />bookings</Link></li>
+                        <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/reviews" className='flex items-center'><MdOutlineRateReview className='inline mr-2' />Reviews</Link></li>
+                        <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/contacts" className='flex items-center'><MdContacts className='inline mr-2' />Contacts</Link></li>
                     </ul>
                 </nav>
-                <div className="p-4 border-t border-gray-700">
-                    <div className="flex items-center">
-                        <img src="https://via.placeholder.com/40" alt="User" className="rounded-full w-10 h-10 mr-2" />
-                        <div>
-                            <div className="font-bold">Evano</div>
-                            <div className="text-sm text-gray-400">Project Manager</div>
-                        </div>
-                    </div>
-                </div>
             </aside>
 
             <div className="flex-1 flex flex-col">

@@ -40,11 +40,13 @@ const SignIn = () => {
             }
 
             const data = await res.json();
-            console.log(data.data)
 
             toast.success('User logged in successfully!.');
             dispatch(signInSuccess(data.data.user));
-            navigate('/tours');
+
+            window.setTimeout(() => {
+                navigate('/tours');
+            }, 1500);
 
         } catch (error) {
             setLoading(false)
