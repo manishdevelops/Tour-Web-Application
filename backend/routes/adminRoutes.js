@@ -20,5 +20,6 @@ router.get('/all-contacts', authController.protect, isAdmin.isAdmin, adminContro
 
 router.get('/all-statistics', authController.protect, isAdmin.isAdmin, adminController.getStatistics);
 
+router.get('/booking-earnings-by-date', authController.protect, isAdmin.isAdmin, adminController.getBookingEarnings);
 
 module.exports = router;

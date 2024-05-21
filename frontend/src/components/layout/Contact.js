@@ -32,7 +32,7 @@ export default function Contact({ tour }) {
             {guide && (
                 <div className=' flex flex-col gap-2'>
                     <p> Contact <span className='font-semibold'>{guide.name}</span>, your tour guide for more about <span className='font-semibold text-red-900'>{tour.tourName.toLowerCase()}</span></p>
-                    <textarea name='message' id='message' rows='2' value={message} autoFocus onChange={onChange} className='w-full border p-3 rounded-lg'></textarea>
+                    <textarea name='message' id='message' rows='2' value={message} onChange={onChange} className='w-full border p-3 rounded-lg'></textarea>
 
                     <Link to={`mailto:${guide.email}?subject=Regarding ${guide.name}&body=${message}`} className='bg-slate-700 text-white text-center p-3 uppercase rounded-lg hover:opacity-95 flex justify-center items-center'><LuMail className='text-lg mr-2' />send message </Link>
                 </div>

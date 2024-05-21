@@ -1,9 +1,17 @@
 import React from 'react';
-import LoaderImg from '../../assets/images/72f1a425e3ea3505929a30b8adabefb8.gif';
-
+import { ColorRing } from 'react-loader-spinner';
 const Loader = () => {
     return (
-        <div className="bg-contain bg-center h-screen" style={{ backgroundImage: `url(${LoaderImg})` }}>
+        <div className="bg-contain bg-center h-screen grid place-content-center" >
+            <ColorRing
+                visible={true}
+                height="80"
+                width="80"
+                ariaLabel="color-ring-loading"
+                wrapperStyle={{}}
+                wrapperClass="color-ring-wrapper"
+                colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+            />
         </div>
     );
 };

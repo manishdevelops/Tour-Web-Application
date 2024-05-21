@@ -140,3 +140,35 @@ exports.getStatistics = catchAsync(async (req, res, next) => {
 
     res.status(201).json(statistics);
 });
+
+const getBookingEarningsByDate = async () => {
+    const results = await Booking.aggregate([
+        {
+            $group: {
+                _id: {
+                    $dateToString: { format: "%Y-%m-%d", date: "$createdAt" }
+                },
+                totalEarnings: { $sum: "$price" },
+                bookingDate: { $first: "$createdAt" }
+            }
+        },
+        { $sort: { bookingDate: 1 } }
+    ]);
+
+    const dates = results.map(result => result._id);
+    const earnings = results.map(result => result.totalEarnings);
+
+    return { dates, earnings };
+};
+
+exports.getBookingEarnings = catchAsync(async (req, res, next) => {
+    const { dates, earnings } = await getBookingEarningsByDate();
+
+    res.status(200).json({
+        status: 'success',
+        data: {
+            dates,
+            earnings
+        }
+    });
+});
