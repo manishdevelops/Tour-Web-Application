@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { ThreeDots, Vortex, Bars } from 'react-loader-spinner';
+import { Vortex, Bars } from 'react-loader-spinner';
 
 import { TbCoinRupee } from "react-icons/tb";
 import { MdTour } from "react-icons/md";
@@ -20,6 +20,8 @@ const DashboardHome = () => {
     const [statisticsLoading, setStatisticsLoading] = useState(true);
     const [lineGraphLoading, setLineChartLoading] = useState(true);
     const icons = [MdTour, FaUsers, TbBrandBooking, MdContacts, MdOutlineRateReview];
+
+    const colors = ['text-red-900', 'text-blue-600', 'text-green-700', 'text-orangered', 'text-pink-700'];
 
     const getMonthlyEarnings = async () => {
         try {
@@ -70,19 +72,20 @@ const DashboardHome = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
                 {!statisticsLoading && statistics &&
                     <div className="p-4 bg-white rounded-lg shadow-md">
-                        <h2 className="text-purple-900 font-semibold flex items-center"><TbCoinRupee className='text-xl text-[#28A745] inline mr-2' />Total Earnings</h2>
+                        <h2 className="text-purple-900 font-semibold flex items-center"><TbCoinRupee className='text-xl text-yellow-500 inline mr-2' />Total Earnings</h2>
                         <div className="text-2xl font-bold">₹{parseFloat(statistics[2]?.stats?.totalEarnings).toLocaleString('en-IN')}</div>
-                        <div className="text-green-500">₹{parseFloat(statistics[2]?.stats?.currentMonthEarnings).toLocaleString('en-IN')} this month</div>
+                        <div className="text-green-500 text-sm">₹{parseFloat(statistics[2]?.stats?.currentMonthEarnings).toLocaleString('en-IN')} this month</div>
                     </div>
                 }
                 {!statisticsLoading && statistics &&
                     statistics.map((statistics, i) => {
                         const Icon = icons[i];
+                        const color = colors[i];
                         return (
                             <div key={i} className="p-4 bg-white rounded-lg shadow-md">
-                                <h2 className="text-purple-900 font-semibold "> <Icon className='text-xl text-[#28A745] inline mr-2' />Total {statistics.model}</h2>
+                                <h2 className="text-purple-900 font-semibold "> <Icon className={`text-xl ${color} inline mr-2`} />Total {statistics.model}</h2>
                                 <div className="text-2xl font-bold">{statistics?.stats?.count}</div>
-                                <div className="text-green-500">{statistics?.stats?.percentageOfNewDocuments}% this month</div>
+                                <div className="text-green-500 text-sm">{statistics?.stats?.percentageOfNewDocuments}% this month</div>
                             </div>
                         );
                     })
@@ -91,15 +94,14 @@ const DashboardHome = () => {
                 {!statistics && statisticsLoading && (
                     Array.from({ length: 6 }).map((_, i) => (
                         <div key={i} className="p-4 bg-white rounded-lg shadow-md grid place-content-center">
-                            <ThreeDots
-                                visible={true}
-                                height="80"
-                                width="80"
-                                color="#4fa94d"
-                                radius="9"
-                                ariaLabel="three-dots-loading"
+                            <Bars
+                                height="60"
+                                width="60"
+                                color="rgba(79, 169, 77, 0.7)"
+                                ariaLabel="bars-loading"
                                 wrapperStyle={{}}
                                 wrapperClass=""
+                                visible={true}
                             />
                         </div>
                     ))
@@ -137,7 +139,7 @@ const DashboardHome = () => {
                         <Bars
                             height="100"
                             width="100"
-                            color="#4fa94d"
+                            color="rgba(255, 99, 132, 0.6)"
                             ariaLabel="bars-loading"
                             wrapperStyle={{}}
                             wrapperClass=""

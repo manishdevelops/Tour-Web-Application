@@ -2,7 +2,12 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}",],
   theme: {
-    extend: {},
+    extend: {
+      width: {
+        'custom-256': 'calc(100vw - 256px)',
+        'custom-1rem': 'calc(100vw - 4rem)',
+      },
+    },
   },
   plugins: [],
 }

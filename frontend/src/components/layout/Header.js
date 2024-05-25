@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 import { FaArrowRightLong } from "react-icons/fa6";
 
 const navigation = [
-    // { name: 'Dashboard', href: '#', current: true },
     { name: 'Home', href: '/' },
     { name: 'Tours', href: '/tours' },
     { name: 'Contact Us', href: '/contact-us' },

@@ -18,7 +18,7 @@ const CardItem = ({ tours }) => {
                     </p>
                     <div className='px-4 text-sm mb-2 mt-2 flex justify-between'>
                         <div>
-                            <span className=''>₹{tour.price.toLocaleString('en-IN')} per person</span>
+                            <p className=''><span className='text-green-700 font-semibold'>₹{tour.price.toLocaleString('en-IN')}</span> / person</p>
                         </div>
                         <div className=''>
                             <StarRatings
@@ -31,18 +31,18 @@ const CardItem = ({ tours }) => {
                     </div>
                     <div className='px-4 text-sm mb-2 flex justify-between'>
                         <div className=''>
-                            <span className='flex items-center gap-1'><MdLocationPin /> {tour.location}</span>
+                            <span className='flex items-center gap-1 font-semibold'><MdLocationPin className='text-red-600 text-lg' /> {tour.location}</span>
                         </div>
                         <div className='text-sm mb-2 flex justify-between'>
-                            <span className='flex items-center gap-1'><MdDateRange />{new Date(tour.departureDate).toLocaleString('en-US', { day: '2-digit', month: 'long', year: 'numeric' })}</span>
+                            <span className='flex items-center gap-1 font-semibold'><MdDateRange className='text-lg text-pink-600' />{new Date(tour.departureDate).toLocaleString('en-US', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
                         </div>
                     </div>
                     <div className='px-4 text-sm mb-2 flex justify-between'>
                         <div className=''>
-                            <span className='flex items-center gap-2'><FaRegClock /> {tour.tourDuration} tour</span>
+                            <span className='flex items-center gap-2 font-semibold'><FaRegClock className='text-lg text-green-600' /> {tour.tourDuration} tour</span>
                         </div>
                         <div className='text-sm mb-2 flex justify-between'>
-                            <span className='flex items-center gap-2'><IoIosPeople /> {tour.groupSize} People</span>
+                            <span className='flex items-center gap-2 font-semibold'><IoIosPeople className='text-lg  text-blue-600' /> {tour.groupSize} People</span>
                         </div>
                     </div>
                     <div className='flex justify-end mb-3 px-4'>

@@ -65,7 +65,7 @@ const MyBookings = () => {
 
     return (
         <>
-            <h2 className='text-3xl text-center font-semibold my-7'>MyBookings</h2>
+            <h2 className='text-3xl text-center font-semibold my-7'>My Bookings</h2>
             {bookedTours && <TourCard tours={bookedTours} />}
             {!bookedTours && <div className='p-4 flex items-center justify-center flex-wrap gap-4'>{Array.from({ length: 5 }).map((_, i) => <ShimmerThumbnail key={i} height={250} width={250} rounded />)}
             </div>}
