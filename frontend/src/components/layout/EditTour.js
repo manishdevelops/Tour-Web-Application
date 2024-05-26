@@ -1,14 +1,17 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 const { app } = require('../../firebase');
 
-
-function CreateTour() {
+const EditTour = () => {
     const { currentUser } = useSelector((state) => state.user);
+
     const navigate = useNavigate();
+    const params = useParams();
+    const { tourId } = params;
+
 
     const [formData, setFormData] = useState({
         tourName: '',
@@ -26,7 +29,7 @@ function CreateTour() {
         coordinates: ''
     });
 
-    console.log(formData);
+    console.log(formData.departureDate);
 
     const [uploading, setUploading] = useState(false);
     const [tourCreating, setTourCreating] = useState(false);
@@ -97,7 +100,6 @@ function CreateTour() {
         }));
     };
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         const [lng, lat] = formData.coordinates.split(',');
@@ -107,8 +109,8 @@ function CreateTour() {
 
         try {
             setTourCreating(true);
-            const res = await fetch(`/api/admin/createTour`, {
-                method: 'POST',
+            const res = await fetch(`/api/admin/edit-tour/${tourId}`, {
+                method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -128,17 +130,36 @@ function CreateTour() {
             const data = await res.json();
             console.log(data.data);
 
-            toast.success('tour created successfully!.');
-            navigate('/tours');
+            toast.success('tour updated successfully!.');
+            navigate('/dashboard/tours');
         } catch (error) {
             setTourCreating(false);
             toast.error(error.message);
         }
     };
 
+
+    useEffect(() => {
+        const getTour = async () => {
+            const res = await fetch(`/api/tours/${tourId}`);
+            if (!res.ok) {
+                const errorData = await res.json();
+                return toast.error(errorData.message);
+            }
+
+            const data = await res.json();
+            setFormData({
+                ...data.data,
+                coordinates: data.data.coordinates.join(','),
+                departureDate: new Date(data.data.departureDate).toISOString().split('T')[0]
+            });
+        }
+        getTour();
+    }, [])
+
     return (
         <div className="max-w-4xl mx-auto p-6 sm:p-8 md:p-10 lg:p-12 space-y-8">
-            <h1 className="text-3xl sm:text-4xl font-bold">Create a New Tour</h1>
+            <h1 className="text-3xl sm:text-4xl font-bold">Update this tour</h1>
             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                     <label htmlFor="tourName" className="block text-sm font-medium text-gray-700">Tour Name:</label>
@@ -182,7 +203,7 @@ function CreateTour() {
                 </div>
                 <div className='space-y-2'>
                     <label htmlFor="tourType" className="block text-sm font-medium text-gray-700">Select Tour Type:</label>
-                    <select id="tourType" name='tourType' value={formData.type} onChange={handleChange} className="w-full px-2 py-1 rounded border transition duration-300 ease-in-out focus:outline-none focus:border-blue-500">
+                    <select id="tourType" name='tourType' value={formData.tourType} onChange={handleChange} className="w-full px-2 py-1 rounded border transition duration-300 ease-in-out focus:outline-none focus:border-blue-500">
                         <option value="" >Tour Types</option>
                         <option value="Sightseeing">Sightseeing</option>
                         <option value="Adventureous ">Adventure</option>
@@ -205,7 +226,7 @@ function CreateTour() {
                 <div className="space-y-2 md:col-span-2">
                     <div className='flex gap-4'>
                         <label htmlFor="photos" className="block text-sm font-medium text-gray-700">Tour Photos:</label>
-                        <input type="file" id="photos" name="photos" accept="image/*" multiple required onChange={(e) => setFiles(e.target.files)} className="w-full px-2 py-1 rounded border transition duration-300 ease-in-out focus:outline-none focus:border-blue-500" />
+                        <input type="file" id="photos" name="photos" accept="image/*" multiple onChange={(e) => setFiles(e.target.files)} className="w-full px-2 py-1 rounded border transition duration-300 ease-in-out focus:outline-none focus:border-blue-500" />
                         <button disabled={uploading} type="button" onClick={handleImageSubmit} className='p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg disabled:opacity-80'>{uploading ? 'Uploading...' : 'Upload'}</button>
                     </div>
                     <p className="text-red-700 text-sm">{imageUploadError && imageUploadError}</p>
@@ -220,11 +241,11 @@ function CreateTour() {
                 </div>
 
                 <div className="md:col-span-2 text-center">
-                    <button type="submit" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded shadow-md">{tourCreating ? 'Creating...' : 'Create Tour'}</button>
+                    <button type="submit" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded shadow-md">{tourCreating ? 'Updating...' : 'Update Tour'}</button>
                 </div>
             </form>
         </div>
     );
 }
 
-export default CreateTour;
+export default EditTour;

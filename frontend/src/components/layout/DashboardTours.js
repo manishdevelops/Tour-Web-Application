@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { ShimmerTable } from "react-shimmer-effects";
 import NotFound from '../pages/NotFound';
+import { useSelector } from 'react-redux';
+import { FaPlus } from "react-icons/fa";
 import '../pages/Tours.css';
 
 
@@ -44,6 +47,8 @@ const indianStates = [
 ];
 
 const DashboardTours = () => {
+    const { currentUser } = useSelector(state => state.user);
+
     const navigate = useNavigate();
 
     const [tours, setTours] = useState([]);
@@ -61,6 +66,7 @@ const DashboardTours = () => {
         tourType: ''
     });
     console.log(sidebarData)
+
 
     const handleChange = (e) => {
         setSidebarData({
@@ -131,6 +137,18 @@ const DashboardTours = () => {
 
     return (
         <div className="p-4 h-screen overflow-y-auto">
+            <div className='flex mb-4'>
+                {
+                    currentUser.role === 'admin' && (
+                        <Link
+                            to='/dashboard/create-tour'
+                            className='bg-green-500 text-white rounded-lg p-3 uppercase text-center shadow-lg hover:text-green-500 hover:bg-white transition-all flex justify-center items-center'
+                        >
+                            create a new tour
+                            <FaPlus className='text-lg ml-1' />
+                        </Link>)
+                }
+            </div>
             <form onSubmit={handleSubmit} className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 mb-4 gap-4 gap-y-4 bg-white rounded-lg shadow-md p-2">
                 <div className="flex flex-col">
                     <label className='whitespace-nowrap font-semibold'>Search Term:</label>
@@ -211,12 +229,15 @@ const DashboardTours = () => {
                                 <th className=" p-2">Tour</th>
                                 <th className=" p-2">Departure Date</th>
                                 <th className=" p-2">Price</th>
+                                <th className=" p-2">View</th>
                                 <th className="p-2">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {tours.map((tour, index) => (
-                                <tr key={tour.id} className="bg-white border-b">
+
+                                <tr key={tour._id} className="bg-white border-b">
+
                                     <td className="p-2 text-center w-28">{index + 1}</td>
                                     <td className="p-2">
                                         <div className="flex items-center">
@@ -225,10 +246,11 @@ const DashboardTours = () => {
                                         </div>
                                     </td>
                                     <td className="p-2 text-center">{new Date(tour.departureDate).toLocaleDateString()}</td>
-                                    <td className="p-2 text-center">{tour.price}</td>
+                                    <td className="p-2 text-center">₹{tour.price.toLocaleString('en-IN')}</td>
+                                    <td className="p-2 text-center"><Link className='text-green-500 hover:underline font-semibold' to={`/tour-overview/${tour.slug}`}>View</Link></td>
                                     <td className="p-2 text-center">
-                                        <button className="text-blue-500 hover:underline">Edit</button>
-                                        <button className="text-red-500 hover:underline ml-2">Delete</button>
+                                        <button className="text-blue-500 hover:underline font-semibold"><Link to={`/dashboard/edit-tour/${tour._id}`}>Edit</Link></button>
+                                        <button className="text-red-500 hover:underline ml-2 font-semibold">Delete</button>
                                     </td>
                                 </tr>
                             ))}

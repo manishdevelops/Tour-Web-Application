@@ -13,7 +13,8 @@ const PrivateRoute = lazy(() => import("./components/common/PrivateRoute"));
 const ContactUs = lazy(() => import("./components/pages/ContactUs"));
 const Tours = lazy(() => import("./components/pages/Tours"));
 const AboutUs = lazy(() => import("./components/pages/AboutUs"));
-const CreateTour = lazy(() => import("./components/pages/CreateTour"));
+const CreateTour = lazy(() => import("./components/layout/CreateTour"));
+const EditTour = lazy(() => import("./components/layout/EditTour"));
 const Dashboard = lazy(() => import('./components/pages/Dashboard'));
 const PrivacyPolicy = lazy(() => import("./components/layout/PrivacyPolicy"));
 const AdminRoute = lazy(() => import("./components/common/AdminRoute"));
@@ -52,9 +53,11 @@ function App() {
             </Route>
 
             <Route element={<AdminRoute />}>
-              <Route path="/create-tour" element={<CreateTour />} />
               <Route path="/dashboard/*" element={<Dashboard />}>
                 <Route index element={<DashboardHome />} />
+                <Route path="create-tour" element={<CreateTour />} />
+                <Route path="edit-tour/:tourId" element={<EditTour />} />
+
                 <Route path="home" index element={<DashboardHome />} />
                 <Route path="tours" element={<DashboardTours />} />
                 <Route path="users" element={<DashboardUsers />} />
