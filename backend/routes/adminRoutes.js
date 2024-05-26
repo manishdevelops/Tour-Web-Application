@@ -6,7 +6,9 @@ const authController = require('../controllers/authController');
 const adminController = require('../controllers/adminController');
 
 
-router.post('/createTour', isAdmin.isAdmin, adminController.createTour);
+router.post('/create-tour', authController.protect, isAdmin.isAdmin, adminController.createTour);
+
+router.patch('/edit-tour/:tourId', authController.protect, isAdmin.isAdmin, adminController.editTour);
 
 router.get('/all-users', authController.protect, isAdmin.isAdmin, adminController.getAllUser);
 

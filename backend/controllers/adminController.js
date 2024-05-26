@@ -4,9 +4,11 @@ const Booking = require('../models/bookingModel');
 const User = require('../models/userModel');
 const Review = require('../models/reviewModel');
 const ContactUs = require('../models/contactUsModel');
+const AppError = require('../utils/appError');
 
 
 exports.createTour = catchAsync(async (req, res, next) => {
+    console.log(req.body)
     const newTour = await Tour.create(req.body);
 
     res.status(201).json({
@@ -14,7 +16,23 @@ exports.createTour = catchAsync(async (req, res, next) => {
         data: {
             data: newTour
         }
-    })
+    });
+});
+
+exports.editTour = catchAsync(async (req, res, next) => {
+    const tour = await Tour.findByIdAndUpdate(req.params.tourId, req.body, {
+        new: true,
+        runValidators: true
+    });
+
+    if (!tour) return next(AppError('No tour found', 404));
+
+    res.status(200).json({
+        "status": "success",
+        data: {
+            data: tour
+        }
+    });
 });
 
 exports.getAllBookings = catchAsync(async (req, res, next) => {
