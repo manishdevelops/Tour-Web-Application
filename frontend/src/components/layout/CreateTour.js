@@ -26,7 +26,7 @@ function CreateTour() {
         coordinates: ''
     });
 
-    console.log(formData);
+    // console.log(formData);
 
     const [uploading, setUploading] = useState(false);
     const [tourCreating, setTourCreating] = useState(false);
@@ -89,7 +89,7 @@ function CreateTour() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        console.log(name, value)
+        // console.log(name, value)
 
         setFormData(prevState => ({
             ...prevState,
@@ -126,7 +126,7 @@ function CreateTour() {
             }
 
             const data = await res.json();
-            console.log(data.data);
+            // console.log(data.data);
 
             toast.success('tour created successfully!.');
             navigate('/dashboard/tours');

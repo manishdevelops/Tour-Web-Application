@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     currentUser: null,
     deactivateAccount: false,
-    logoutAccount: false
+    logoutAccount: false,
+    deleteTour: false
 }
 
 const userSlice = createSlice({
@@ -28,10 +29,13 @@ const userSlice = createSlice({
         },
         setLogoutAccount: (state, action) => {
             state.logoutAccount = action.payload;
+        },
+        setDeleteTour: (state, action) => {
+            state.deleteTour = action.payload
         }
     }
 });
 
-export const { signInSuccess, updateUserSuccess, deleteUserSuccess, logOutUserSuccess, setActiveAccount, setLogoutAccount } = userSlice.actions;
+export const { signInSuccess, updateUserSuccess, deleteUserSuccess, logOutUserSuccess, setActiveAccount, setLogoutAccount, setDeleteTour } = userSlice.actions;
 
 export default userSlice.reducer;

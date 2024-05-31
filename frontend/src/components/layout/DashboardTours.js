@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { ShimmerTable } from "react-shimmer-effects";
 import NotFound from '../pages/NotFound';
-import { useSelector } from 'react-redux';
 import { FaPlus } from "react-icons/fa";
+import DeleteTour from '../common/DeleteTour';
 import '../pages/Tours.css';
+import { setDeleteTour } from '../../redux/user/userSlice';
 
 
 const indianStates = [
@@ -47,17 +49,14 @@ const indianStates = [
 ];
 
 const DashboardTours = () => {
-    const { currentUser } = useSelector(state => state.user);
+    const { currentUser, deleteTour } = useSelector(state => state.user);
+    const dispatch = useDispatch();
 
     const navigate = useNavigate();
 
     const [tours, setTours] = useState([]);
     const [tourLoading, setTourLoading] = useState(false);
-
     const [error, setError] = useState(false);
-
-    console.log(tours)
-
     const [sidebarData, setSidebarData] = useState({
         searchTerm: '',
         minPrice: 0,
@@ -65,8 +64,12 @@ const DashboardTours = () => {
         state: '',
         tourType: ''
     });
-    console.log(sidebarData)
+    // console.log(sidebarData)
+    const [tourId, setTourId] = useState(null);
 
+    const handleTourDeleted = (deletedTourId) => {
+        setTours(tours.filter(tour => tour._id !== deletedTourId));
+    };
 
     const handleChange = (e) => {
         setSidebarData({
@@ -86,7 +89,6 @@ const DashboardTours = () => {
 
         navigate(`/dashboard/tours?${searchQuery}`);
     };
-
 
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -250,13 +252,16 @@ const DashboardTours = () => {
                                     <td className="p-2 text-center"><Link className='text-green-500 hover:underline font-semibold' to={`/tour-overview/${tour.slug}`}>View</Link></td>
                                     <td className="p-2 text-center">
                                         <button className="text-blue-500 hover:underline font-semibold"><Link to={`/dashboard/edit-tour/${tour._id}`}>Edit</Link></button>
-                                        <button className="text-red-500 hover:underline ml-2 font-semibold">Delete</button>
+                                        <button onClick={() => [dispatch(setDeleteTour(true)), setTourId(tour._id)]} className="text-red-500 hover:underline ml-2 font-semibold">Delete</button>
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                 </div>
+            }
+            {
+                deleteTour && <DeleteTour id={tourId} onTourDeleted={handleTourDeleted} />
             }
 
             {

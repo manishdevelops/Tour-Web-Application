@@ -10,6 +10,8 @@ router.post('/create-tour', authController.protect, isAdmin.isAdmin, adminContro
 
 router.patch('/edit-tour/:tourId', authController.protect, isAdmin.isAdmin, adminController.editTour);
 
+router.delete('/delete-tour/:id', authController.protect, isAdmin.isAdmin, adminController.deleteTour);
+
 router.get('/all-users', authController.protect, isAdmin.isAdmin, adminController.getAllUser);
 
 router.get('/all-bookings', authController.protect, isAdmin.isAdmin, adminController.getAllBookings);

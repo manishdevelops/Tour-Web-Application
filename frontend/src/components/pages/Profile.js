@@ -6,7 +6,6 @@ import DeactivateAccount from '../common/DeactivateAccount';
 import LogoutAccount from '../common/LogoutAccount';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { app } from '../../firebase';
-import { Link } from 'react-router-dom';
 
 const Profile = () => {
     const { currentUser, deactivateAccount, logoutAccount } = useSelector(state => state.user);
