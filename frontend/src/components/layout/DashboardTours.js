@@ -51,7 +51,6 @@ const indianStates = [
 const DashboardTours = () => {
     const { currentUser, deleteTour } = useSelector(state => state.user);
     const dispatch = useDispatch();
-
     const navigate = useNavigate();
 
     const [tours, setTours] = useState([]);
@@ -269,6 +268,9 @@ const DashboardTours = () => {
             }
             {
                 error && <NotFound />
+            }
+            {
+                tours?.length === 0 && <div className=' w-full text-center text-xl mt-20 font-semibold text-red-500'>No results found.</div>
             }
 
         </div>

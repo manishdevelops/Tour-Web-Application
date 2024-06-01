@@ -69,7 +69,7 @@ const NearTours = () => {
             }
             {
                 loading && (
-                    <div className='p-4 flex items-center justify-center flex-wrap gap-4'>{Array.from({ length: 5 }).map((_, i) => <ShimmerThumbnail key={i} height={300} width={300} rounded />)}
+                    <div className='p-4 flex items-center justify-center flex-wrap gap-4'>{Array.from({ length: 4 }).map((_, i) => <ShimmerThumbnail key={i} height={300} width={300} rounded />)}
                     </div>
                 )
             }

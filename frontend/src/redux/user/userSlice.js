@@ -4,7 +4,8 @@ const initialState = {
     currentUser: null,
     deactivateAccount: false,
     logoutAccount: false,
-    deleteTour: false
+    deleteTour: false,
+    deleteUser: false
 }
 
 const userSlice = createSlice({
@@ -32,10 +33,13 @@ const userSlice = createSlice({
         },
         setDeleteTour: (state, action) => {
             state.deleteTour = action.payload
+        },
+        setDeleteUser: (state, action) => {
+            state.deleteUser = action.payload
         }
     }
 });
 
-export const { signInSuccess, updateUserSuccess, deleteUserSuccess, logOutUserSuccess, setActiveAccount, setLogoutAccount, setDeleteTour } = userSlice.actions;
+export const { signInSuccess, updateUserSuccess, deleteUserSuccess, logOutUserSuccess, setActiveAccount, setLogoutAccount, setDeleteTour, setDeleteUser } = userSlice.actions;
 
 export default userSlice.reducer;

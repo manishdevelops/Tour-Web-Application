@@ -107,9 +107,6 @@ const Profile = () => {
                 <input type='password' placeholder='current password' id='currentPassword' className='border p-3 rounded-lg' onChange={handleChange} />
                 <input type='password' placeholder='new password' id='newPassword' className='border p-3 rounded-lg' onChange={handleChange} />
                 <button disabled={updateLoading} className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-80 shadow-md'>{updateLoading ? 'Updating...' : 'Update'}</button>
-                {/* {
-                    currentUser.role === 'admin' && <Link to='/create-tour' className='bg-green-500 text-white rounded-lg p-3 uppercase hover:opacity-80 text-center shadow-md'>create a new tour</Link>
-                } */}
             </form>
             <div className='flex justify-between mt-5'>
                 <span onClick={() => dispatch(setActiveAccount(true))} className='inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10 cursor-pointer hover:opacity-80 shadow-md'>

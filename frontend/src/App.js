@@ -27,6 +27,7 @@ const DashboardReviews = lazy(() => import("./components/layout/DashboardReviews
 const DashboardTours = lazy(() => import("./components/layout/DashboardTours"));
 const DashboardUsers = lazy(() => import("./components/layout/DashboardUsers"));
 const SignIn = lazy(() => import("./components/pages/SignIn"));
+const EditUser = lazy(() => import("./components/layout/EditUser"));
 
 function App() {
   return (
@@ -57,6 +58,7 @@ function App() {
                 <Route index element={<DashboardHome />} />
                 <Route path="create-tour" element={<CreateTour />} />
                 <Route path="edit-tour/:tourId" element={<EditTour />} />
+                <Route path="edit-user/:userId" element={<EditUser />} />
 
                 <Route path="home" index element={<DashboardHome />} />
                 <Route path="tours" element={<DashboardTours />} />

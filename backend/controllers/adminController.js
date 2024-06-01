@@ -20,6 +20,7 @@ exports.createTour = catchAsync(async (req, res, next) => {
 });
 
 exports.editTour = catchAsync(async (req, res, next) => {
+
     const tour = await Tour.findByIdAndUpdate(req.params.tourId, req.body, {
         new: true,
         runValidators: true
@@ -35,8 +36,33 @@ exports.editTour = catchAsync(async (req, res, next) => {
     });
 });
 
+exports.editUser = catchAsync(async (req, res, next) => {
+    const user = await User.findByIdAndUpdate(req.params.userId, req.body, {
+        new: true,
+        runValidators: true
+    });
+
+    if (!user) return next(AppError('No user found', 404));
+
+    res.status(200).json({
+        "status": "success",
+        data: {
+            data: user
+        }
+    });
+});
+
 exports.deleteTour = catchAsync(async (req, res, next) => {
     await Tour.findByIdAndDelete(req.params.id);
+
+    res.status(204).json({
+        status: 'success',
+        data: null
+    });
+});
+
+exports.deleteUser = catchAsync(async (req, res, next) => {
+    await User.findByIdAndDelete(req.params.id);
 
     res.status(204).json({
         status: 'success',
@@ -78,7 +104,7 @@ exports.getUserResults = catchAsync(async (req, res, next) => {
         };
     }
 
-    console.log(queryObj)
+    // console.log(queryObj)
 
     // Fetch users from the database based on the query
     const users = await User.find(queryObj);

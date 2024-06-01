@@ -2,19 +2,19 @@ import { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import { useDispatch } from 'react-redux';
-import { setDeleteTour } from '../../redux/user/userSlice';
+import { setDeleteUser } from '../../redux/user/userSlice';
 import { toast } from 'react-toastify';
 
-export default function DeactivateAccount({ id, onTourDeleted }) {
+const DeleteUser = ({ id, onUserDeleted }) => {
     const [open, setOpen] = useState(true);
     const cancelButtonRef = useRef(null);
     const dispatch = useDispatch();
     const [deleteLoading, setDeleteLoading] = useState(false);
 
-    const handleDeleteTour = async () => {
+    const handleDeleteUser = async () => {
         try {
             setDeleteLoading(true);
-            const res = await fetch(`/api/admin/delete-tour/${id}`, {
+            const res = await fetch(`/api/admin/delete-user/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -26,18 +26,19 @@ export default function DeactivateAccount({ id, onTourDeleted }) {
                 return toast.error(errorData.message);
             }
 
-            dispatch(setDeleteTour(false));
+            dispatch(setDeleteUser(false));
             setOpen(false);
-            onTourDeleted(id);
-            toast.success('Tour deleted successfully!');
+            onUserDeleted(id);
+            toast.success('User deleted successfully!');
         } catch (error) {
             console.log(error)
-            dispatch(setDeleteTour(false));
+            dispatch(setDeleteUser(false));
             toast.error(error.message);
         } finally {
             setDeleteLoading(false);
         }
     }
+
 
     return (
         <Transition.Root show={open} as={Fragment}>
@@ -77,7 +78,7 @@ export default function DeactivateAccount({ id, onTourDeleted }) {
                                             </Dialog.Title>
                                             <div className="mt-2">
                                                 <p className="text-sm text-gray-500">
-                                                    Are you sure you want to delete this tour?
+                                                    Are you sure you want to delete this user?
                                                 </p>
                                             </div>
                                         </div>
@@ -87,14 +88,14 @@ export default function DeactivateAccount({ id, onTourDeleted }) {
                                     <button
                                         type="button"
                                         className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
-                                        onClick={() => [setOpen(false), dispatch(setDeleteTour(false)), handleDeleteTour()]}
+                                        onClick={() => [setOpen(false), dispatch(setDeleteUser(false)), handleDeleteUser()]}
                                     >
                                         {deleteLoading ? 'Deleting...' : 'Delete'}
                                     </button>
                                     <button
                                         type="button"
                                         className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                                        onClick={() => [setOpen(false), dispatch(setDeleteTour(false))]}
+                                        onClick={() => [setOpen(false), dispatch(setDeleteUser(false))]}
                                         ref={cancelButtonRef}
                                     >
                                         Cancel
@@ -108,3 +109,5 @@ export default function DeactivateAccount({ id, onTourDeleted }) {
         </Transition.Root>
     )
 }
+
+export default DeleteUser

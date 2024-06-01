@@ -12,6 +12,10 @@ router.patch('/edit-tour/:tourId', authController.protect, isAdmin.isAdmin, admi
 
 router.delete('/delete-tour/:id', authController.protect, isAdmin.isAdmin, adminController.deleteTour);
 
+router.patch('/edit-user/:userId', authController.protect, isAdmin.isAdmin, adminController.editUser);
+
+router.delete('/delete-user/:id', authController.protect, isAdmin.isAdmin, adminController.deleteUser);
+
 router.get('/user-results', authController.protect, isAdmin.isAdmin, adminController.getUserResults);
 
 router.get('/all-users', authController.protect, isAdmin.isAdmin, adminController.getAllUser);
