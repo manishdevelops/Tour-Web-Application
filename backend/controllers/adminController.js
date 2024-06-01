@@ -42,7 +42,55 @@ exports.deleteTour = catchAsync(async (req, res, next) => {
         status: 'success',
         data: null
     });
-})
+});
+
+exports.getUserResults = catchAsync(async (req, res, next) => {
+    let searchTerm = req.query.searchTerm || '';
+    let role = req.query.role || '';
+    let createdAt = req.query.createdAt || '';
+
+    // Construct the query object
+    let queryObj = {};
+
+    // Add search term to the query if provided
+    if (searchTerm) {
+        queryObj.$or = [
+            { name: { $regex: searchTerm, $options: 'i' } },
+            { email: { $regex: searchTerm, $options: 'i' } },
+        ];
+    }
+
+    // Add role to the query if provided
+    if (role) {
+        queryObj.role = role;
+    }
+
+    // Add registration date to the query if provided
+    if (createdAt) {
+        const startOfDay = new Date(createdAt);
+        startOfDay.setUTCHours(0, 0, 0, 0);
+        const endOfDay = new Date(createdAt);
+        endOfDay.setUTCHours(23, 59, 59, 999);
+
+        queryObj.createdAt = {
+            $gte: startOfDay,
+            $lte: endOfDay
+        };
+    }
+
+    console.log(queryObj)
+
+    // Fetch users from the database based on the query
+    const users = await User.find(queryObj);
+
+    res.status(200).json({
+        status: 'success',
+        results: users.length,
+        data: {
+            users
+        }
+    });
+});
 
 exports.getAllBookings = catchAsync(async (req, res, next) => {
     const bookings = await Booking.find();

@@ -51,7 +51,7 @@ exports.getTourResults = catchAsync(async (req, res, next) => {
 
     let minPrice = req.query.minPrice || 0;
 
-    let maxPrice = req.query.maxPrice || 100000;
+    let maxPrice = req.query.maxPrice || 50000;
 
     let state = req.query.state || '';
 

@@ -12,6 +12,8 @@ router.patch('/edit-tour/:tourId', authController.protect, isAdmin.isAdmin, admi
 
 router.delete('/delete-tour/:id', authController.protect, isAdmin.isAdmin, adminController.deleteTour);
 
+router.get('/user-results', authController.protect, isAdmin.isAdmin, adminController.getUserResults);
+
 router.get('/all-users', authController.protect, isAdmin.isAdmin, adminController.getAllUser);
 
 router.get('/all-bookings', authController.protect, isAdmin.isAdmin, adminController.getAllBookings);
