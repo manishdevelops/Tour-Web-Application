@@ -32,6 +32,10 @@ router.get('/all-reviews', authController.protect, isAdmin.isAdmin, adminControl
 
 router.get('/review-results', authController.protect, isAdmin.isAdmin, adminController.getReviewsResults);
 
+router.delete('/delete-review/:id', authController.protect, isAdmin.isAdmin, adminController.deleteReview);
+
+router.patch('/edit-review/:id', authController.protect, isAdmin.isAdmin, adminController.editReview);
+
 router.get('/all-contacts', authController.protect, isAdmin.isAdmin, adminController.getAllContacts);
 
 router.get('/all-statistics', authController.protect, isAdmin.isAdmin, adminController.getStatistics);

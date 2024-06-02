@@ -226,7 +226,7 @@ exports.deleteBooking = catchAsync(async (req, res, next) => {
         status: 'success',
         data: null
     });
-})
+});
 
 exports.getAllUser = catchAsync(async (req, res, next) => {
     const users = await User.find();
@@ -288,6 +288,7 @@ exports.getReviewsResults = catchAsync(async (req, res, next) => {
                 name: 1,
                 review: 1,
                 'tour.tourName': 1,
+                'photo': 1,
                 createdAt: 1
             }
         }
@@ -302,6 +303,31 @@ exports.getReviewsResults = catchAsync(async (req, res, next) => {
     });
 
 });
+
+exports.deleteReview = catchAsync(async (req, res, next) => {
+    await Review.findByIdAndDelete(req.params.id);
+
+    res.status(204).json({
+        status: 'success',
+        data: null
+    });
+});
+
+exports.editReview = catchAsync(async (req, res, next) => {
+    const review = await Review.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true
+    });
+
+    if (!review) return next(AppError('No review found', 404));
+
+    res.status(200).json({
+        "status": "success",
+        data: {
+            data: review
+        }
+    });
+})
 
 exports.getAllContacts = catchAsync(async (req, res, next) => {
     const contacts = await ContactUs.find();

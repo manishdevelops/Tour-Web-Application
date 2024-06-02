@@ -62,7 +62,7 @@ const DashboardUsers = () => {
         const registrationDateFromUrl = urlParams.get('createdAt');
 
 
-        if (searchTermFromUrl || searchTermFromUrl || roleFromUrl || registrationDateFromUrl) {
+        if (searchTermFromUrl || roleFromUrl || registrationDateFromUrl) {
             setSidebarData({
                 searchTerm: searchTermFromUrl || '',
                 role: roleFromUrl || '',

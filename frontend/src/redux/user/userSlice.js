@@ -7,6 +7,7 @@ const initialState = {
     deleteTour: false,
     deleteUser: false,
     deleteBooking: false,
+    deleteReview: false
 }
 
 const userSlice = createSlice({
@@ -40,10 +41,13 @@ const userSlice = createSlice({
         },
         setDeletedBooking: (state, action) => {
             state.deleteBooking = action.payload
+        },
+        setDeleteReview: (state, action) => {
+            state.deleteReview = action.payload
         }
     }
 });
 
-export const { signInSuccess, updateUserSuccess, deleteUserSuccess, logOutUserSuccess, setActiveAccount, setLogoutAccount, setDeleteTour, setDeleteUser, setDeletedBooking } = userSlice.actions;
+export const { signInSuccess, updateUserSuccess, deleteUserSuccess, logOutUserSuccess, setActiveAccount, setLogoutAccount, setDeleteTour, setDeleteUser, setDeletedBooking, setDeleteReview } = userSlice.actions;
 
 export default userSlice.reducer;
