@@ -44,14 +44,14 @@ reviewSchema.index({ tour: 1, user: 1 }, { unique: true });
 
 
 reviewSchema.pre(/^find/, function (next) {
-    // this.populate({
-    //     path: 'tour',
-    //     select: 'tourName'
-    // }).
     this.populate({
-        path: 'user',
-        select: 'name photo'
-    });
+        path: 'tour',
+        select: 'tourName'
+    })
+    // .populate({
+    //     path: 'user',
+    //     select: 'name photo'
+    // });
 
     next();
 });

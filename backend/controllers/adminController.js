@@ -36,6 +36,27 @@ exports.editTour = catchAsync(async (req, res, next) => {
     });
 });
 
+exports.deleteTour = catchAsync(async (req, res, next) => {
+    await Tour.findByIdAndDelete(req.params.id);
+
+    res.status(204).json({
+        status: 'success',
+        data: null
+    });
+});
+
+exports.getAllTours = catchAsync(async (req, res, next) => {
+    const tours = await Tour.find();
+
+    res.status(200).json({
+        status: "success",
+        results: tours.length,
+        data: {
+            tours
+        }
+    });
+});
+
 exports.editUser = catchAsync(async (req, res, next) => {
     const user = await User.findByIdAndUpdate(req.params.userId, req.body, {
         new: true,
@@ -52,14 +73,7 @@ exports.editUser = catchAsync(async (req, res, next) => {
     });
 });
 
-exports.deleteTour = catchAsync(async (req, res, next) => {
-    await Tour.findByIdAndDelete(req.params.id);
 
-    res.status(204).json({
-        status: 'success',
-        data: null
-    });
-});
 
 exports.deleteUser = catchAsync(async (req, res, next) => {
     await User.findByIdAndDelete(req.params.id);
@@ -226,17 +240,7 @@ exports.getAllUser = catchAsync(async (req, res, next) => {
     });
 });
 
-exports.getAllTours = catchAsync(async (req, res, next) => {
-    const tours = await Tour.find();
 
-    res.status(200).json({
-        status: "success",
-        results: tours.length,
-        data: {
-            tours
-        }
-    });
-});
 
 exports.getAllReviews = catchAsync(async (req, res, next) => {
     const reviews = await Review.find();
@@ -248,6 +252,55 @@ exports.getAllReviews = catchAsync(async (req, res, next) => {
             reviews
         }
     });
+});
+
+exports.getReviewsResults = catchAsync(async (req, res, next) => {
+    let matchStage = {};
+
+    // Single search term for name, tour name, and review
+    if (req.query.searchTerm) {
+        const searchTerm = req.query.searchTerm;
+        matchStage.$or = [
+            { name: { $regex: searchTerm, $options: 'i' } },
+            { 'tour.tourName': { $regex: searchTerm, $options: 'i' } },
+            { review: { $regex: searchTerm, $options: 'i' } }
+        ];
+    }
+
+    // Aggregation pipeline
+    const reviews = await Review.aggregate([
+        {
+            $lookup: {
+                from: 'tours',
+                localField: 'tour',
+                foreignField: '_id',
+                as: 'tour'
+            }
+        },
+        {
+            $unwind: '$tour'
+        },
+        {
+            $match: matchStage
+        },
+        {
+            $project: {
+                name: 1,
+                review: 1,
+                'tour.tourName': 1,
+                createdAt: 1
+            }
+        }
+    ]);
+
+    res.status(200).json({
+        status: 'success',
+        results: reviews.length,
+        data: {
+            reviews
+        }
+    });
+
 });
 
 exports.getAllContacts = catchAsync(async (req, res, next) => {

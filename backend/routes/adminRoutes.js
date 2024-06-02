@@ -30,6 +30,8 @@ router.get('/all-tours', authController.protect, isAdmin.isAdmin, adminControlle
 
 router.get('/all-reviews', authController.protect, isAdmin.isAdmin, adminController.getAllReviews);
 
+router.get('/review-results', authController.protect, isAdmin.isAdmin, adminController.getReviewsResults);
+
 router.get('/all-contacts', authController.protect, isAdmin.isAdmin, adminController.getAllContacts);
 
 router.get('/all-statistics', authController.protect, isAdmin.isAdmin, adminController.getStatistics);
