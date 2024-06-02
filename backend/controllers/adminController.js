@@ -130,6 +130,81 @@ exports.getAllBookings = catchAsync(async (req, res, next) => {
     })
 });
 
+exports.getBookingsResults = catchAsync(async (req, res, next) => {
+    let matchStage = {};
+
+    // Single search term for user name or tour name
+    if (req.query.searchTerm) {
+        const searchTerm = req.query.searchTerm;
+        matchStage.$or = [
+            { 'user.name': { $regex: searchTerm, $options: 'i' } },
+            { 'tour.tourName': { $regex: searchTerm, $options: 'i' } }
+        ];
+    }
+
+    // Filter by price
+    if (req.query.price) {
+        matchStage.price = parseFloat(req.query.price);
+    }
+
+    // Filter by payment date
+    if (req.query.paymentDate) {
+        const date = new Date(req.query.paymentDate);
+        if (!isNaN(date.getTime())) {
+            matchStage.createdAt = {
+                $gte: new Date(req.query.paymentDate + 'T00:00:00.000Z'),
+                $lte: new Date(req.query.paymentDate + 'T23:59:59.999Z')
+            };
+        }
+    }
+
+    // Aggregation pipeline
+    const bookings = await Booking.aggregate([
+        {
+            $lookup: {
+                from: 'users',
+                localField: 'user',
+                foreignField: '_id',
+                as: 'user'
+            }
+        },
+        {
+            $unwind: '$user'
+        },
+        {
+            $lookup: {
+                from: 'tours',
+                localField: 'tour',
+                foreignField: '_id',
+                as: 'tour'
+            }
+        },
+        {
+            $unwind: '$tour'
+        },
+        {
+            $match: matchStage
+        },
+        {
+            $project: {
+                price: 1,
+                createdAt: 1,
+                paid: 1,
+                'user.name': 1,
+                'tour.tourName': 1
+            }
+        }
+    ]);
+
+    res.status(200).json({
+        status: 'success',
+        results: bookings.length,
+        data: {
+            bookings
+        }
+    });
+});
+
 exports.getAllUser = catchAsync(async (req, res, next) => {
     const users = await User.find();
 
@@ -214,14 +289,12 @@ const getMonthlyStatistics = async (Model, priceField = null) => {
 
     // Return the calculated statistics
     return {
-        count: currentMonthCount,
+        count: totalCount,
         percentageOfNewDocuments: percentageOfNewDocuments.toFixed(2),
         totalEarnings: +totalEarnings.toFixed(2),
         currentMonthEarnings: +currentMonthEarnings.toFixed(2)
     };
 };
-
-
 
 exports.getStatistics = catchAsync(async (req, res, next) => {
 

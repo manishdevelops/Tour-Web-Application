@@ -12,7 +12,6 @@ import { MdAdminPanelSettings } from "react-icons/md";
 const Dashboard = () => {
 
     const { currentUser } = useSelector(state => state.user);
-
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     return (
@@ -27,7 +26,7 @@ const Dashboard = () => {
                                 <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/home" className='flex items-center'><FaHome className='inline mr-4 text-xl' />Home</Link></li>
                                 <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/tours" className='flex items-center'><MdTour className='inline mr-4 text-xl' />Tours</Link></li>
                                 <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/users" className='flex items-center'><FaUsers className='inline mr-4 text-xl' />Users</Link></li>
-                                <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/bookings" className='flex items-center'><TbBrandBooking className='inline mr-4 text-xl' />Bookings</Link></li>
+                                <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/bookings" className='flex items-center'><TbBrandBooking className='inline mr-4 text-xl' />Customers</Link></li>
                                 <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/reviews" className='flex items-center'><MdOutlineRateReview className='inline mr-4 text-xl' />Reviews</Link></li>
                                 <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/contacts" className='flex items-center'><MdContacts className='inline mr-4 text-xl' />Contacts</Link></li>
                             </ul>
@@ -43,7 +42,7 @@ const Dashboard = () => {
                         <li className="px-4 py-2 hover:bg-gray-700 "><Link to="/dashboard/home" className='flex items-center'><FaHome className='inline mr-4 text-xl' />Home</Link></li>
                         <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/tours" className='flex items-center'><MdTour className='inline mr-4 text-xl' />Tours</Link></li>
                         <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/users" className='flex items-center'><FaUsers className='inline mr-4 text-xl' />Users</Link></li>
-                        <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/bookings" className='flex items-center'><TbBrandBooking className='inline mr-4 text-xl' />Bookings</Link></li>
+                        <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/bookings" className='flex items-center'><TbBrandBooking className='inline mr-4 text-xl' />Customers</Link></li>
                         <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/reviews" className='flex items-center'><MdOutlineRateReview className='inline mr-4 text-xl' />Reviews</Link></li>
                         <li className="px-4 py-2 hover:bg-gray-700"><Link to="/dashboard/contacts" className='flex items-center'><MdContacts className='inline mr-4 text-xl' />Contacts</Link></li>
                     </ul>

@@ -22,6 +22,8 @@ router.get('/all-users', authController.protect, isAdmin.isAdmin, adminControlle
 
 router.get('/all-bookings', authController.protect, isAdmin.isAdmin, adminController.getAllBookings);
 
+router.get('/bookings-results', authController.protect, isAdmin.isAdmin, adminController.getBookingsResults);
+
 router.get('/all-tours', authController.protect, isAdmin.isAdmin, adminController.getAllTours);
 
 router.get('/all-reviews', authController.protect, isAdmin.isAdmin, adminController.getAllReviews);
