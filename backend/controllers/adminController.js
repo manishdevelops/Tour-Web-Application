@@ -5,6 +5,7 @@ const User = require('../models/userModel');
 const Review = require('../models/reviewModel');
 const ContactUs = require('../models/contactUsModel');
 const AppError = require('../utils/appError');
+const Contact = require("../models/contactUsModel");
 
 
 exports.createTour = catchAsync(async (req, res, next) => {
@@ -351,6 +352,43 @@ exports.getAllContacts = catchAsync(async (req, res, next) => {
         data: {
             contacts
         }
+    });
+});
+
+exports.getContactsResults = catchAsync(async (req, res, next) => {
+    let searchTerm = req.query.searchTerm || '';
+    let queryObj = {};
+
+    // Add search term to the query if provided
+    if (searchTerm) {
+        queryObj.$or = [
+            { firstName: { $regex: searchTerm, $options: 'i' } },
+            { lastName: { $regex: searchTerm, $options: 'i' } },
+            { email: { $regex: searchTerm, $options: 'i' } },
+            { message: { $regex: searchTerm, $options: 'i' } },
+            { phoneNumber: { $regex: searchTerm, $options: 'i' } },
+        ];
+    }
+
+    const contacts = await Contact.find(queryObj);
+
+    if (!contacts) return next(AppError('no contact found!'));
+
+    res.status(200).json({
+        status: "success",
+        results: contacts.length,
+        data: {
+            contacts
+        }
+    });
+});
+
+exports.deleteContact = catchAsync(async (req, res, next) => {
+    await Contact.findByIdAndDelete(req.params.id);
+
+    res.status(204).json({
+        status: "success",
+        data: null
     });
 });
 

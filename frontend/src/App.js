@@ -29,6 +29,7 @@ const DashboardUsers = lazy(() => import("./components/layout/DashboardUsers"));
 const SignIn = lazy(() => import("./components/pages/SignIn"));
 const EditUser = lazy(() => import("./components/layout/EditUser"));
 const EditReview = lazy(() => import("./components/layout/EditReview"));
+const ReplyContact = lazy(() => import("./components/common/ReplyContact"));
 
 
 function App() {
@@ -62,6 +63,7 @@ function App() {
                 <Route path="edit-tour/:tourId" element={<EditTour />} />
                 <Route path="edit-user/:userId" element={<EditUser />} />
                 <Route path="edit-review/:reviewId" element={<EditReview />} />
+                <Route path="reply-contact/:contactId" element={<ReplyContact />} />
 
                 <Route path="home" index element={<DashboardHome />} />
                 <Route path="tours" element={<DashboardTours />} />

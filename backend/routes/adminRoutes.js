@@ -40,6 +40,10 @@ router.patch('/edit-review/:id', authController.protect, isAdmin.isAdmin, adminC
 
 router.get('/all-contacts', authController.protect, isAdmin.isAdmin, adminController.getAllContacts);
 
+router.get('/contact-results', authController.protect, isAdmin.isAdmin, adminController.getContactsResults);
+
+router.delete('/delete-contact/:id', authController.protect, isAdmin.isAdmin, adminController.deleteContact);
+
 router.get('/all-statistics', authController.protect, isAdmin.isAdmin, adminController.getStatistics);
 
 router.get('/booking-earnings-by-date', authController.protect, isAdmin.isAdmin, adminController.getBookingEarnings);
