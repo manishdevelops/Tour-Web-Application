@@ -313,6 +313,19 @@ exports.deleteReview = catchAsync(async (req, res, next) => {
     });
 });
 
+exports.getReview = catchAsync(async (req, res, next) => {
+    const review = await Review.findById(req.params.id);
+
+    if (!review) return next(AppError('No review found'));
+
+    res.status(200).json({
+        status: "success",
+        data: {
+            review
+        }
+    });
+});
+
 exports.editReview = catchAsync(async (req, res, next) => {
     const review = await Review.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
