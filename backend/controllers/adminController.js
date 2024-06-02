@@ -148,12 +148,12 @@ exports.getBookingsResults = catchAsync(async (req, res, next) => {
     }
 
     // Filter by payment date
-    if (req.query.paymentDate) {
-        const date = new Date(req.query.paymentDate);
+    if (req.query.createdAt) {
+        const date = new Date(req.query.createdAt);
         if (!isNaN(date.getTime())) {
             matchStage.createdAt = {
-                $gte: new Date(req.query.paymentDate + 'T00:00:00.000Z'),
-                $lte: new Date(req.query.paymentDate + 'T23:59:59.999Z')
+                $gte: new Date(req.query.createdAt + 'T00:00:00.000Z'),
+                $lte: new Date(req.query.createdAt + 'T23:59:59.999Z')
             };
         }
     }
@@ -204,6 +204,15 @@ exports.getBookingsResults = catchAsync(async (req, res, next) => {
         }
     });
 });
+
+exports.deleteBooking = catchAsync(async (req, res, next) => {
+    await Booking.findByIdAndDelete(req.params.id);
+
+    res.status(204).json({
+        status: 'success',
+        data: null
+    });
+})
 
 exports.getAllUser = catchAsync(async (req, res, next) => {
     const users = await User.find();

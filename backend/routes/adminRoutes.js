@@ -22,7 +22,9 @@ router.get('/all-users', authController.protect, isAdmin.isAdmin, adminControlle
 
 router.get('/all-bookings', authController.protect, isAdmin.isAdmin, adminController.getAllBookings);
 
-router.get('/bookings-results', authController.protect, isAdmin.isAdmin, adminController.getBookingsResults);
+router.get('/booking-results', authController.protect, isAdmin.isAdmin, adminController.getBookingsResults);
+
+router.delete('/delete-booking/:id', authController.protect, isAdmin.isAdmin, adminController.deleteBooking);
 
 router.get('/all-tours', authController.protect, isAdmin.isAdmin, adminController.getAllTours);
 
