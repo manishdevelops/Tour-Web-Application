@@ -317,7 +317,7 @@ exports.deleteReview = catchAsync(async (req, res, next) => {
 exports.getReview = catchAsync(async (req, res, next) => {
     const review = await Review.findById(req.params.id);
 
-    if (!review) return next(AppError('No review found'));
+    if (!review) return next(AppError('No review found', 404));
 
     res.status(200).json({
         status: "success",
@@ -372,7 +372,7 @@ exports.getContactsResults = catchAsync(async (req, res, next) => {
 
     const contacts = await Contact.find(queryObj);
 
-    if (!contacts) return next(AppError('no contact found!'));
+    if (!contacts) return next(AppError('no contact found!', 404));
 
     res.status(200).json({
         status: "success",

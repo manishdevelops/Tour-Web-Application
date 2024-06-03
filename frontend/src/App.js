@@ -27,6 +27,8 @@ const DashboardReviews = lazy(() => import("./components/layout/DashboardReviews
 const DashboardTours = lazy(() => import("./components/layout/DashboardTours"));
 const DashboardUsers = lazy(() => import("./components/layout/DashboardUsers"));
 const SignIn = lazy(() => import("./components/pages/SignIn"));
+const ForgotPassword = lazy(() => import("./components/common/ForgotPassword"));
+const ResetPassword = lazy(() => import("./components/common/ResetPassword"));
 const EditUser = lazy(() => import("./components/layout/EditUser"));
 const EditReview = lazy(() => import("./components/layout/EditReview"));
 const ReplyContact = lazy(() => import("./components/common/ReplyContact"));
@@ -45,6 +47,9 @@ function App() {
             <Route path='/home' element={<Home />} />
             <Route path='/sign-in' element={<SignIn />} />
             <Route path='/sign-up' element={<SignUp />} />
+            <Route path='/forgot-password' element={<ForgotPassword />} />
+            <Route path='/reset-password/:token' element={<ResetPassword />} />
+
             <Route path='/about-us' element={<AboutUs />} />
             <Route path='/contact-us/*' element={<ContactUs />} />
             <Route path='/privacy-policy' element={<PrivacyPolicy />} />

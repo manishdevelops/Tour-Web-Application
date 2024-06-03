@@ -5,6 +5,9 @@ const catchAsync = require('../utils/catchAsync');
 const { promisify } = require('util');
 const bcryptjs = require('bcryptjs');
 const bcrypt = require('bcrypt');
+const nodemailer = require('nodemailer');
+const crypto = require('crypto');
+
 
 const signToken = id => {
     return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
@@ -156,5 +159,72 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     updatedUser.password = undefined;
 
     createSendToken(updatedUser, 200, res);
+
+});
+
+exports.forgotPassword = catchAsync(async (req, res, next) => {
+    const { email, frontendUrl } = req.body;
+
+    const user = await User.findOne({ email });
+
+    if (!user) return next(AppError('User no longer exist.', 404));
+
+    const resetToken = user.createPasswordResetToken();
+
+    await user.save({ validateBeforeSave: false }); // we manipulated the doc so we need to save;
+    // validateBeforeSave: false -> this will deactivate all the validators that we specified in our schema
+
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'manishdevelops411@gmail.com',
+            pass: 'giyr xepn lmyj sgbf'
+        }
+    });
+
+    var mailOptions = {
+        from: 'manishdevelops411@gmail.com',
+        to: `${user.email}`,
+        subject: 'Reset Your Password',
+        text: `${frontendUrl}/reset-password/${resetToken}`,
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+            next(new AppError('There was an error sending the email. Try again later!', 500));
+        } else {
+            console.log('Email sent: ' + info.response);
+            res.status(200).json({
+                status: 'success',
+                message: 'Token sent to email!'
+            });
+        }
+    });
+});
+
+exports.resetPassword = catchAsync(async (req, res, next) => {
+    // 1) get user based on the token
+    const hashedToken = crypto.createHash('sha256').update(req.params.token).digest('hex'); //encrypt again bcz plain token has been sent and encrypted one is stored in the db
+
+    const user = await User.findOne(
+        {
+            passwordResetToken: hashedToken,
+            passwordResetExpires: { $gt: Date.now() } // behind the scenes mongoDB doing everything
+        });
+
+    // 2) If token has not expired, and there is user, set the new password
+    if (!user) {
+        return next(AppError('Token is invalid or has expired', 400));
+    }
+    // console.log(user)
+
+    user.password = req.body.password;
+    user.passwordConfirm = req.body.passwordConfirm;
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
+    await user.save(); // now we want to validate so , not used 'validateBeforeSave: false'
+
+    createSendToken(user, 200, res);
 
 });
