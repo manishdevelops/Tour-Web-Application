@@ -12,10 +12,12 @@ const NearTours = () => {
 
     const getNearbyTours = async (lat, lng) => {
         try {
+            setError(false);
             setLoading(true);
             const res = await fetch(`/api/tours/tours-within/250/center/${lat},${lng}/unit/mi`);
 
             if (!res.ok) {
+                setError(true);
                 const errorData = await res.json();
                 setLoading(false);
 
@@ -23,8 +25,10 @@ const NearTours = () => {
             }
             const data = await res.json();
             setLoading(false);
+            setError(false);
             setTours(data.data.data);
         } catch (error) {
+            setError(true);
             setLoading(false);
             toast.error(error.message);
         }
@@ -72,6 +76,10 @@ const NearTours = () => {
                     <div className='p-4 flex items-center justify-center flex-wrap gap-4'>{Array.from({ length: 4 }).map((_, i) => <ShimmerThumbnail key={i} height={300} width={300} rounded />)}
                     </div>
                 )
+            }
+
+            {
+                !error && tours.length === 0 && <p className='text-center mt-8 text-xl text-red-500 font-semibold'>No nearby tours not fround!</p>
             }
 
         </div>

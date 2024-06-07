@@ -3,11 +3,15 @@ import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import TourCard from '../common/TourCard';
 import { ShimmerThumbnail } from "react-shimmer-effects";
+import { useSelector } from 'react-redux';
 
 
 const MyBookings = () => {
+    const { currentUser } = useSelector((state) => state.user);
+
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
+    const tourName = queryParams.get('name');
     const tour = queryParams.get('tour');
     const user = queryParams.get('user');
     const price = queryParams.get('price');
@@ -41,7 +45,7 @@ const MyBookings = () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ tour, user, price })
+                body: JSON.stringify({ tourName, tour, user, price, email: currentUser.email })
             });
 
             if (!res.ok) {
@@ -71,7 +75,7 @@ const MyBookings = () => {
             {!bookedTours && <div className='p-4 flex items-center justify-center flex-wrap gap-4'>{Array.from({ length: 5 }).map((_, i) => <ShimmerThumbnail key={i} height={250} width={250} rounded />)}
             </div>}
             {
-                bookedTours.length === 0 && <p className='text-center mt-8 text-xl text-red-500 font-semibold'>No bookings fround.</p>
+                (bookedTours && bookedTours.length) === 0 && <p className='text-center mt-8 text-xl text-red-500 font-semibold'>No bookings fround!</p>
             }
         </>
     )

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { toast } from 'react-toastify';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ShimmerTable } from "react-shimmer-effects";
 import { useSelector, useDispatch } from 'react-redux';
 import { setDeletedBooking } from '../../redux/user/userSlice';

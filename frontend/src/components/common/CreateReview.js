@@ -90,7 +90,7 @@ const CreateReview = ({ tour }) => {
 
     return (
         <div className=" p-6 rounded-lg w-full mx-4 sm:w-[36rem]" >
-            <h2 className="text-2xl font-bold mb-4 text-green-400">Write a Review...</h2>
+            <h2 className="text-2xl font-bold mb-4 text-green-400">Share your experience...</h2>
             <form onSubmit={handleSubmit}>
 
                 <Rating style={{ maxWidth: 250 }} value={rating} onChange={setRating} />
@@ -100,7 +100,7 @@ const CreateReview = ({ tour }) => {
                         value={reviewText}
                         onChange={(e) => setReviewText(e.target.value)}
                         className="w-full h-24 px-3 py-2 border rounded-md text-sm transition duration-300 ease-in-out focus:outline-none focus:border-blue-500"
-                        placeholder="Write your review..."
+                        placeholder="Leave a review..."
                         required
                     />
                 </div>

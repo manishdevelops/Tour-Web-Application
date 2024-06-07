@@ -3,7 +3,6 @@ import { useParams, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import NotFound from '../pages/NotFound';
 import { LuMail, LuPhone } from "react-icons/lu";
-import { ShimmerThumbnail } from "react-shimmer-effects";
 
 
 const ReplyContact = () => {

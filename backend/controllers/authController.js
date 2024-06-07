@@ -191,7 +191,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
-            console.log(error);
+            // console.log(error);
             next(new AppError('There was an error sending the email. Try again later!', 500));
         } else {
             console.log('Email sent: ' + info.response);

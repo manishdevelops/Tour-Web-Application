@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -7,12 +7,40 @@ import { Navigation, Autoplay } from 'swiper/modules';
 import 'swiper/css/bundle';
 import { ShimmerThumbnail } from "react-shimmer-effects";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { toast } from 'react-toastify';
+import { BiError } from "react-icons/bi";
 
-const Hero = ({ tours }) => {
+
+const Hero = () => {
 
     const { currentUser } = useSelector(state => state.user);
 
     SwiperCore.use([Navigation, Autoplay]);
+
+    const [tours, setTours] = useState(null);
+    const [error, setError] = useState(false);
+
+    useEffect(() => {
+
+        const getTours = async () => {
+            try {
+                setError(false);
+                const res = await fetch('/api/tours/getTours');
+                if (!res.ok) {
+                    setError(true);
+                    const errorData = await res.json();
+                    return toast.error(errorData.message);
+                }
+                setError(false);
+                const data = await res.json();
+                setTours(data.data.tours);
+            } catch (error) {
+                setError(true);
+                toast.error(error.message);
+            }
+        }
+        getTours()
+    }, []);
 
     return (
         <section className="w-full flex justify-center pt-12 px-10">
@@ -45,7 +73,7 @@ const Hero = ({ tours }) => {
                     </div>
                 </div>
                 {
-                    tours && (<Swiper
+                    !error && tours && (<Swiper
                         navigation
                         autoplay={{ delay: 3000 }}
                     >
@@ -60,7 +88,19 @@ const Hero = ({ tours }) => {
                     </Swiper>)
                 }
                 {
-                    tours.length === 0 && <ShimmerThumbnail height={350} rounded />
+                    !error && !tours && <ShimmerThumbnail height={350} rounded />
+                }
+                {
+                    !error && tours && tours.length === 0 && <p className='text-center mt-8 text-xl text-red-500 font-semibold'>Resouce not fround!</p>
+                }
+
+                {
+                    error && (
+                        <div className="text-center flex items-center flex-col gap-4">
+                            <BiError className='text-red-500 text-4xl text-center mt-8' />
+                            <p className="mt-6 text-base leading-7 text-red-600">Couldn't find resource, Please try after sometime.!</p>
+                        </div>
+                    )
                 }
             </div>
         </section>

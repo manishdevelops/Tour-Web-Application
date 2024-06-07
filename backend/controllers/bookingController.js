@@ -2,8 +2,30 @@ const catchAsync = require("../utils/catchAsync");
 const AppError = require('../utils/appError');
 const Tour = require('../models/tourModel');
 const Booking = require('../models/bookingModel');
+const nodemailer = require('nodemailer');
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+
+
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'manishdevelops411@gmail.com',
+        pass: 'giyr xepn lmyj sgbf'
+    }
+});
+
+const sendEmail = async (options) => {
+    const mailOptions = {
+        from: 'manishdevelops411@gmail.com',
+        to: options.email,
+        subject: options.subject,
+        text: options.message,
+    };
+
+    await transporter.sendMail(mailOptions);
+};
+
 
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
     try {
@@ -30,7 +52,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
             shipping_address_collection: {
                 allowed_countries: ['US'] // Specify a country outside India (e.g., United States)
             },
-            success_url: `${req.body.frontendUrl}/my-bookings?tour=${tour._id}&user=${req.user.id}&price=${tour.price}`,
+            success_url: `${req.body.frontendUrl}/my-bookings?name=${tour.tourName}&tour=${tour._id}&user=${req.user.id}&price=${tour.price}`,
             cancel_url: `${req.body.frontendUrl}/tourOverview/${tour.slug}`,
         });
 
@@ -42,16 +64,28 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
 });
 
 exports.bookMyTour = catchAsync(async (req, res, next) => {
-    const { tour, user, price } = req.body;
+    const { tourName, tour, user, price, email } = req.body;
 
     if (!tour && !user && !price) return next(AppError('Please provide all data.!', 400));
 
     await Booking.create({ tour, user, price });
 
-    res.status(201).json({
-        status: "succesS",
-        data: "Tour booked successfully."
-    });
+    const message = `Dear Customer,\n\nYour booking for the tour has been confirmed.\n\nTour: ${tourName}\nPrice: Rs ${price}\n\nThank you for booking with us.\n\nBest regards,\nTourGuru`;
+
+    try {
+        await sendEmail({
+            email: email, // recipient email
+            subject: 'Tour Booking Confirmation',
+            message: message,
+        });
+
+        res.status(201).json({
+            status: 'success',
+            data: 'Tour booked successfully and confirmation email sent.',
+        });
+    } catch (err) {
+        return next(new AppError('Booking successful but email could not be sent.', 500));
+    }
 });
 
 exports.isTourBooked = catchAsync(async (req, res, next) => {
