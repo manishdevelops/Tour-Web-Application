@@ -9,6 +9,7 @@ function classNames(...classes) {
 
 export default function ContactUs() {
     const [agreed, setAgreed] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -31,6 +32,7 @@ export default function ContactUs() {
         }
 
         try {
+            setLoading(true);
             const res = await fetch('/api/contactUs/createContact', {
                 method: 'POST',
                 headers: {
@@ -41,6 +43,7 @@ export default function ContactUs() {
 
             if (res.ok === false) {
                 const errorData = await res.json();
+                setLoading(false);
                 return toast.error(errorData.message);
             }
 
@@ -51,9 +54,11 @@ export default function ContactUs() {
                 phoneNumber: '',
                 message: ''
             });
+            setLoading(false);
             toast.success('Your inquiry has been received. We will get back to you shortly!');
 
         } catch (error) {
+            setLoading(false);
             toast.error(error.message);
         }
     }
@@ -182,9 +187,10 @@ export default function ContactUs() {
                 <div className="mt-10">
                     <button
                         type="submit"
+                        disabled={loading}
                         className="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     >
-                        Let's talk
+                        {loading ? 'Processing...' : "Let's talk"}
                     </button>
                 </div>
             </form>

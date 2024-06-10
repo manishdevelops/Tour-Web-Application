@@ -52,7 +52,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
             shipping_address_collection: {
                 allowed_countries: ['US'] // Specify a country outside India (e.g., United States)
             },
-            success_url: `${req.body.frontendUrl}/my-bookings?name=${tour.tourName}&tour=${tour._id}&user=${req.user.id}&price=${tour.price}`,
+            success_url: `${req.body.frontendUrl}/my-bookings?name=${tour.tourName}&tour=${tour._id}&guide=${tour.tourGuide}&user=${req.user.id}&price=${tour.price}`,
             cancel_url: `${req.body.frontendUrl}/tourOverview/${tour.slug}`,
         });
 
@@ -64,11 +64,11 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
 });
 
 exports.bookMyTour = catchAsync(async (req, res, next) => {
-    const { tourName, tour, user, price, email } = req.body;
+    const { tourName, tour, user, price, email, tourGuide } = req.body;
 
-    if (!tour && !user && !price) return next(AppError('Please provide all data.!', 400));
+    if (!tour && !user && !price && !tourGuide) return next(AppError('Please provide all data.!', 400));
 
-    await Booking.create({ tour, user, price });
+    await Booking.create({ tour, user, price, tourGuide });
 
     const message = `Dear Customer,\n\nYour booking for the tour has been confirmed.\n\nTour: ${tourName}\nPrice: Rs ${price}\n\nThank you for booking with us.\n\nBest regards,\nTourGuru`;
 

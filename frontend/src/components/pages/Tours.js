@@ -10,7 +10,7 @@ const Tour = () => {
     const navigate = useNavigate();
 
     const [tours, setTours] = useState([]);
-    // console.log(tours);
+    console.log(tours);
     const [tourLoading, setTourLoading] = useState(false);
 
     const [showMore, setShowMore] = useState(true);
@@ -56,7 +56,6 @@ const Tour = () => {
         "West Bengal",
         "Andaman and Nicobar Islands",
         "Chandigarh",
-        "Dadra and Nagar Haveli and Daman and Diu",
         "Delhi",
         "Lakshadweep",
         "Puducherry"
@@ -97,7 +96,7 @@ const Tour = () => {
                 return toast.error(errorData.message);
             }
             const data = await res.json();
-            if (data.data.tours.length <= 12) {
+            if (data.data.tours.length < 12) {
                 setShowMore(false);
                 setTourLoading(false);
             }
@@ -232,7 +231,7 @@ const Tour = () => {
                 <h1 className='text-3xl font-semibold p-3 text-slate-700 mt-5 g'> Available tours:</h1>
                 {
                     tourLoading && (
-                        <div className='p-4 flex items-center justify-center flex-wrap gap-4'>{Array.from({ length: 10 }).map((_, i) => <ShimmerThumbnail key={i} height={250} width={250} rounded />)}
+                        <div className='p-4 flex items-center justify-center flex-wrap gap-4'>{Array.from({ length: 12 }).map((_, i) => <ShimmerThumbnail key={i} height={250} width={250} rounded />)}
                         </div>
                     )
                 }

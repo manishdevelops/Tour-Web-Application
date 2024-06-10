@@ -42,7 +42,6 @@ exports.getAllTours = catchAsync(async (req, res, next) => {
 });
 
 exports.getTourResults = catchAsync(async (req, res, next) => {
-    // console.log(req.query);
     const limit = parseInt(req.query.limit) || 12;
 
     const startIndex = parseInt(req.query.startIndex) || 0;

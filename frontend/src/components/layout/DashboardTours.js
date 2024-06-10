@@ -270,7 +270,7 @@ const DashboardTours = () => {
                 error && <NotFound />
             }
             {
-                tours?.length === 0 && <div className=' w-full text-center text-xl mt-20 font-semibold text-red-500'>No results found.</div>
+                !tourLoading && tours?.length === 0 && <div className=' w-full text-center text-xl mt-20 font-semibold text-red-500'>No results found.</div>
             }
 
         </div>

@@ -40,8 +40,8 @@ const SignUp = () => {
             }
             const data = await res.json();
             dispatch(signInSuccess(data.data.user));
-            toast.success('User registration successfull.!');
-            navigate('/home')
+            toast.success('User registration successfull. Add your profile picture!');
+            navigate('/profile');
         } catch (error) {
             setLoading(false);
             return toast.error(error.message);

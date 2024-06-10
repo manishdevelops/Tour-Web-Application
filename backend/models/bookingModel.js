@@ -12,6 +12,10 @@ const bookingSchema = new mongoose.Schema({
         ref: 'User',
         required: [true, 'Booking must belong to a User!']
     },
+    tourGuide: {
+        type: String,
+        required: [true, 'A booking tour must have a guide!']
+    },
     price: {
         type: Number,
         required: [true, 'Booking must have a price.']

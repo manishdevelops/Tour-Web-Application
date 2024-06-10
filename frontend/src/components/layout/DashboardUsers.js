@@ -149,7 +149,7 @@ const DashboardUsers = () => {
                                     <td className="p-2 text-center w-28">{index + 1}</td>
                                     <td className="p-2">
                                         <div className="flex items-center">
-                                            <img src={user.photo} alt={user.name} className="rounded-full w-20 h-10 mr-2" />
+                                            <img src={user.photo} alt={user.name} className="rounded-full w-[4rem] h-[4rem] mr-2" />
                                             <span>{user.name}</span>
                                         </div>
                                     </td>

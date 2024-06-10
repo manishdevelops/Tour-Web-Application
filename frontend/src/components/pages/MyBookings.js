@@ -15,9 +15,9 @@ const MyBookings = () => {
     const tour = queryParams.get('tour');
     const user = queryParams.get('user');
     const price = queryParams.get('price');
+    const tourGuide = queryParams.get('guide');
 
     const [bookedTours, setBookedTours] = useState(null);
-    console.log(bookedTours)
 
     const getMyTours = async () => {
         try {
@@ -45,7 +45,7 @@ const MyBookings = () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ tourName, tour, user, price, email: currentUser.email })
+                body: JSON.stringify({ tourName, tour, tourGuide, user, price, email: currentUser.email })
             });
 
             if (!res.ok) {

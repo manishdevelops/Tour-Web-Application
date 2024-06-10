@@ -24,7 +24,7 @@ const DashboardUsers = () => {
         searchTerm: '',
     });
 
-    console.log(contacts);
+    // console.log(contacts);
     const handleContactDeleted = (deletedContactId) => {
         setContacts(contacts.filter(contact => contact._id !== deletedContactId));
     };

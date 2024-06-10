@@ -26,7 +26,7 @@ function CreateTour() {
         coordinates: ''
     });
 
-    // console.log(formData);
+    console.log(formData);
 
     const [uploading, setUploading] = useState(false);
     const [tourCreating, setTourCreating] = useState(false);
@@ -125,9 +125,6 @@ function CreateTour() {
                 return;
             }
 
-            const data = await res.json();
-            // console.log(data.data);
-
             toast.success('tour created successfully!.');
             navigate('/dashboard/tours');
         } catch (error) {
@@ -142,11 +139,11 @@ function CreateTour() {
             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                     <label htmlFor="tourName" className="block text-sm font-medium text-gray-700">Tour Name:</label>
-                    <input type="text" id="tourName" name="tourName" value={formData.tourName} onChange={handleChange} placeholder='Enter tour location' className="w-full px-2 py-1 rounded border transition duration-300 ease-in-out focus:outline-none focus:border-blue-500" />
+                    <input type="text" id="tourName" name="tourName" value={formData.tourName} onChange={handleChange} placeholder='Enter tour name' className="w-full px-2 py-1 rounded border transition duration-300 ease-in-out focus:outline-none focus:border-blue-500" />
                 </div>
                 <div className="space-y-2">
                     <label htmlFor="location" className="block text-sm font-medium text-gray-700">Location:</label>
-                    <input type="text" id="location" name="location" placeholder='Enter tour location' value={formData.location} onChange={handleChange} className="w-full px-2 py-1 rounded border transition duration-300 ease-in-out focus:outline-none focus:border-blue-500" />
+                    <input type="text" id="location" name="location" placeholder='Enter tour state' value={formData.location} onChange={handleChange} className="w-full px-2 py-1 rounded border transition duration-300 ease-in-out focus:outline-none focus:border-blue-500" />
                 </div>
                 <div className="space-y-2">
                     <label htmlFor="tourDescription" className="block text-sm font-medium text-gray-700">Tour Description:</label>

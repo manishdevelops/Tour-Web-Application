@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const userRoute = require('./routes/userRoutes');
+const guideRoute = require('./routes/guideRoutes');
 const adminRoute = require('./routes/adminRoutes');
 const tourRoute = require('./routes/tourRoutes');
 const reviewRoute = require('./routes/reviewRoutes');
@@ -15,6 +16,9 @@ app.use(cookieParser());
 
 //for users
 app.use('/api/users', userRoute);
+
+//for guides
+app.use('/api/guides', guideRoute);
 
 //for admin
 app.use('/api/admin', adminRoute);

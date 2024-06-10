@@ -21,7 +21,7 @@ const DashboardHome = () => {
     const [lineGraphLoading, setLineChartLoading] = useState(true);
     const icons = [MdTour, FaUsers, TbBrandBooking, MdContacts, MdOutlineRateReview];
 
-    console.log(statistics)
+    // console.log(statistics)
 
     const colors = ['text-red-900', 'text-blue-600', 'text-green-700', 'text-orangered', 'text-pink-700'];
 
