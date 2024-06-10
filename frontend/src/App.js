@@ -19,6 +19,7 @@ const EditTour = lazy(() => import("./components/layout/EditTour"));
 const Dashboard = lazy(() => import('./components/pages/Dashboard'));
 const PrivacyPolicy = lazy(() => import("./components/layout/PrivacyPolicy"));
 const AdminRoute = lazy(() => import("./components/common/AdminRoute"));
+const GuideRoute = lazy(() => import("./components/common/GuideRoute"));
 const MyBookings = lazy(() => import("./components/pages/MyBookings"));
 const NotFound = lazy(() => import('./components/pages/NotFound'));
 const DashboardHome = lazy(() => import("./components/layout/DashboardHome"));
@@ -33,11 +34,10 @@ const ResetPassword = lazy(() => import("./components/common/ResetPassword"));
 const EditUser = lazy(() => import("./components/layout/EditUser"));
 const EditReview = lazy(() => import("./components/layout/EditReview"));
 const ReplyContact = lazy(() => import("./components/common/ReplyContact"));
-
+const AssignedTours = lazy(() => import("./components/pages/AssignedTours"));
 
 
 function App() {
-
 
   return (
     <BrowserRouter>
@@ -66,6 +66,10 @@ function App() {
               <Route element={<PrivateRoute />}>
                 <Route path='/profile' element={<Profile />} />
                 <Route path='/my-bookings' element={<MyBookings />} />
+              </Route>
+
+              <Route element={<GuideRoute />}>
+                <Route path='/assigned-tours' element={<AssignedTours />} />
               </Route>
 
               <Route element={<AdminRoute />}>

@@ -3,10 +3,10 @@ import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import AccessDenied from './AccessDenied';
 
-const AdminRoute = () => {
+const GuideRoute = () => {
     const { currentUser } = useSelector(state => state.user);
 
-    return (currentUser && currentUser.role === 'admin' ? <Outlet /> : <AccessDenied />)
+    return (currentUser && currentUser.role === 'guide' ? <Outlet /> : <AccessDenied />)
 }
 
-export default AdminRoute;
+export default GuideRoute;
