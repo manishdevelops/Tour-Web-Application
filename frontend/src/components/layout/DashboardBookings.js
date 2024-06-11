@@ -31,8 +31,6 @@ const DashboardBookings = () => {
         });
     };
 
-    // console.log(bookings)
-
     const getCurrentDate = () => {
         const today = new Date();
         const yyyy = today.getFullYear();

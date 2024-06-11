@@ -185,7 +185,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     var mailOptions = {
         from: 'manishdevelops411@gmail.com',
         to: `${user.email}`,
-        subject: 'Reset Your Password',
+        subject: 'TourGuru:Reset Your Password',
         text: `${frontendUrl}/reset-password/${resetToken}`,
     };
 

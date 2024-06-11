@@ -27,31 +27,64 @@ const sendEmail = async (options) => {
 };
 
 
+// exports.getCheckoutSession = catchAsync(async (req, res, next) => {
+//     try {
+//         const tour = req.body.tour;
+
+//         const lineItem = [{
+//             price_data: {
+//                 currency: 'inr',
+//                 product_data: {
+//                     name: tour.tourName,
+//                     description: tour.tourDescription,
+//                     images: [tour.photos[0]]
+//                 },
+//                 unit_amount: tour.price * 100,
+//             },
+//             quantity: 1
+//         }];
+
+//         const session = await stripe.checkout.sessions.create({
+//             payment_method_types: ["card"],
+//             line_items: lineItem,
+//             mode: 'payment',
+//             billing_address_collection: 'required',
+//             shipping_address_collection: {
+//                 allowed_countries: ['US'] // Specify a country outside India (e.g., United States)
+//             },
+//             success_url: `${req.body.frontendUrl}/my-bookings?name=${tour.tourName}&tour=${tour._id}&guide=${tour.tourGuide}&user=${req.user.id}&price=${tour.price}`,
+//             cancel_url: `${req.body.frontendUrl}/tourOverview/${tour.slug}`,
+//         });
+
+//         res.json({ id: session.id });
+//     } catch (error) {
+//         console.log(error)
+//     }
+
+// });
+
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
     try {
         const tour = req.body.tour;
+        const product = await stripe.products.create({
+            name: tour.tourName,
+            description: tour.tourDescription,
+            images: [tour.photos[0]]
+        });
 
-        const lineItem = [{
-            price_data: {
-                currency: 'inr',
-                product_data: {
-                    name: tour.tourName,
-                    description: tour.tourDescription,
-                    images: [tour.photos[0]]
-                },
-                unit_amount: tour.price * 100,
-            },
-            quantity: 1
-        }];
+        const price = await stripe.prices.create({
+            product: product.id,
+            unit_amount: tour.price * 100, // 100 INR
+            currency: 'inr',
+        });
 
         const session = await stripe.checkout.sessions.create({
-            payment_method_types: ["card"],
-            line_items: lineItem,
+            line_items: [{
+                price: price.id,
+                quantity: 1
+            }],
             mode: 'payment',
             billing_address_collection: 'required',
-            shipping_address_collection: {
-                allowed_countries: ['US'] // Specify a country outside India (e.g., United States)
-            },
             success_url: `${req.body.frontendUrl}/my-bookings?name=${tour.tourName}&tour=${tour._id}&guide=${tour.tourGuide}&user=${req.user.id}&price=${tour.price}`,
             cancel_url: `${req.body.frontendUrl}/tourOverview/${tour.slug}`,
         });
@@ -62,6 +95,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
     }
 
 });
+
 
 exports.bookMyTour = catchAsync(async (req, res, next) => {
     const { tourName, tour, user, price, email, tourGuide } = req.body;
