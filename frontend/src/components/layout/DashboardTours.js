@@ -220,7 +220,7 @@ const DashboardTours = () => {
             </form>
 
             {
-                !tourLoading && !error && tours.length > 0 &&
+                !tourLoading && !error && tours?.length > 0 &&
 
                 <div className="lg:w-custom-256 w-custom-1rem overflow-x-scroll bg-white rounded-lg shadow-md">
                     <table className="w-[80rem] table-fixed border-collapse">
@@ -243,12 +243,12 @@ const DashboardTours = () => {
                                     <td className="p-2">
                                         <div className="flex items-center">
                                             <img src={tour.photos[0]} alt={tour.tourName} className="w-20 h-10 mr-2" />
-                                            <span>{tour.tourName}</span>
+                                            <span className='text-red-700'>{tour.tourName}</span>
                                         </div>
                                     </td>
                                     <td className="p-2 text-center">{new Date(tour.departureDate).toLocaleDateString()}</td>
-                                    <td className="p-2 text-center">₹{tour.price.toLocaleString('en-IN')}</td>
-                                    <td className="p-2 text-center"><Link className='text-green-500 hover:underline font-semibold' to={`/tour-overview/${tour.slug}`}>View</Link></td>
+                                    <td className="p-2 text-center text-green-500">₹{tour.price.toLocaleString('en-IN')}</td>
+                                    <td className="p-2 text-center"><Link className='text-purple-900 hover:underline font-semibold' to={`/tour-overview/${tour.slug}`}>View</Link></td>
                                     <td className="p-2 text-center">
                                         <button className="text-blue-500 hover:underline font-semibold"><Link to={`/dashboard/edit-tour/${tour._id}`}>Edit</Link></button>
                                         <button onClick={() => [dispatch(setDeleteTour(true)), setTourId(tour._id)]} className="text-red-500 hover:underline ml-2 font-semibold">Delete</button>
@@ -270,7 +270,7 @@ const DashboardTours = () => {
                 error && <NotFound />
             }
             {
-                !tourLoading && tours?.length === 0 && <div className=' w-full text-center text-xl mt-20 font-semibold text-red-500'>No results found.</div>
+                !tourLoading && !error && tours?.length === 0 && <div className=' w-full p-2 text-center text-xl mt-20 font-semibold text-red-500'>No results found.</div>
             }
 
         </div>

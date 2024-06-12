@@ -103,7 +103,7 @@ export default function Header() {
                                                 {({ active }) => (
                                                     <Link
                                                         to='/profile'
-                                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700 font-semibold')}
                                                     >
                                                         Your Profile
                                                     </Link>
@@ -116,7 +116,7 @@ export default function Header() {
                                                         {({ active }) => (
                                                             <Link
                                                                 to='/dashboard'
-                                                                className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                                                className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700 font-semibold')}
                                                             >
                                                                 Dashboard
                                                             </Link>
@@ -132,7 +132,7 @@ export default function Header() {
                                                         {({ active }) => (
                                                             <Link
                                                                 to='/my-bookings'
-                                                                className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                                                className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700 font-semibold')}
                                                             >
                                                                 My bookings
                                                             </Link>
@@ -148,7 +148,7 @@ export default function Header() {
                                                         {({ active }) => (
                                                             <Link
                                                                 to='/assigned-tours'
-                                                                className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                                                className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700 font-semibold')}
                                                             >
                                                                 Your Assigned tours
                                                             </Link>

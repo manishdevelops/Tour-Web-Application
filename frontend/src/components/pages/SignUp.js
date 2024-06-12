@@ -40,7 +40,7 @@ const SignUp = () => {
             }
             const data = await res.json();
             dispatch(signInSuccess(data.data.user));
-            toast.success('User registration successfull. Add your profile picture!');
+            toast.success('Complete your profile!');
             navigate('/profile');
         } catch (error) {
             setLoading(false);
@@ -73,4 +73,4 @@ const SignUp = () => {
     )
 }
 
-export default SignUp
+export default SignUp;

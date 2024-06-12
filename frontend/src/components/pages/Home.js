@@ -8,8 +8,9 @@ import CheapTours from '../layout/CheapTours';
 import FAQs from '../layout/FAQs';
 import ReviewCarousel from '../layout/ReviewCarousel';
 
-const Home = () => {
+import './Tours.css';
 
+const Home = () => {
 
     return (
         <>

@@ -41,7 +41,7 @@ const SignIn = () => {
 
             const data = await res.json();
 
-            toast.success('User logged in successfully!.');
+            toast.success('Logged in successfully!.');
             dispatch(signInSuccess(data.data.user));
 
             window.setTimeout(() => {

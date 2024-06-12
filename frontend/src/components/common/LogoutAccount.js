@@ -22,7 +22,7 @@ export default function DeactivateAccount() {
             }
 
             dispatch(logOutUserSuccess(null));
-            toast.success('User logged out successfully!');
+            toast.success('Logged out successfully!');
         } catch (error) {
             toast.error(error.message);
         }

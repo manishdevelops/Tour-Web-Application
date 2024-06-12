@@ -1,21 +1,18 @@
-/* Define scrollbar styles */
+/* Custom scrollbar styles */
 ::-webkit-scrollbar {
-    width: 0; /* Set the width of the scrollbar to 0 */
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: transparent; /* Set the track color to transparent */
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: transparent; /* Set the handle color to transparent */
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: transparent; /* Set the handle color on hover to transparent */
-  }
-  
-  
+  width: 8px; /* Set the width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Set the track color */
+  border-radius: 4px; /* Optional: add rounding to the track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; /* Set the handle color */
+  border-radius: 4px; /* Optional: add rounding to the handle */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Set the handle color on hover */
+}

@@ -150,11 +150,11 @@ const DashboardUsers = () => {
                                     <td className="p-2">
                                         <div className="flex items-center">
                                             <img src={user.photo} alt={user.name} className="rounded-full w-[4rem] h-[4rem] mr-2" />
-                                            <span>{user.name}</span>
+                                            <span className='text-red-800'>{user.name}</span>
                                         </div>
                                     </td>
-                                    <td className="p-2 text-center">{user.role}</td>
-                                    <td className="p-2 text-center">{user.email}</td>
+                                    <td className="p-2 text-center text-yellow-500">{user.role}</td>
+                                    <td className="p-2 text-center text-blue-800">{user.email}</td>
                                     <td className="p-2 text-center">{new Date(user.createdAt).toLocaleDateString()}</td>
                                     <td className="p-2 text-center">
                                         <button className="text-blue-500 hover:underline font-semibold"><Link to={`/dashboard/edit-user/${user._id}`}>Edit</Link></button>

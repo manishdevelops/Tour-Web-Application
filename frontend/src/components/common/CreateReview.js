@@ -108,7 +108,7 @@ const CreateReview = ({ tour }) => {
                     <button type="button" onClick={() => handleClose()} className="bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-md shadow-md mr-2">
                         Cancel
                     </button>
-                    <button type="submit" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md shadow-md">
+                    <button disabled={loading} type="submit" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md shadow-md">
                         {loading ? 'Creating...' : 'Create'}
                     </button>
                 </div>

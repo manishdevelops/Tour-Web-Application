@@ -3,6 +3,8 @@ import { toast } from 'react-toastify';
 import { formatDistanceToNow } from 'date-fns';
 import StarRatings from 'react-star-ratings';
 import { useSelector } from 'react-redux';
+import { FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
+
 
 const DisplayReviews = ({ id }) => {
     const { currentUser } = useSelector(state => state.user);
@@ -112,8 +114,8 @@ const DisplayReviews = ({ id }) => {
                                     <span>{formatDistanceToNow(new Date(review?.createdAt), { addSuffix: true })}</span>
                                     {currentUser?._id === review?.user?._id && (<button onClick={() => deleteYourReview(review?._id)} className=' text-red-600 hover:underline'>Delete your review</button>)}
                                 </div>
-                                <p className="mt-3 text-sm text-gray-700">
-                                    {review?.review}
+                                <p className="mt-3 text-sm text-[#006400]">
+                                    <FaQuoteLeft className='text-red-500 inline' /> {review?.review}     <FaQuoteRight className='text-red-500 inline' />
                                 </p>
                             </div>
                         </div>

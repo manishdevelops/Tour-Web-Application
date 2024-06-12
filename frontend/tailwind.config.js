@@ -4,8 +4,8 @@ module.exports = {
   theme: {
     extend: {
       width: {
-        'custom-256': 'calc(100vw - 256px)',
-        'custom-1rem': 'calc(100vw - 4rem)',
+        'custom-256': 'calc(100vw - 270px)',
+        'custom-1rem': 'calc(100vw - 6.5rem)',
       },
     },
   },

@@ -122,7 +122,7 @@ const DashboardReviews = () => {
                                         </div>
                                     </td>
                                     <td className="p-2 text-center">{review.tour.tourName}</td>
-                                    <td className="p-2 ">{review.review}</td>
+                                    <td className="p-2 "><div className='max-h-24 overflow-y-auto'>{review.review}</div></td>
                                     <td className="p-2 text-center">{new Date(review.createdAt).toLocaleDateString()}</td>
                                     <td className="p-2 text-center">
                                         <button className="text-blue-500 hover:underline font-semibold"><Link to={`/dashboard/edit-review/${review._id}`}>Edit</Link></button>

@@ -142,8 +142,8 @@ const DashboardBookings = () => {
                                 <tr key={booking._id} className="bg-white border-b">
 
                                     <td className="p-2 text-center w-28">{index + 1}</td>
-                                    <td className="p-2 text-center">{booking.user.name}</td>
-                                    <td className="p-2 text-center">{booking.tour.tourName}</td>
+                                    <td className="p-2 text-center text-gray-700">{booking.user.name}</td>
+                                    <td className="p-2 text-center text-red-700">{booking.tour.tourName}</td>
                                     <td className="p-2 text-green-600 text-center">₹{booking.price.toLocaleString('en-IN')}</td>
                                     <td className="p-2 text-center">{new Date(booking.createdAt).toLocaleDateString()}</td>
                                     <td className="p-2 text-center">

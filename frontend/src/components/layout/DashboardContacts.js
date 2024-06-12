@@ -117,10 +117,10 @@ const DashboardUsers = () => {
                                 <tr key={contact._id} className="bg-white border-b">
 
                                     <td className="p-2 text-center w-28">{index + 1}</td>
-                                    <td className="p-2 text-center">{contact.firstName + " " + contact.lastName}</td>
-                                    <td className="p-2 text-center">{contact.message}</td>
-                                    <td className="p-2 text-center">{contact.email}</td>
-                                    <td className="p-2 text-center">{contact.phoneNumber}</td>
+                                    <td className="p-2 text-center text-red-800">{contact.firstName + " " + contact.lastName}</td>
+                                    <td className="p-2 text-center text-gray-600">{contact.message}</td>
+                                    <td className="p-2 text-center text-blue-500">{contact.email}</td>
+                                    <td className="p-2 text-center text-green-500">{contact.phoneNumber}</td>
                                     <td className="p-2 text-center">{new Date(contact.createdAt).toLocaleDateString()}</td>
                                     <td className="p-2 text-center">
                                         <button className="text-blue-500 hover:underline font-semibold"><Link to={`/dashboard/reply-contact/${contact._id}`}>Reply</Link></button>

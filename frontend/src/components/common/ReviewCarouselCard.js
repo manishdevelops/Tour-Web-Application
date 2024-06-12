@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
+
 
 const ReviewCarouselCard = ({ reviews }) => {
     const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
@@ -24,11 +26,11 @@ const ReviewCarouselCard = ({ reviews }) => {
                         className={`bg-gray-100 p-4 max-w-md w-full  shadow-md rounded-lg overflow-hidden ${index === currentReviewIndex ? 'block' : 'hidden'
                             }`}
                     >
-                        <div className='flex justify-center mb-4'>
-                            <img className='h-8 w-8 rounded-full mr-4' src={review.photo} alt='user' />
+                        <div className='flex flex-col items-center justify-center mb-4'>
+                            <img className='h-16 w-16 rounded-full mb-2' src={review.photo} alt='user' />
                             <h3 className="text-lg font-semibold mb-2">{review.name}</h3>
                         </div>
-                        <p className="text-red-900 justify-center text-center">"{review.review}"</p>
+                        <p className="text-red-900 justify-center text-center"><FaQuoteLeft className='text-red-500 inline' /> {review?.review} <FaQuoteRight className='text-red-500 inline' /></p>
                     </div>
                 ))
             }
