@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const path = require('path');
+
 const userRoute = require('./routes/userRoutes');
 const guideRoute = require('./routes/guideRoutes');
 const adminRoute = require('./routes/adminRoutes');
@@ -34,6 +36,14 @@ app.use('/api/contactUs', contactUsRoute);
 
 //for booking tour
 app.use('/api/bookings', bookingRoute);
+
+
+app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+app.get('*', function (req, res) {
+    res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
+});
+
 
 
 //the routes that are not handled by the above routes
