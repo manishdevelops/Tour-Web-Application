@@ -91,9 +91,8 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
 
         res.json({ id: session.id });
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
-
 });
 
 
