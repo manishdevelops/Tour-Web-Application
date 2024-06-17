@@ -31,7 +31,6 @@ const OAuth = () => {
             toast.success('User registration successfull.!');
             navigate('/home');
         } catch (error) {
-            console.log(error)
             toast.error('Could not sign in to Google.!');
         }
     }

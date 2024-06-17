@@ -9,7 +9,6 @@ const ReviewCarousel = () => {
     const [reviews, setReviews] = useState(null);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
-    console.log(reviews);
 
     const getReviews = async () => {
         try {

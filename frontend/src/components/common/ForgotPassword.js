@@ -35,7 +35,7 @@ const SignIn = () => {
                 return;
             }
 
-            toast.success('Email sent successfully!.');
+            toast.success('Email sent. Please check your mail!');
             setLoading(false);
 
             window.setTimeout(() => {
