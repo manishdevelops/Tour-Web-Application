@@ -27,7 +27,7 @@ exports.editTour = catchAsync(async (req, res, next) => {
         runValidators: true
     });
 
-    if (!tour) return next(AppError('No tour found', 404));
+    if (!tour) return next(new AppError('No tour found', 404));
 
     res.status(200).json({
         "status": "success",
@@ -64,7 +64,7 @@ exports.editUser = catchAsync(async (req, res, next) => {
         runValidators: true
     });
 
-    if (!user) return next(AppError('No user found', 404));
+    if (!user) return next(new AppError('No user found', 404));
 
     res.status(200).json({
         "status": "success",
@@ -317,7 +317,7 @@ exports.deleteReview = catchAsync(async (req, res, next) => {
 exports.getReview = catchAsync(async (req, res, next) => {
     const review = await Review.findById(req.params.id);
 
-    if (!review) return next(AppError('No review found', 404));
+    if (!review) return next(new AppError('No review found', 404));
 
     res.status(200).json({
         status: "success",
@@ -333,7 +333,7 @@ exports.editReview = catchAsync(async (req, res, next) => {
         runValidators: true
     });
 
-    if (!review) return next(AppError('No review found', 404));
+    if (!review) return next(new AppError('No review found', 404));
 
     res.status(200).json({
         "status": "success",
@@ -372,7 +372,7 @@ exports.getContactsResults = catchAsync(async (req, res, next) => {
 
     const contacts = await Contact.find(queryObj);
 
-    if (!contacts) return next(AppError('no contact found!', 404));
+    if (!contacts) return next(new AppError('no contact found!', 404));
 
     res.status(200).json({
         status: "success",

@@ -48,7 +48,7 @@ exports.login = catchAsync(async (req, res, next) => {
     const { email, password } = req.body;
 
     // 1) Check if email and password exist
-    if (!email || !password) return next(AppError('Please provide email and password', 400));
+    if (!email || !password) return next(new AppError('Please provide email and password', 400));
 
     // 2) Check if user exists and password is correct
     const user = await User.findOne({ email }).select('+password');
@@ -57,7 +57,7 @@ exports.login = catchAsync(async (req, res, next) => {
     const validUser = await user?.correctPassword(password, user.password);
 
     if (!user || !validUser) {
-        return next(AppError('Incorrect Email or Password', 401));
+        return next(new AppError('Incorrect Email or Password', 401));
     }
 
     // 3) If everything is ok send token to client
@@ -87,7 +87,7 @@ exports.protect = catchAsync(async (req, res, next) => {
     }
 
     if (!token) {
-        return next(AppError('Your are not logged in! Please login to get access.!'));
+        return next(new AppError('Your are not logged in! Please login to get access.!'));
     }
 
     // 2) Verification token
@@ -96,7 +96,7 @@ exports.protect = catchAsync(async (req, res, next) => {
     // 3) Check if user still exists (after login if user deleted)
     const currentUser = await User.findById(decoded.id);
     if (!currentUser) {
-        return next(AppError('The user belonging to this token does no longer exist.', 401));
+        return next(new AppError('The user belonging to this token does no longer exist.', 401));
     }
 
     // for fututre purpose
@@ -140,7 +140,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 
     if (req.body.newPassword) {
         if (!(await user.correctPassword(req.body.currentPassword, user.password))) {
-            return next(AppError('Your current password is wrong', 401));
+            return next(new AppError('Your current password is wrong', 401));
         }
         // user.password = req.body.newPassword;
         // user.passwordConfirm = req.body.newPassword;
@@ -167,7 +167,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 
     const user = await User.findOne({ email });
 
-    if (!user) return next(AppError('User no longer exist.', 404));
+    if (!user) return next(new AppError('User no longer exist.', 404));
 
     const resetToken = user.createPasswordResetToken();
 
@@ -215,7 +215,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 
     // 2) If token has not expired, and there is user, set the new password
     if (!user) {
-        return next(AppError('Token is invalid or has expired', 400));
+        return next(new AppError('Token is invalid or has expired', 400));
     }
     // console.log(user)
 

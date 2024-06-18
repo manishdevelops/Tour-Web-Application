@@ -99,7 +99,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
 exports.bookMyTour = catchAsync(async (req, res, next) => {
     const { tourName, tour, user, price, email, tourGuide } = req.body;
 
-    if (!tour && !user && !price && !tourGuide) return next(AppError('Please provide all data.!', 400));
+    if (!tour && !user && !price && !tourGuide) return next(new AppError('Please provide all data.!', 400));
 
     await Booking.create({ tour, user, price, tourGuide });
 
@@ -127,7 +127,7 @@ exports.isTourBooked = catchAsync(async (req, res, next) => {
     const bookedAlready = await Booking.findOne({ user, tour });
 
     if (bookedAlready) {
-        return next(AppError('Tour already booked.', 409));
+        return next(new AppError('Tour already booked.', 409));
     }
 
     res.status(200).json({

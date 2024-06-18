@@ -13,7 +13,7 @@ exports.createContact = catchAsync(async (req, res) => {
 exports.getContact = catchAsync(async (req, res, next) => {
     const contact = await Contact.findById(req.params.id);
 
-    if (!contact) return next(AppError('No contact found!'));
+    if (!contact) return next(new AppError('No contact found!'));
 
     res.status(200).json({
         status: "success",

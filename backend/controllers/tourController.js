@@ -30,7 +30,7 @@ exports.topCheapTours = catchAsync(async (req, res, next) => {
 exports.getAllTours = catchAsync(async (req, res, next) => {
     const tours = await Tour.find();
 
-    if (tours.length == 0) return next(AppError('No tour found!', 404));
+    if (tours.length == 0) return next(new AppError('No tour found!', 404));
 
     res.status(200).json({
         status: "success",
@@ -76,7 +76,7 @@ exports.getTourResults = catchAsync(async (req, res, next) => {
 exports.getTour = catchAsync(async (req, res, next) => {
     const tour = await Tour.find({ slug: req.params.slug }).populate('reviews');
     // console.log(tour)
-    if (tour.length === 0) return next(AppError('No tour found', 404));
+    if (tour.length === 0) return next(new AppError('No tour found', 404));
 
     res.status(200).json({
         status: "success",
@@ -90,7 +90,7 @@ exports.getTour = catchAsync(async (req, res, next) => {
 
 exports.tour = catchAsync(async (req, res, next) => {
     const tour = await Tour.findById(req.params.id).populate('reviews');
-    if (!tour) return next(AppError('No tour found', 404));
+    if (!tour) return next(new AppError('No tour found', 404));
 
     res.status(200).json({
         status: 'success',
