@@ -69,6 +69,7 @@ const Profile = () => {
             setUpdateLoading(false);
             dispatch(updateUserSuccess(data.data.user));
             toast.success('User updated successfully!');
+            setFormData({});
         } catch (error) {
             toast.error('User updation failed!');
             setUpdateLoading(false);
