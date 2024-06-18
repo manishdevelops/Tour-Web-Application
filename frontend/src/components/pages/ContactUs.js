@@ -27,7 +27,7 @@ export default function ContactUs() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!agreed) {
-            toast.success('Please agree to the privacy policy.');
+            toast.error('Please agree to the privacy policy.');
             return;
         }
 

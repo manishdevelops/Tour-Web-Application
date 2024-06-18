@@ -118,7 +118,9 @@ const DashboardUsers = () => {
 
                                     <td className="p-2 text-center w-28">{index + 1}</td>
                                     <td className="p-2 text-center text-red-800">{contact.firstName + " " + contact.lastName}</td>
-                                    <td className="p-2 text-center text-gray-600">{contact.message}</td>
+                                    <td className="p-2 text-center text-gray-600">
+                                        <div className='max-h-24 overflow-y-auto'>{contact.message}</div>
+                                    </td>
                                     <td className="p-2 text-center text-blue-500">{contact.email}</td>
                                     <td className="p-2 text-center text-green-500">{contact.phoneNumber}</td>
                                     <td className="p-2 text-center">{new Date(contact.createdAt).toLocaleDateString()}</td>
