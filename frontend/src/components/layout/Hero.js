@@ -1,46 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore from 'swiper';
-import { Navigation, Autoplay } from 'swiper/modules';
+// import { Swiper, SwiperSlide } from 'swiper/react';
+// import SwiperCore from 'swiper';
+// import { Navigation, Autoplay } from 'swiper/modules';
 import 'swiper/css/bundle';
-import { ShimmerThumbnail } from "react-shimmer-effects";
+// import { ShimmerThumbnail } from "react-shimmer-effects";
 import { FaArrowRightLong } from "react-icons/fa6";
-import { toast } from 'react-toastify';
-import { BiError } from "react-icons/bi";
+// import { toast } from 'react-toastify';
+// import { BiError } from "react-icons/bi";
 
 
 const Hero = () => {
 
     const { currentUser } = useSelector(state => state.user);
 
-    SwiperCore.use([Navigation, Autoplay]);
+    // SwiperCore.use([Navigation, Autoplay]);
 
-    const [tours, setTours] = useState(null);
-    const [error, setError] = useState(false);
+    // const [tours, setTours] = useState(null);
+    // const [error, setError] = useState(false);
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        const getTours = async () => {
-            try {
-                setError(false);
-                const res = await fetch('/api/tours/getTours');
-                if (!res.ok) {
-                    setError(true);
-                    const errorData = await res.json();
-                    return toast.error(errorData.message);
-                }
-                setError(false);
-                const data = await res.json();
-                setTours(data.data.tours);
-            } catch (error) {
-                setError(true);
-                toast.error(error.message);
-            }
-        }
-        getTours()
-    }, []);
+    //     const getTours = async () => {
+    //         try {
+    //             setError(false);
+    //             const res = await fetch('/api/tours/getTours');
+    //             if (!res.ok) {
+    //                 setError(true);
+    //                 const errorData = await res.json();
+    //                 return toast.error(errorData.message);
+    //             }
+    //             setError(false);
+    //             const data = await res.json();
+    //             setTours(data.data.tours);
+    //         } catch (error) {
+    //             setError(true);
+    //             toast.error(error.message);
+    //         }
+    //     }
+    //     getTours()
+    // }, []);
 
     return (
         <section className="w-full flex justify-center pt-12 px-10">
@@ -72,7 +72,7 @@ const Hero = () => {
                         </div>
                     </div>
                 </div>
-                {
+                {/* {
                     !error && tours && (<Swiper
                         navigation
                         autoplay={{ delay: 3000 }}
@@ -101,7 +101,14 @@ const Hero = () => {
                             <p className="mt-6 text-base leading-7 text-red-600">Couldn't find resource, Please try after sometime.!</p>
                         </div>
                     )
-                }
+                } */}
+                <img
+                    alt="Hero"
+                    className="mx-auto aspect-[3/1] overflow-hidden rounded-t-xl object-cover"
+                    height="300"
+                    src="https://as1.ftcdn.net/v2/jpg/00/81/63/02/1000_F_81630240_8YPryJHBYgYTBGvMHHTTgYM00bVX3qM1.jpg"
+                    width="1270"
+                />
             </div>
         </section>
     )

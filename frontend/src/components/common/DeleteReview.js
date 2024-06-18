@@ -1,6 +1,6 @@
-import { Fragment, useRef, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
+import { Fragment, useRef, useState } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import { useDispatch } from 'react-redux';
 import { setDeleteReview } from '../../redux/user/userSlice';
 import { toast } from 'react-toastify';

@@ -10,9 +10,7 @@ const Tour = () => {
     const navigate = useNavigate();
 
     const [tours, setTours] = useState([]);
-    console.log(tours);
     const [tourLoading, setTourLoading] = useState(false);
-
     const [showMore, setShowMore] = useState(true);
     const [showMoreLoading, setShowMoreLoading] = useState(false);
     const [error, setError] = useState(false);
