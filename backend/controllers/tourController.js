@@ -107,7 +107,7 @@ exports.getToursWithin = catchAsync(async (req, res, next) => {
 
     if (!lat || !lng) {
         next(
-            AppError(
+            new AppError(
                 'Please provide latitute and longitude in the format lat,lng.',
                 400
             )

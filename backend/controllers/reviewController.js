@@ -1,5 +1,4 @@
 const Review = require('../models/reviewModel');
-const { status } = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 
 exports.getAllReviews = catchAsync(async (req, res, next) => {

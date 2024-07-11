@@ -9,7 +9,7 @@ const Contact = require("../models/contactUsModel");
 
 
 exports.createTour = catchAsync(async (req, res, next) => {
-    console.log(req.body)
+    // console.log(req.body)
     const newTour = await Tour.create(req.body);
 
     res.status(201).json({
@@ -140,7 +140,7 @@ exports.getAllBookings = catchAsync(async (req, res, next) => {
         status: "success",
         results: bookings.length,
         data: {
-            bookings
+            bookingsn
         }
     })
 });

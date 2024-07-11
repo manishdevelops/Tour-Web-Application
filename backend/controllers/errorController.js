@@ -18,25 +18,25 @@ const sendErrorDev = (err, req, res) => {
 
 const handleCastErrorDB = (error) => {
     const message = `Invalid ${error.path}: ${error.value}`
-    return AppError(message, 400);
+    return new AppError(message, 400);
 }
 
 const handleDuplicateFieldsDB = error => {
     const [errorField, errorValue] = Object.entries(error.keyValue).flat();
     // const message = `Duplicate '${errorField}' value entered as '${errorValue}'.`;
     const message = 'Duplicate data entered.';
-    return AppError(message, 400);
+    return new AppError(message, 400);
 }
 
 const handleValidationErrorDB = error => {
     const errors = Object.values(error.errors).map(el => el.message);
     const message = `Invalid input data. ${errors.join('. ')}`;
-    return AppError(message, 400);
+    return new AppError(message, 400);
 }
 
-const handleJWTError = error => AppError('Invalid Toekn, Please log in again.!', 401);
+const handleJWTError = error => new AppError('Invalid Toekn, Please log in again.!', 401);
 
-const handleJWTExpiredError = error => AppError('Your token has expired! Please log in again.!', 401);
+const handleJWTExpiredError = error => new AppError('Your token has expired! Please log in again.!', 401);
 
 const sendErrorProd = (err, req, res) => {
     if (req.originalUrl.startsWith('/api')) {
