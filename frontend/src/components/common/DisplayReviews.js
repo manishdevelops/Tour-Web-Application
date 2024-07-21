@@ -112,7 +112,7 @@ const DisplayReviews = ({ id }) => {
                                 </div>
                                 <div className="flex items-center justify-between space-x-2 text-sm text-gray-500 dark:text-gray-400 mt-2">
                                     <span>{formatDistanceToNow(new Date(review?.createdAt), { addSuffix: true })}</span>
-                                    {currentUser?._id === review?.user?._id && (<button onClick={() => deleteYourReview(review?._id)} className=' text-red-600 hover:underline'>Delete your review</button>)}
+                                    {currentUser && currentUser?._id === review?.user?._id && (<button onClick={() => deleteYourReview(review?._id)} className=' text-red-600 hover:underline'>Delete your review</button>)}
                                 </div>
                                 <p className="mt-3 text-sm text-[#006400]">
                                     <FaQuoteLeft className='text-red-500 inline' /> {review?.review}     <FaQuoteRight className='text-red-500 inline' />
