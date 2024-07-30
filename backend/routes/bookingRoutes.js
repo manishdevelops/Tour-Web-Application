@@ -9,7 +9,7 @@ router.post('/booked-already', authController.protect, bookingController.isTourB
 
 router.post('/create-checkout-session', authController.protect, bookingController.getCheckoutSession);
 
-router.post('/book-tour', authController.protect, bookingController.bookMyTour);
+// router.post('/book-tour', authController.protect, bookingController.bookMyTour);
 
 router.get('/my-tours', authController.protect, bookingController.getMyTours);
 

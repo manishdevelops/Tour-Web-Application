@@ -85,7 +85,12 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
             }],
             mode: 'payment',
             billing_address_collection: 'required',
-            success_url: `${req.body.frontendUrl}/my-bookings?name=${tour.tourName}&tour=${tour._id}&guide=${tour.tourGuide}&user=${req.user.id}&price=${tour.price}`,
+            client_reference_id: req.user.id,
+            metadata: {
+                tour_id: tour._id // Pass user ID in metadata
+            },
+            // success_url: `${req.body.frontendUrl}/my-bookings?name=${tour.tourName}&tour=${tour._id}&guide=${tour.tourGuide}&user=${req.user.id}&price=${tour.price}`,
+            sucess_url: `${req.protocol}://${req.get('host')}/my-tours`,
             cancel_url: `${req.body.frontendUrl}/tourOverview/${tour.slug}`,
         });
 
@@ -96,30 +101,31 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
 });
 
 
-exports.bookMyTour = catchAsync(async (req, res, next) => {
-    const { tourName, tour, user, price, email, tourGuide } = req.body;
+//
+// exports.bookMyTour = catchAsync(async (req, res, next) => {
+//     const { tourName, tour, user, price, email, tourGuide } = req.body;
 
-    if (!tour && !user && !price && !tourGuide) return next(new AppError('Please provide all data.!', 400));
+//     if (!tour && !user && !price && !tourGuide) return next(new AppError('Please provide all data.!', 400));
 
-    await Booking.create({ tour, user, price, tourGuide });
+//     await Booking.create({ tour, user, price, tourGuide });
 
-    const message = `Dear Customer,\n\nYour booking for the tour has been confirmed.\n\nTour: ${tourName}\nPrice: Rs ${price}\n\nThank you for booking with us.\n\nBest regards,\nTourGuru`;
+//     const message = `Dear Customer,\n\nYour booking for the tour has been confirmed.\n\nTour: ${tourName}\nPrice: Rs ${price}\n\nThank you for booking with us.\n\nBest regards,\nTourGuru`;
 
-    try {
-        await sendEmail({
-            email: email, // recipient email
-            subject: 'Tour Booking Confirmation',
-            message: message,
-        });
+//     try {
+//         await sendEmail({
+//             email: email, // recipient email
+//             subject: 'Tour Booking Confirmation',
+//             message: message,
+//         });
 
-        res.status(201).json({
-            status: 'success',
-            data: 'Tour booked successfully and confirmation email sent.',
-        });
-    } catch (err) {
-        return next(new AppError('Booking successful but email could not be sent.', 500));
-    }
-});
+//         res.status(201).json({
+//             status: 'success',
+//             data: 'Tour booked successfully and confirmation email sent.',
+//         });
+//     } catch (err) {
+//         return next(new AppError('Booking successful but email could not be sent.', 500));
+//     }
+// });
 
 exports.isTourBooked = catchAsync(async (req, res, next) => {
     const { tour, user } = req.body;
@@ -149,3 +155,33 @@ exports.getMyTours = catchAsync(async (req, res, next) => {
         tours
     });
 });
+
+const createBookingCheckout = catchAsync(async (session) => {
+    const tour = session.metadata.tour_id;
+    const user = session.client_reference_id;
+    const price = session.amount_total;
+
+    await Booking.create({ tour, user, price });
+});
+
+exports.webhookCheckout = (req, res, next) => {
+    const signature = req.headers['stripe-signature'];
+
+    let event;
+
+    try {
+        event = stripe.webhooks.constructEvent(req.body, signature, process.env.STRIPE_WEBHOOK_SECRET);
+
+    } catch (err) {
+        return res.status(400).send(`Webhook error: ${err.message}`);
+    }
+
+    if (event.type === 'checkout.session.completed') {
+        createBookingCheckout(event.data.object);
+    }
+
+    res.status(200).json({
+        received: true
+    });
+
+};
