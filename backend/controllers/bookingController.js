@@ -90,7 +90,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
                 tour_id: tour._id // Pass user ID in metadata
             },
             // success_url: `${req.body.frontendUrl}/my-bookings?name=${tour.tourName}&tour=${tour._id}&guide=${tour.tourGuide}&user=${req.user.id}&price=${tour.price}`,
-            sucess_url: `${req.protocol}://${req.get('host')}/my-tours`,
+            success_url: `${req.protocol}://${req.get('host')}/my-tours`,
             cancel_url: `${req.body.frontendUrl}/tourOverview/${tour.slug}`,
         });
 
