@@ -180,12 +180,13 @@ const createBookingCheckout = catchAsync(async (session) => {
             message: message,
         });
 
-        res.status(201).json({
-            status: 'success',
-            data: 'Tour booked successfully and confirmation email sent.',
-        });
+        // res.status(201).json({
+        //     status: 'success',
+        //     data: 'Tour booked successfully and confirmation email sent.',
+        // });
     } catch (err) {
-        return next(new AppError('Booking successful but email could not be sent.', 500));
+        // return next(new AppError('Booking successful but email could not be sent.', 500));
+        console.error('Booking successful but email could not be sent:', err.message);
     }
 
 
