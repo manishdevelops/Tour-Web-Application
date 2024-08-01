@@ -15,7 +15,7 @@ const AppError = require('./utils/appError');
 const cookieParser = require('cookie-parser');
 
 // want body in raw form not in json so we put this one above `express.json`
-app.post('/webhook-checkout', express.raw({ type: 'application/json' }), bookingController.webhookCheckout);
+app.post('/webhook', express.raw({ type: 'application/json' }), bookingController.webhookCheckout);
 
 app.use(express.json());
 app.use(cookieParser());
