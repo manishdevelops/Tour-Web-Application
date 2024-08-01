@@ -160,18 +160,15 @@ exports.getMyTours = catchAsync(async (req, res, next) => {
 });
 
 const createBookingCheckout = catchAsync(async (session) => {
-    console.log(4)
-
     const user = session.client_reference_id;
     const tour = session.metadata.tour_id;
     const price = session.amount_total;
     const tourGuide = session.metadata.tourGuide;
 
-    console.log('booked');
-
     await Booking.create({ tour, user, price, tourGuide });
 
-    const { email } = await User.find(user);
+    const { email } = await User.findById(user);
+
 
     const message = `Dear Customer,\n\nYour booking for the tour has been confirmed.\n\nTour: ${tourName}\nPrice: Rs ${price}\n\nThank you for booking with us.\n\nBest regards,\nTourGuru`;
 
@@ -195,20 +192,17 @@ const createBookingCheckout = catchAsync(async (session) => {
 });
 
 exports.webhookCheckout = (req, res, next) => {
-    console.log(1)
     const signature = req.headers['stripe-signature'];
 
     let event;
 
     try {
         event = stripe.webhooks.constructEvent(req.body, signature, process.env.STRIPE_WEBHOOK_SECRET);
-        console.log(2)
     } catch (err) {
         return res.status(400).send(`Webhook error: ${err.message}`);
     }
 
     if (event.type === 'checkout.session.completed') {
-        console.log(3)
 
         createBookingCheckout(event.data.object);
     }
