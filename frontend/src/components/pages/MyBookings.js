@@ -60,7 +60,7 @@ const MyBookings = () => {
 
     useEffect(() => {
         const func = async () => {
-            await bookMyTour();
+            // await bookMyTour();
             await getMyTours();
         }
 

@@ -3,6 +3,7 @@ const AppError = require('../utils/appError');
 const Tour = require('../models/tourModel');
 const Booking = require('../models/bookingModel');
 const nodemailer = require('nodemailer');
+const User = require("../models/userModel");
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
@@ -87,10 +88,12 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
             billing_address_collection: 'required',
             client_reference_id: req.user.id,
             metadata: {
-                tour_id: tour._id // Pass user ID in metadata
+                tour_id: tour._id, // Pass user ID in metadata
+                tourGuide: tour.tourGuide,
+                tourName: tour.tourName
             },
             // success_url: `${req.body.frontendUrl}/my-bookings?name=${tour.tourName}&tour=${tour._id}&guide=${tour.tourGuide}&user=${req.user.id}&price=${tour.price}`,
-            success_url: `${req.protocol}://${req.get('host')}/my-tours`,
+            success_url: `${req.protocol}://${req.get('host')}/my-bookings`,
             cancel_url: `${req.body.frontendUrl}/tourOverview/${tour.slug}`,
         });
 
@@ -157,11 +160,35 @@ exports.getMyTours = catchAsync(async (req, res, next) => {
 });
 
 const createBookingCheckout = catchAsync(async (session) => {
-    const tour = session.metadata.tour_id;
     const user = session.client_reference_id;
+    const tour = session.metadata.tour_id;
     const price = session.amount_total;
+    const tourGuide = session.metadata.tourGuide;
 
-    await Booking.create({ tour, user, price });
+    console.log('booked');
+
+    await Booking.create({ tour, user, price, tourGuide });
+
+    const { email } = await User.find(user);
+
+    const message = `Dear Customer,\n\nYour booking for the tour has been confirmed.\n\nTour: ${tourName}\nPrice: Rs ${price}\n\nThank you for booking with us.\n\nBest regards,\nTourGuru`;
+
+    try {
+        await sendEmail({
+            email: email, // recipient email
+            subject: 'Tour Booking Confirmation',
+            message: message,
+        });
+
+        res.status(201).json({
+            status: 'success',
+            data: 'Tour booked successfully and confirmation email sent.',
+        });
+    } catch (err) {
+        return next(new AppError('Booking successful but email could not be sent.', 500));
+    }
+
+
 });
 
 exports.webhookCheckout = (req, res, next) => {
