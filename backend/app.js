@@ -52,11 +52,11 @@ app.get('*', function (req, res) {
 
 //the routes that are not handled by the above routes
 app.all('*', (req, res, next) => {
-    // if (process.env.NODE_ENV === 'development') {
-    next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
-    // } else {
-    // next(new AppError('Resource not found.', 404));
-    // }
+    if (process.env.NODE_ENV === 'development') {
+        next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+    } else {
+        next(new AppError('Resource not found.', 404));
+    }
 });
 
 app.use(globalErrorController);
