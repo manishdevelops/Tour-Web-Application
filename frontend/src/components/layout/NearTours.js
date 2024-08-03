@@ -79,7 +79,7 @@ const NearTours = () => {
             }
 
             {
-                !error && tours.length === 0 && <p className='text-center mt-8 text-xl text-red-500 font-semibold'>No nearby tours not fround!</p>
+                !error && !loading && tours.length === 0 && <p className='text-center mt-8 text-xl text-red-500 font-semibold'>No nearby tours not fround!</p>
             }
 
         </div>

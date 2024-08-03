@@ -170,8 +170,6 @@ const createBookingCheckout = catchAsync(async (session) => {
     await Booking.create({ tour, user, price, tourGuide });
 
     const { email } = await User.findById(user);
-    console.log(email);
-
 
     const message = `Dear Customer,\n\nYour booking for the tour has been confirmed.\n\nTour: ${tourName}\nPrice: Rs ${price}\n\nThank you for booking with us.\n\nBest regards,\nTourGuru`;
 
